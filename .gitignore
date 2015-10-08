@@ -1,3 +1,9 @@
+.DS_Store
+.metadata/
+build/
+asdoc-output/
+dumped-config.xml
+
 # Build and Release Folders
 bin/
 bin-debug/
