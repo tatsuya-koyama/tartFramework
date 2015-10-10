@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://ns.adobe.com/air/application/18.0">
+    <id>com.tatsuyakoyama.tart.lab.sender</id>
+    <versionNumber>1.0</versionNumber>
+    <filename>tartSample</filename>
+    <initialWindow>
+        <content>WebMain.swf</content>
+        <aspectRatio>landscape</aspectRatio>
+        <autoOrients>true</autoOrients>
+        <fullScreen>true</fullScreen>
+        <renderMode>direct</renderMode>
+        <depthAndStencil>true</depthAndStencil>
+    </initialWindow>
+    <supportedProfiles>mobileDevice</supportedProfiles>
+
+    <!-- Enable saving to SD card -->
+    <android>
+      <manifestAdditions>
+        <![CDATA[
+                 <manifest android:installLocation="preferExternal"/>
+        ]]>
+      </manifestAdditions>
+    </android>
+
+    <!-- iOS specific capabilities -->
+    <iPhone>
+        <!-- A list of plist key/value pairs to be added to the application Info.plist -->
+        <InfoAdditions>
+            <![CDATA[
+                <key>UIDeviceFamily</key>
+                <array>
+                    <string>1</string>
+                    <string>2</string>
+                </array>
+
+                <key>UIPrerenderedIcon</key>
+                <true/>
+            ]]>
+        </InfoAdditions>
+        <requestedDisplayResolution>high</requestedDisplayResolution>
+    </iPhone>
+</application>

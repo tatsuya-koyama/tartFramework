@@ -1,4 +1,3 @@
-
 # Using AIR SDK 18
 SWF_VERSION=28
 
