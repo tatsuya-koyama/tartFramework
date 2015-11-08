@@ -1,5 +1,5 @@
 COMMON_BUILD_OPTS=\
-	-swf-version=28 \
+	-swf-version=30 \
 	-source-path+="../../../src/" \
 	-library-path+="../../../lib/" \
 	-load-config+="config.xml" \

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://ns.adobe.com/air/application/19.0">
-    <id>com.tatsuyakoyama.tart.lab.receiver</id>
+    <id>com.tatsuyakoyama.tart.workbench</id>
     <versionNumber>1.0</versionNumber>
-    <filename>tartSample</filename>
+    <filename>tartWorkbench</filename>
     <initialWindow>
-        <content>WebMain.swf</content>
-        <aspectRatio>landscape</aspectRatio>
-        <autoOrients>true</autoOrients>
-        <fullScreen>true</fullScreen>
+        <content>DesktopMain.swf</content>
+        <visible>true</visible>
         <renderMode>direct</renderMode>
         <depthAndStencil>true</depthAndStencil>
     </initialWindow>
-    <supportedProfiles>mobileDevice</supportedProfiles>
+    <supportedProfiles>desktop extendedDesktop</supportedProfiles>
 
     <!-- Enable saving to SD card -->
     <android>

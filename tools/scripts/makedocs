@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+# List target names of makefile with colored text.
+my $prev_line = "";
+while (<>) {
+    # Comments / Light Green
+    if(/^#(#.*)/) {
+        print "\033[0;32m", $1, "\n";
+    }
+
+    # Public target name / Light Blue
+    if ($prev_line !~ /\@private/) {
+        if(/^([^#].*):$/) {
+            print "\033[1;35m", $1, "\n";
+        }
+    }
+
+    # Reset to default color
+    print "\033[0m";
+    $prev_line = $_;
+}
