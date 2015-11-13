@@ -36,6 +36,11 @@ package tartlab.utils {
             scrollV = maxScrollV;
         }
 
+        public function rewrite(text:String):void {
+            this.text = text;
+            scrollV = maxScrollV;
+        }
+
         public function clear():void {
             text = "";
             scrollV = maxScrollV;

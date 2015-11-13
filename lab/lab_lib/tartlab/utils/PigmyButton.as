@@ -104,7 +104,7 @@ package tartlab.utils {
         }
 
         private function _onClickInternal(event:MouseEvent):void {
-            if (_onClick) {
+            if (_onClick != null) {
                 _onClick(event);
             }
         }

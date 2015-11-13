@@ -1,10 +1,10 @@
 package {
 
     import flash.display.Sprite;
+    import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.system.Capabilities;
     import flash.system.System;
-    import flash.utils.getTimer;
 
     import tartlab.utils.PigmyButton;
     import tartlab.utils.PigmyConsole;
@@ -13,14 +13,19 @@ package {
 
         private const TASK_UNIT:int = 300000;
 
-        private var _console:PigmyConsole;
+        private var _mainConsole:PigmyConsole;
+        private var _subConsole:PigmyConsole;
+        private var _monitorConsole:PigmyConsole;
+        private var _frame:int = -1;
 
         public function Main() {
             _centeringWindowForDesktopApp();
             _initConsole();
 
-            var tasks:BenchmarkTasks = new BenchmarkTasks(_console);
+            var tasks:BenchmarkTasks = new BenchmarkTasks(_mainConsole, _subConsole);
             _initButtons(tasks);
+
+            addEventListener(Event.ENTER_FRAME, _onEnterFrame);
         }
 
         private function _centeringWindowForDesktopApp():void {
@@ -31,13 +36,29 @@ package {
         }
 
         private function _initConsole():void {
-            _console = new PigmyConsole(250, 20, 660, 600);
-            addChild(_console);
+            const LEFT:Number  = 320;
+            const WIDTH:Number = 610;
+
+            _mainConsole    = new PigmyConsole(LEFT, 80, WIDTH, 540);
+            _subConsole     = new PigmyConsole(LEFT, 50, WIDTH, 22, 14, 0xeecc99);
+            _monitorConsole = new PigmyConsole(LEFT, 20, WIDTH, 22, 14, 0xccee88);
+
+            addChild(_mainConsole);
+            addChild(_subConsole);
+            addChild(_monitorConsole);
         }
 
         private function _initButtons(tasks:BenchmarkTasks):void {
-            var dispatchTable:Array = tasks.getDispatchTable();
-            var offsetY:int = 20;
+            _initButtonsColumn(tasks.getDispatchTable_1(),  20);
+            _initButtonsColumn(tasks.getDispatchTable_2(), 160);
+        }
+
+        private function _initButtonsColumn(dispatchTable:Array,
+                                            leftX:Number=20, topY:Number=20,
+                                            width:Number=130, height:Number=50,
+                                            marginY:Number=5, fontSize:Number=14):void
+        {
+            var offsetY:int = topY;
             var getHandler:Function = function(func:Function):Function {
                 return function(event:MouseEvent):void { func(); };
             }
@@ -48,12 +69,19 @@ package {
 
                 var button:PigmyButton = new PigmyButton(
                     onClick, buttonLabel,
-                    20, offsetY, 200, 40, 14
+                    leftX, offsetY, width, height, fontSize
                 );
                 addChild(button);
 
-                offsetY += 50;
+                offsetY += (height + marginY);
             }
+        }
+
+        private function _onEnterFrame(event:Event):void {
+            ++_frame;
+            if (_frame % 8 != 0) { return; }
+
+            _monitorConsole.rewrite("Memory: " + System.totalMemory / 1000000 + " MB");
         }
 
     }
