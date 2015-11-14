@@ -9,5 +9,14 @@ package tartlab.data_structures {
         public function LinkedListNode(item:*) {
             this.item = item;
         }
+
+        public function addAfter(item:*):LinkedListNode {
+            var node:LinkedListNode = new LinkedListNode(item);
+            node.next = this.next;
+            this.next = node;
+            node.prev = this;
+            return node;
+        }
+
     }
 }

@@ -42,5 +42,10 @@ package tartlab.data_structures {
             return !!_nextNode;
         }
 
+        public function addAfter(item:*):void {
+            if (!_currentNode) { return; }
+            _currentNode.addAfter(item);
+        }
+
     }
 }

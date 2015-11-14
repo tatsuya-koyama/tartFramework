@@ -8,5 +8,7 @@ package tartlab.data_structures {
         function next():*;
         function hasNext():Boolean;
 
+        function addAfter(item:*):void;
+
     }
 }

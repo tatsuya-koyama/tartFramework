@@ -25,29 +25,22 @@ package tartlab.data_structures {
         }
 
         public function removeAll():void {
-            // ToDo: ちゃんと参照切る？
             _head = null;
             _tail = null;
             _size = 0;
         }
 
-        // add to tail
-        // ToDo: priority option
+        // add node to tail of list
         public function push(item:*):void {
-            var node:LinkedListNode = new LinkedListNode(item);
-
             if (_size == 0) {
+                var node:LinkedListNode = new LinkedListNode(item);
                 node.prev = node.next = null;
                 _head = _tail = node;
                 ++_size;
                 return;
             }
 
-            var oldTail:LinkedListNode = _tail;
-            _tail.next = node;
-            node.prev  = _tail;
-            node.next  = null;
-            _tail      = node;
+            _tail = _tail.addAfter(item);
             ++_size;
         }
 

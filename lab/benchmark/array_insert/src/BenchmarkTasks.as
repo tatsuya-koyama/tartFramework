@@ -37,16 +37,17 @@ package {
 
         public function getDispatchTable_2():Array {
             return [
-                 ["push()",             _pushTest_1]
-                ,["push by index",      _pushTest_2]
-                ,["push w/ insertAt",   _pushTest_3]
-                ,["insert w/ splice",   _insertTest_1]
-                ,["insert w/ insertAt", _insertTest_2]
-                ,["shift()",            _shiftTest_1]
-                ,["shift w/ splice",    _shiftTest_2]
-                ,["shift w/ removeAt",  _shiftTest_3]
-                ,["remove w/ splice",   _removeTest_1]
-                ,["remove w/ removeAt", _removeTest_2]
+                 ["push()",                _pushTest_1]
+                ,["push by index",         _pushTest_2]
+                ,["push w/ insertAt",      _pushTest_3]
+                ,["insert w/ splice",      _insertTest_1]
+                ,["insert w/ insertAt",    _insertTest_2]
+                ,["insert w/ Linked List", _insertTest_3]
+                ,["shift()",               _shiftTest_1]
+                ,["shift w/ splice",       _shiftTest_2]
+                ,["shift w/ removeAt",     _shiftTest_3]
+                ,["remove w/ splice",      _removeTest_1]
+                ,["remove w/ removeAt",    _removeTest_2]
             ];
         }
 
@@ -60,6 +61,7 @@ package {
         }
 
         private function _benchmark(task:Function):void {
+            System.gc();
             var startTime:int    = getTimer();
             var startMemory:uint = System.totalMemory;
 
@@ -128,13 +130,13 @@ package {
 
         // insert with traditional Array.splice()
         private function _insertTest_1():void {
-            _describe(TASK_UNIT / 2 / 10 + " times / array.splice(i, 0, *)");
+            _describe(TASK_UNIT / 2 / 10 + " times / array.splice(i+1, 0, *)");
 
             var list:Array = _makeList(TASK_UNIT / 2);
             _benchmark(function():void {
                 for (var i:int = 0; i < list.length; ++i) {
-                    if (i % 10 == 0) {
-                        list.splice(i, 0, Math.random());
+                    if (list[i] % 10 == 1) {
+                        list.splice(i+1, 0, Math.random());
                     }
                 }
             });
@@ -142,13 +144,32 @@ package {
 
         // insert with new Array method
         private function _insertTest_2():void {
-            _describe(TASK_UNIT / 2 / 10 + " times / array.insertAt(i, *)");
+            _describe(TASK_UNIT / 2 / 10 + " times / array.insertAt(i+1, *)");
 
             var list:Array = _makeList(TASK_UNIT / 2);
             _benchmark(function():void {
                 for (var i:int = 0; i < list.length; ++i) {
-                    if (i % 10 == 0) {
-                        list.insertAt(i, Math.random());
+                    if (list[i] % 10 == 1) {
+                        list.insertAt(i+1, Math.random());
+                    }
+                }
+            });
+        }
+
+        // insert with handmade Linked-List
+        private function _insertTest_3():void {
+            _describe(TASK_UNIT / 2 / 10 + " times / insert with Linked List");
+
+            var list:LinkedList = new LinkedList();
+            var iter:IIterator  = list.iterator();
+            for (var i:int = 0; i < TASK_UNIT / 2; ++i) {
+                list.push(i);
+            }
+
+            _benchmark(function():void {
+                for (var item:* = iter.head(); item != null; item = iter.next()) {
+                    if (int(item) % 10 == 1) {
+                        iter.addAfter(Math.random());
                     }
                 }
             });
@@ -270,7 +291,7 @@ package {
             });
         }
 
-        // iterate handmade LinkedList
+        // iterate handmade Linked-List
         private function _iterateTest_5():void {
             _describe(TASK_UNIT + " nodes iteration of handmade Linked List");
 
