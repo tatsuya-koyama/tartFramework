@@ -16,7 +16,8 @@ build_test:
 	      src/TestRunner.as
 
 run_test:
-	adl src/TestRunner-app.xml build/ -screensize 1360x738:1360x738
+	adl src/TestRunner-app.xml build/ -screensize 1360x738:1360x738 \
+	    2>&1 | ../tools/scripts/colorline error OK but: failures!
 
 clean:
 	rm -f build/*
