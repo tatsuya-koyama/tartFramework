@@ -1,5 +1,5 @@
-# Using AIR SDK 18
-SWF_VERSION=28
+# Using AIR SDK 19
+SWF_VERSION=30
 
 test:
 	make build_test
