@@ -1,5 +1,6 @@
 package dessert_knife {
 
+    import dessert_knife.blades.RandomKnife;
     import dessert_knife.tools.Async;
     import dessert_knife.tools.Await;
 
@@ -19,11 +20,11 @@ package dessert_knife {
         }
 
         //----------------------------------------------------------------------
-        // utilities
+        // Top level utilities
         //----------------------------------------------------------------------
 
         /**
-         * Handle complicated (parallel-sequential mixed) asynchronous tasks.
+         * Handles complicated (parallel-sequential mixed) asynchronous tasks.
          * @see dessert_knife.tools.Async
          */
         public function async(asyncDef:*, onComplete:Function=null):void {
@@ -32,7 +33,7 @@ package dessert_knife {
         }
 
         /**
-         * Wait one or more asynchronous tasks.
+         * Waits for one or more asynchronous tasks.
          * In <code>kicker</code> function, you can call <code>await.it()</code>
          * as a callback of tasks. When all tasks' callbacks are called,
          * <code>onAllComplete</code> will be called.
@@ -57,6 +58,18 @@ package dessert_knife {
          */
         public function await(kicker:Function, onAllComplete:Function):void {
             Await.doit(kicker, onAllComplete);
+        }
+
+        //----------------------------------------------------------------------
+        // 2nd level utilities
+        //----------------------------------------------------------------------
+
+        /**
+         * Returns instance of RandomKnife.
+         * @see dessert_knife.blades.RandomKnife
+         */
+        public function get rand():RandomKnife {
+            return RandomKnife.instance;
         }
 
     }
