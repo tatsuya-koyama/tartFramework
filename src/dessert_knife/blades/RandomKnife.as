@@ -81,7 +81,7 @@ package dessert_knife.blades {
                 max = min;
                 min = tmp;
             }
-            return Math.floor(float(min, max + 1));
+            return Math.floor(this.float(min, max + 1));
         }
 
         /**
@@ -99,8 +99,41 @@ package dessert_knife.blades {
             return new RandomKnife(newRandomizer);
         }
 
+        public function setRandomizer(randomizer:IRandomizer):void {
+            _randomizer = randomizer;
+        }
+
         public function setSeed(seed:uint):void {
             _randomizer.setSeed(seed);
+        }
+
+        /**
+         * Returns copy of the list shuffled by the Fisher-Yates shuffle algorithm.
+         * If null is given, returns empty array.
+         */
+        public function shuffle(list:Array):Array {
+            var shuffled:Array = [];
+
+            var index:int = 0;
+            for each (var val:* in list) {
+                var randIndex:int = this.integer(0, index);
+                shuffled[index]     = shuffled[randIndex];
+                shuffled[randIndex] = val;
+                ++index;
+            }
+
+            return shuffled;
+        }
+
+        /**
+         * Returns a random element in the array.
+         * If given array is empty, returns null.
+         */
+        public function sample(list:Array):* {
+            if (list.length == 0) { return null; }
+
+            var index:int = this.integer(0, list.length - 1);
+            return list[index];
         }
 
         //----------------------------------------------------------------------

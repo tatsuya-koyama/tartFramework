@@ -5,9 +5,6 @@ package {
 
     import tart.core.TartDirector;
 
-    import dessert_knife.knife;
-    import dessert_knife.blades.RandomKnife;
-
     public class Main extends Sprite {
 
         public function Main() {
