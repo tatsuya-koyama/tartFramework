@@ -14,7 +14,7 @@ package tart.core {
             _tartContext = new TartContext();
 
             _tartContext.graphics = new GraphicsManager();
-            _tartContext.graphics.init(rootSprite, function():void {
+            _tartContext.graphics.init(rootSprite, null, function():void {
                 trace("on init");
             });
         }
