@@ -30,7 +30,7 @@ package tart.core {
         private var _stage3DManager:Stage3DManager;
         private var _stage3DProxy:Stage3DProxy;
         private var _away3DView:View3D;
-        private var _starlingFront:Starling;
+        private var _starlingFore:Starling;
         private var _starlingBack:Starling;
 
         public function GraphicsManager() {}
@@ -47,8 +47,8 @@ package tart.core {
             return _away3DView;
         }
 
-        public function get starlingFront():Starling {
-            return _starlingFront;
+        public function get starlingFore():Starling {
+            return _starlingFore;
         }
 
         public function get starlingBack():Starling {
@@ -92,18 +92,18 @@ package tart.core {
 
             // init 2 layers of Starling instance
             // ToDo: 使わない Starling を初期化しないオプション
-            _starlingFront = _makeStarling(_stage3DProxy);
-            _starlingBack  = _makeStarling(_stage3DProxy);
-            _bootConfig.onStarlingFrontInit(_starlingFront);
-            _bootConfig.onStarlingBackInit (_starlingBack);
+            _starlingFore = _makeStarling(_stage3DProxy);
+            _starlingBack = _makeStarling(_stage3DProxy);
+            _bootConfig.onStarlingForeInit(_starlingFore);
+            _bootConfig.onStarlingBackInit(_starlingBack);
 
             _stage.addEventListener(flash.events.Event.RESIZE, _onStageResize);
             _onStageResize();
 
             knife.await(
                 function(await:Await):void {
-                    _starlingBack .addEventListener(starling.events.Event.ROOT_CREATED, await.it());
-                    _starlingFront.addEventListener(starling.events.Event.ROOT_CREATED, await.it());
+                    _starlingBack.addEventListener(starling.events.Event.ROOT_CREATED, await.it());
+                    _starlingFore.addEventListener(starling.events.Event.ROOT_CREATED, await.it());
                 },
                 _onInitComplete
             );
@@ -141,8 +141,8 @@ package tart.core {
             _stage3DProxy.width  = viewPort.width;
             _stage3DProxy.height = viewPort.height;
 
-            _starlingFront.stage.stageWidth  = _bootConfig.STARLING_COORDINATE_WIDTH;
-            _starlingFront.stage.stageHeight = _bootConfig.STARLING_COORDINATE_HEIGHT;
+            _starlingFore.stage.stageWidth  = _bootConfig.STARLING_COORDINATE_WIDTH;
+            _starlingFore.stage.stageHeight = _bootConfig.STARLING_COORDINATE_HEIGHT;
 
             _starlingBack.stage.stageWidth  = _bootConfig.STARLING_COORDINATE_WIDTH;
             _starlingBack.stage.stageHeight = _bootConfig.STARLING_COORDINATE_HEIGHT;

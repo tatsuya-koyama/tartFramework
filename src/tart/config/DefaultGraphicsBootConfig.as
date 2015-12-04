@@ -39,7 +39,7 @@ package tart.config {
             rootSprite.addChild(new AwayStats(away3DView));
         }
 
-        public function onStarlingFrontInit(starling:Starling):void {
+        public function onStarlingForeInit(starling:Starling):void {
             // show debug stats at bottom-right corner of the screen
             starling.showStatsAt(HAlign.RIGHT, VAlign.BOTTOM);
         }

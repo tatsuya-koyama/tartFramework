@@ -22,7 +22,7 @@ package tart.config {
 
         function onAway3DViewInit(away3DView:View3D, rootSprite:Sprite):void;
 
-        function onStarlingFrontInit(starling:Starling):void;
+        function onStarlingForeInit(starling:Starling):void;
 
         function onStarlingBackInit(starling:Starling):void;
 
