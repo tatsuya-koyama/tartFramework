@@ -106,7 +106,7 @@ package dessert_knife.tools {
      *                 function_2
      *             ]
      *         });
-     * </pre>
+     * </listing>
      */
     public class Async {
 

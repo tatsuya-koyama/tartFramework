@@ -2,10 +2,12 @@ package tart.core {
 
     public class TartContext {
 
-        public var resources:Object;
-        public var graphics:GraphicsManager;
+        public var engine:TartEngine;
+        public var system:TartSystem;
+        public var resource:TartResource;
+        public var graphics:TartGraphics;
         public var sound:Object;
-        public var messaging:Object;
+        public var message:Object;
 
     }
 }

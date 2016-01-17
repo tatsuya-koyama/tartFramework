@@ -26,6 +26,23 @@ package dessert_knife {
         /**
          * Handles complicated (parallel-sequential mixed) asynchronous tasks.
          * @see dessert_knife.tools.Async
+         *
+         * <p>Example:</p>
+         * <listing>
+         *     import dessert_knife.knife;
+         *     import dessert_knife.tools.Async;
+         * 
+         *     knife.async({
+         *         serial   : [function(async:Async):void { ... }, ...],
+         *         // OR
+         *         parallel : [function(async:Async):void { ... }, ...],
+         * 
+         *         // *** optional ***
+         *         success  : function():void { ... },
+         *         error    : function():void { ... },
+         *         anyway   : function():void { ... }
+         *     }, onComplete);
+         * </listing>
          */
         public function async(asyncDef:*, onComplete:Function=null):void {
             var async:Async = new Async(asyncDef);
@@ -45,7 +62,7 @@ package dessert_knife {
          * 
          *     knife.await(
          *         function(await:Await):void {
-         *             someAsyncTask_1(await.it());  // * Argument is onComplete handler
+         *             someAsyncTask_1(await.it());  // * Argument is callback
          *             someAsyncTask_2(await.it());
          *             someAsyncTask_3(await.it());
          *             ...

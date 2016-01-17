@@ -24,8 +24,8 @@ package dessert_knife.tools.random {
 
         /**
          * <p>
-         * [Note] XorShift is fast and easy to implement but has minor problem
-         *        of deviation. Some of its initial values tend to be biased.
+         * [Note] XorShift is fast and easy to implement, but has a minor problem
+         *        of deviation; some of its initial values tend to be biased.
          *        To prevent this, skip first 8 numbers in advance.
          * </p>
          * <p>

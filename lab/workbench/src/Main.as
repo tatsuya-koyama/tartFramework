@@ -11,7 +11,7 @@ package {
             _centeringWindowForDesktopApp();
 
             var director:TartDirector = new TartDirector();
-            director.boot(this);
+            director.boot(this, null);
         }
 
         private function _centeringWindowForDesktopApp():void {

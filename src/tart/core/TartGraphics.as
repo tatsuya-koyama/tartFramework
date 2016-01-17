@@ -20,7 +20,7 @@ package tart.core {
     import dessert_knife.knife;
     import dessert_knife.tools.Await;
 
-    public class GraphicsManager {
+    public class TartGraphics {
 
         private var _rootSprite:flash.display.Sprite;
         private var _stage:Stage;
@@ -33,7 +33,7 @@ package tart.core {
         private var _starlingFore:Starling;
         private var _starlingBack:Starling;
 
-        public function GraphicsManager() {}
+        public function TartGraphics() {}
 
         //----------------------------------------------------------------------
         // accessors
