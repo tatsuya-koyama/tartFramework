@@ -28,6 +28,8 @@ package tart.core {
 
             knife.async([
                 _initGraphics,
+                _initResource,
+                _initSystem,
                 _initMainLoop,
 
                 function():void {
@@ -41,8 +43,15 @@ package tart.core {
             _tartContext.graphics.init(_rootSprite, null, async.done);
         }
 
+        private function _initResource(async:Async):void {
+            _tartContext.resource = new TartResource();
+            // ToDo
+            async.done();
+        }
+
         private function _initSystem(async:Async):void {
             _tartContext.system = new TartSystem();
+            // ToDo
             async.done();
         }
 
