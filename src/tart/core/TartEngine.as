@@ -1,8 +1,60 @@
 package tart.core {
 
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.utils.Dictionary;
+
+    import away3d.core.managers.Stage3DProxy;
+
     public class TartEngine {
 
-        public function TartEngine() {}
+        private var _tartContext:TartContext;
+        private var _componentMap:Dictionary;
+
+        public function TartEngine() {
+            _componentMap = new Dictionary();
+        }
+
+        //----------------------------------------------------------------------
+        // public
+        //----------------------------------------------------------------------
+
+        // ToDo: 初期化方法を差し替えたい場合の BootConfig を渡すようにするか
+        public function boot(rootSprite:Sprite, firstScene:TartScene):void {
+            var bootSequence:BootSequence = new BootSequence(rootSprite);
+            bootSequence.run(function(tartContext:TartContext):void {
+                _tartContext = tartContext;
+                _initMainLoop(_tartContext.graphics);
+            });
+        }
+
+        public function addEntity(entity:Entity):void {
+            var components:Vector.<Component> = entity.componentList;
+            for each (var component:Component in components) {
+                _addComponent(component);
+            }
+        }
+
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
+        private function _initMainLoop(graphics:TartGraphics):void {
+            var stage3DProxy:Stage3DProxy = graphics.stage3DProxy;
+            stage3DProxy.addEventListener(Event.ENTER_FRAME, _mainLoop);
+        }
+
+        private function _mainLoop(event:Event):void {
+            trace("loop"); // ToDo
+        }
+
+        private function _addComponent(component:Component):void {
+            var klass:Class = component.getClass();
+            if (!_componentMap[klass]) {
+                _componentMap[klass] = new Vector.<Component>();
+            }
+            _componentMap[klass].push(component);
+        }
 
     }
 }

@@ -3,15 +3,14 @@ package {
     import flash.display.Sprite;
     import flash.system.Capabilities;
 
-    import tart.core.TartDirector;
+    import tart.core.TartEngine;
 
     public class Main extends Sprite {
 
         public function Main() {
             _centeringWindowForDesktopApp();
 
-            var director:TartDirector = new TartDirector();
-            director.boot(this, null);
+            new TartEngine().boot(this, null);
         }
 
         private function _centeringWindowForDesktopApp():void {

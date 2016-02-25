@@ -14,6 +14,8 @@ package tart.config {
 
     import away3d.core.managers.Stage3DProxy;
 
+    import tart.core.IGraphicsBootConfig;
+
     public class DefaultGraphicsBootConfig implements IGraphicsBootConfig {
 
         public function get STARLING_COORDINATE_WIDTH():Number {

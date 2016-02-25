@@ -15,7 +15,6 @@ package tart.core {
     import starling.events.Event;
 
     import tart.config.DefaultGraphicsBootConfig;
-    import tart.config.IGraphicsBootConfig;
 
     import dessert_knife.knife;
     import dessert_knife.tools.Await;

@@ -1,4 +1,4 @@
-package tart.config {
+package tart.core {
 
     import flash.display.Sprite;
     import flash.display.Stage;

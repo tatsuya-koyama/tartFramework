@@ -4,5 +4,9 @@ package tart.core {
 
         public function TartScene() {}
 
+        internal function awake():void {
+
+        }
+
     }
 }

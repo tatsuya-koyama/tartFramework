@@ -1,8 +1,32 @@
 package tart.core {
 
+    import flash.utils.Dictionary;
+
     public class Entity {
 
-        public function Entity() {}
+        private var _componentMap:Dictionary;
+        private var _componentList:Vector.<Component>;
+
+        public function Entity() {
+            _componentMap  = new Dictionary();
+            _componentList = new Vector.<Component>();
+        }
+
+        public function get componentList():Vector.<Component> {
+            return _componentList;
+        }
+
+        public function attach(component:Component):Entity {
+            var klass:Class = component.getClass();
+            if (!klass) { throw new Error("Invalid component: Class not found."); }
+            if (_componentMap[klass]) {
+                throw new Error("Component already attached: typeId = " + klass);
+            }
+
+            _componentMap[klass] = component;
+            _componentList.push(component);
+            return this;
+        }
 
     }
 }
