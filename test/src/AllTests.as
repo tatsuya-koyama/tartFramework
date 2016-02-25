@@ -5,6 +5,7 @@ package {
     import tests.dessert_knife.blades.RandomKnifeTests;
     import tests.dessert_knife.tools.AwaitTests;
     import tests.dessert_knife.tools.AsyncTests;
+    import tests.dessert_knife.tools.PromiseTests;
 
     [Suite]
     public class AllTests {
@@ -14,6 +15,7 @@ package {
         public var knife_blades_randomKnifeTests:RandomKnifeTests;
         public var knife_tools_awaitTests:AwaitTests;
         public var knife_tools_asyncTests:AsyncTests;
+        public var knife_tools_promiseTests:PromiseTests;
 
     }
 }
