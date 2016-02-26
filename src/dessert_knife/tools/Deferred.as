@@ -2,6 +2,25 @@ package dessert_knife.tools {
 
     /**
      * Another way to handle Promise object.
+     *
+     * <p>Usage:</p>
+     * <listing>
+     *     function asyncTask():Promise {
+     *         var deferred:Deferred = new Deferred();
+     *         setTimeout(function():void {
+     *             if (TASK_IS_SUCCEEDED) {
+     *                 deferred.done();
+     *             } else {
+     *                 deferred.fail();
+     *             }
+     *         }, 0);
+     *         return deferred.promise;
+     *     }
+     * 
+     *     asyncTask().then(nextTask);
+     * </listing>
+     *
+     * @see dessert_knife.tools.Promise
      */
     public class Deferred {
 
@@ -20,12 +39,14 @@ package dessert_knife.tools {
             return _promise;
         }
 
-        public function done(result:*):void {
+        public function done(result:*):Deferred {
             _resolve(result);
+            return this;
         }
 
-        public function fail(error:*):void {
+        public function fail(error:*):Deferred {
             _reject(error);
+            return this;
         }
 
     }

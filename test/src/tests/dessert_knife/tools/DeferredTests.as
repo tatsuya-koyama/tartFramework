@@ -11,7 +11,7 @@ package tests.dessert_knife.tools {
     public class DeferredTests {
 
         [Test]
-        public function resolve_1():void {
+        public function resolve():void {
             var seq:String = '';
             var deferredTask:Function = function():Promise {
                 var defer:Deferred = new Deferred(true);
@@ -32,7 +32,24 @@ package tests.dessert_knife.tools {
         }
 
         [Test]
-        public function reject_1():void {
+        public function resolve_at_once():void {
+            var seq:String = '';
+            var deferredTask:Function = function():Promise {
+                var defer:Deferred = new Deferred(true);
+                return defer.done('3').promise;
+            };
+
+            seq += '1';
+            deferredTask()
+                .then(function(result:String):void {
+                    seq += result;
+                    assertThat(seq, equalTo('123'));
+                });
+            seq += '2';
+        }
+
+        [Test]
+        public function reject():void {
             var seq:String = '';
             var deferredTask:Function = function():Promise {
                 var defer:Deferred = new Deferred(true);

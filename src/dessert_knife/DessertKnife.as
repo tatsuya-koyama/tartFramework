@@ -25,7 +25,6 @@ package dessert_knife {
 
         /**
          * Handles complicated (parallel-sequential mixed) asynchronous tasks.
-         * @see dessert_knife.tools.Async
          *
          * <p>Example:</p>
          * <listing>
@@ -43,6 +42,8 @@ package dessert_knife {
          *         anyway   : function():void { ... }
          *     }, onComplete);
          * </listing>
+         *
+         * @see dessert_knife.tools.Async
          */
         public function async(asyncDef:*, onComplete:Function=null):void {
             var async:Async = new Async(asyncDef);

@@ -9,12 +9,14 @@ package dessert_knife.tools {
      * <listing>
      *     // Make sure async function returns Promise.
      *     function asyncTask_1():Promise {
-     *         return new Promise(function(done:Function, fail:Function):void {
-     *             if (TASK_IS_SUCCEEDED) {
-     *                 done(RESULT);
-     *             } else {
-     *                 fail(REASON);
-     *             }
+     *         return new Promise(function(resolve:Function, reject:Function):void {
+     *             setTimeout(function():void {
+     *                 if (TASK_IS_SUCCEEDED) {
+     *                     resolve(RESULT);
+     *                 } else {
+     *                     reject(REASON);
+     *                 }
+     *             }, 0);
      *         });
      *     }
      * 
