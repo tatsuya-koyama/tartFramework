@@ -3,6 +3,9 @@ package dessert_knife {
     import dessert_knife.blades.RandomKnife;
     import dessert_knife.tools.async.Async;
     import dessert_knife.tools.async.Await;
+    import dessert_knife.tools.async.Defer;
+    import dessert_knife.tools.async.Deferred;
+    import dessert_knife.tools.async.Promise;
 
     public class DessertKnife {
 
@@ -76,6 +79,35 @@ package dessert_knife {
          */
         public function await(kicker:Function, onAllComplete:Function):void {
             Await.doit(kicker, onAllComplete);
+        }
+
+        /**
+         * Returns promise object.
+         * Its option ensureAsync is false for performance reasons.
+         * @see dessert_knife.tools.async.Promise
+         */
+        public function promise(task:Function):Promise {
+            return new Promise(task, false, false);
+        }
+
+        /**
+         * Returns wrapped-promise object.
+         * Its option ensureAsync is false for performance reasons.
+         * @see dessert_knife.tools.async.Deferred
+         */
+        public function deferred():Deferred {
+            return new Deferred(false, false);
+        }
+
+        /**
+         * Returns light-weight Promise-like object.
+         * Features are limited, but very fast and low memory consumption.
+         * If all you want to do is refining codes of callback chain,
+         * Defer will be a good solution.
+         * @see dessert_knife.tools.async.Defer
+         */
+        public function defer():Defer {
+            return new Defer();
         }
 
         //----------------------------------------------------------------------
