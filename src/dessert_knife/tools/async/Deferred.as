@@ -1,4 +1,4 @@
-package dessert_knife.tools {
+package dessert_knife.tools.async {
 
     /**
      * Another way to handle Promise object.
@@ -20,7 +20,7 @@ package dessert_knife.tools {
      *     asyncTask().then(nextTask);
      * </listing>
      *
-     * @see dessert_knife.tools.Promise
+     * @see dessert_knife.tools.async.Promise
      */
     public class Deferred {
 

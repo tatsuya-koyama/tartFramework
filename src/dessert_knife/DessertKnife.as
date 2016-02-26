@@ -1,8 +1,8 @@
 package dessert_knife {
 
     import dessert_knife.blades.RandomKnife;
-    import dessert_knife.tools.Async;
-    import dessert_knife.tools.Await;
+    import dessert_knife.tools.async.Async;
+    import dessert_knife.tools.async.Await;
 
     public class DessertKnife {
 
@@ -29,7 +29,7 @@ package dessert_knife {
          * <p>Example:</p>
          * <listing>
          *     import dessert_knife.knife;
-         *     import dessert_knife.tools.Async;
+         *     import dessert_knife.tools.async.Async;
          * 
          *     knife.async({
          *         serial   : [function(async:Async):void { ... }, ...],
@@ -43,7 +43,7 @@ package dessert_knife {
          *     }, onComplete);
          * </listing>
          *
-         * @see dessert_knife.tools.Async
+         * @see dessert_knife.tools.async.Async
          */
         public function async(asyncDef:*, onComplete:Function=null):void {
             var async:Async = new Async(asyncDef);
@@ -59,7 +59,7 @@ package dessert_knife {
          * <p>Example:</p>
          * <listing>
          *     import dessert_knife.knife;
-         *     import dessert_knife.tools.Await;
+         *     import dessert_knife.tools.async.Await;
          * 
          *     knife.await(
          *         function(await:Await):void {

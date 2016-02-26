@@ -1,9 +1,9 @@
-package tests.dessert_knife.tools {
+package tests.dessert_knife.tools.async {
 
     import org.hamcrest.assertThat;
     import org.hamcrest.object.equalTo;
 
-    import dessert_knife.tools.Promise;
+    import dessert_knife.tools.async.Promise;
 
     public class PromiseTests {
 

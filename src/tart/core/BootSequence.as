@@ -3,7 +3,7 @@ package tart.core {
     import flash.display.Sprite;
 
     import dessert_knife.knife;
-    import dessert_knife.tools.Async;
+    import dessert_knife.tools.async.Async;
 
     public class BootSequence {
 

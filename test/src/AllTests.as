@@ -3,11 +3,11 @@ package {
     import tests.SampleTests;
     import tests.dessert_knife.BasicTests;
     import tests.dessert_knife.blades.RandomKnifeTests;
-    import tests.dessert_knife.tools.AwaitTests;
-    import tests.dessert_knife.tools.AsyncTests;
-    import tests.dessert_knife.tools.DeferTests;
-    import tests.dessert_knife.tools.DeferredTests;
-    import tests.dessert_knife.tools.PromiseTests;
+    import tests.dessert_knife.tools.async.AwaitTests;
+    import tests.dessert_knife.tools.async.AsyncTests;
+    import tests.dessert_knife.tools.async.DeferTests;
+    import tests.dessert_knife.tools.async.DeferredTests;
+    import tests.dessert_knife.tools.async.PromiseTests;
 
     [Suite]
     public class AllTests {

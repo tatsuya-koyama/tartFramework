@@ -1,4 +1,4 @@
-package tests.dessert_knife.tools {
+package tests.dessert_knife.tools.async {
 
     import org.hamcrest.assertThat;
     import org.hamcrest.core.throws;
@@ -6,7 +6,7 @@ package tests.dessert_knife.tools {
     import org.hamcrest.object.instanceOf;
 
     import dessert_knife.knife;
-    import dessert_knife.tools.Async;
+    import dessert_knife.tools.async.Async;
 
     public class AsyncTests {
 
@@ -807,7 +807,7 @@ package tests.dessert_knife.tools {
 
 
 
-import dessert_knife.tools.Async;
+import dessert_knife.tools.async.Async;
 
 class MyAsync extends Async {
     public function MyAsync(onTickHandlers:Array, trail:Array) {

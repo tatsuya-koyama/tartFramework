@@ -17,7 +17,7 @@ package tart.core {
     import tart.config.DefaultGraphicsBootConfig;
 
     import dessert_knife.knife;
-    import dessert_knife.tools.Await;
+    import dessert_knife.tools.async.Await;
 
     public class TartGraphics {
 

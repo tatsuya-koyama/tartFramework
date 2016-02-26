@@ -1,4 +1,4 @@
-package dessert_knife.tools {
+package dessert_knife.tools.async {
 
     /**
      * Flexible asynchronous tasker.
