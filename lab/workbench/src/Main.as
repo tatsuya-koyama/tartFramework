@@ -3,6 +3,7 @@ package {
     import flash.display.Sprite;
     import flash.system.Capabilities;
 
+    import tart.config.BootConfigPrototype;
     import tart.core.TartEngine;
 
     public class Main extends Sprite {
@@ -10,7 +11,11 @@ package {
         public function Main() {
             _centeringWindowForDesktopApp();
 
-            new TartEngine().boot(this, null);
+            var bootConfig:BootConfigPrototype = new BootConfigPrototype();
+            bootConfig.rootSprite = this;
+            bootConfig.firstScene = null;
+
+            new TartEngine().boot(bootConfig);
         }
 
         private function _centeringWindowForDesktopApp():void {

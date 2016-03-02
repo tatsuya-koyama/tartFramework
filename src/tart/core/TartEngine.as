@@ -19,9 +19,8 @@ package tart.core {
         // public
         //----------------------------------------------------------------------
 
-        // ToDo: 初期化方法を差し替えたい場合の BootConfig を渡すようにするか
-        public function boot(rootSprite:Sprite, firstScene:TartScene):void {
-            var bootSequence:BootSequence = new BootSequence(rootSprite);
+        public function boot(bootConfig:IBootConfig):void {
+            var bootSequence:BootSequence = new BootSequence(bootConfig);
             bootSequence.runAsync().then(function(tartContext:TartContext):void {
                 _tartContext = tartContext;
                 _initMainLoop(_tartContext.graphics);

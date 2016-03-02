@@ -8,10 +8,15 @@ package tart.core {
     public class BootSequence {
 
         private var _tartContext:TartContext;
-        private var _rootSprite:Sprite;
+        private var _bootConfig:IBootConfig;
 
-        public function BootSequence(rootSprite:Sprite) {
-            _rootSprite = rootSprite;
+
+
+        private var _rootSprite:Sprite;
+        private var _firstScene:TartScene;
+
+        public function BootSequence(bootConfig:IBootConfig) {
+            _bootConfig = bootConfig;
         }
 
         public function runAsync():Defer {
@@ -26,7 +31,11 @@ package tart.core {
         private function _initGraphicsAsync(tartContext:TartContext):Defer {
             var defer:Defer = knife.defer();
             tartContext.graphics = new TartGraphics();
-            tartContext.graphics.init(_rootSprite, null, defer.ender(tartContext));
+            tartContext.graphics.init(
+                _bootConfig.rootSprite,
+                _bootConfig.graphicsBootConfig,
+                defer.ender(tartContext)
+            );
             return defer;
         }
 
@@ -36,7 +45,7 @@ package tart.core {
         }
 
         private function _initDirector(tartContext:TartContext):TartContext {
-            tartContext.director = new TartDirector();
+            tartContext.director = new TartDirector(_bootConfig.firstScene);
             return tartContext;
         }
 
