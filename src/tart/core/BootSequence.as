@@ -10,11 +10,6 @@ package tart.core {
         private var _tartContext:TartContext;
         private var _bootConfig:IBootConfig;
 
-
-
-        private var _rootSprite:Sprite;
-        private var _firstScene:TartScene;
-
         public function BootSequence(bootConfig:IBootConfig) {
             _bootConfig = bootConfig;
         }
@@ -50,7 +45,8 @@ package tart.core {
         }
 
         private function _initSystem(tartContext:TartContext):TartContext {
-            tartContext.system = new TartSystem();
+            tartContext.system = new TartSystem(_tartContext);
+            tartContext.system.init(_bootConfig.systemBootConfig);
             return tartContext;
         }
 

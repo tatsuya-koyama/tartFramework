@@ -1,21 +1,23 @@
 package tart.components {
 
+    import flash.geom.Vector3D;
+
     import tart.core.Component;
 
     public class Transform extends Component {
 
-        public var x:Number;
-        public var y:Number;
-        public var z:Number;
+        public var position:Vector3D;
+        public var scale   :Vector3D;
+        public var rotation:Vector3D;
 
         public override function getClass():Class {
             return Transform;
         }
 
         public override function reset():void {
-            x = 0;
-            y = 0;
-            z = 0;
+            position.setTo(0, 0, 0);
+            scale   .setTo(0, 0, 0);
+            rotation.setTo(0, 0, 0);
         }
 
     }

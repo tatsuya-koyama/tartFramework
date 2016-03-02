@@ -39,7 +39,7 @@ pod2usage(-verbose => 99, -sections => "DESCRIPTION|SYNOPSIS|OPTIONS") if $opt{h
 # 33 Yellow
 # 32 Light Green
 # 31 Light Red
-my @colors = (35, 32, 33, 31, 36, 34);
+my @colors = (35, 32, 33, 34, 36, 31);
 my $color_invert = $opt{invert} ? "\033\[0;7m" : "";
 my $invert_off   = $opt{invert} ? "\033\[0;0m" : "";
 

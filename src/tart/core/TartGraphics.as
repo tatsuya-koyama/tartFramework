@@ -63,7 +63,7 @@ package tart.core {
                              onInitComplete:Function):void
         {
             _rootSprite     = rootSprite;
-            _stage          = _rootSprite.stage;
+            _stage          = rootSprite.stage;
             _bootConfig     = bootConfig || new DefaultGraphicsBootConfig();
             _onInitComplete = onInitComplete;
 

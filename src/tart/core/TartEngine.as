@@ -44,7 +44,10 @@ package tart.core {
         }
 
         private function _mainLoop(event:Event):void {
-            trace("loop"); // ToDo
+            var deltaTime:Number = 1 / 60; // ToDo
+            _tartContext.system.process(deltaTime);
+
+            trace("loop"); // debug
         }
 
         private function _addComponent(component:Component):void {

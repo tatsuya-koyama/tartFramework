@@ -35,7 +35,8 @@ build_debug_desktop:
 
 # @private
 run_web:
-	adl app-web.xml build/ -screensize 640x960:640x960
+	adl app-web.xml build/ -screensize 640x960:640x960 \
+	    2>&1 | ../../tools/scripts/colorline "\[Error" "\[Warn" "\[Info" "\[Debug"
 
 # @private
 run_desktop:

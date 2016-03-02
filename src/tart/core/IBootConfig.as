@@ -10,5 +10,7 @@ package tart.core {
 
         function get graphicsBootConfig():IGraphicsBootConfig;
 
+        function get systemBootConfig():ISystemBootConfig;
+
     }
 }

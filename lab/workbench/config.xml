@@ -13,9 +13,26 @@
 
     <compiler>
         <define append="true">
-            <name>CONFIG::TART_DEBUG_CONSOLE</name>
+            <name>TART::DEBUG_CONSOLE</name>
             <value>false</value>
         </define>
+        <define append="true">
+            <name>TART::LOG_ERROR</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_WARN</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_INFO</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_DEBUG</name>
+            <value>true</value>
+        </define>
+
         <define append="true">
             <name>PLATFORM::WEB</name>
             <value>false</value>
