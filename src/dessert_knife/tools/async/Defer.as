@@ -49,8 +49,9 @@ package dessert_knife.tools.async {
      * <p>Note:</p>
      * <ul>
      *   <li>Error handling feature (reject method or try-catch) NOT provided!
-     *       Use Promise if you need it.</li>
-     *   <li>Unlike Promise, then() does not make new Defer instance.</li>
+     *       Use orthodox Promise if you need it.</li>
+     *   <li>Unlike Promise, then() does NOT make new Defer instance
+     *       to save the memory.</li>
      * </ul>
      */
     public class Defer {
@@ -69,6 +70,13 @@ package dessert_knife.tools.async {
             _value      = result;
             _isResolved = true;
             return _handlePending();
+        }
+
+        /** Syntax sugar of making callback to call done(result). */
+        public function ender(result:*):Function {
+            return function():void {
+                done(result);
+            }
         }
 
         public function then(task:Function):Defer {

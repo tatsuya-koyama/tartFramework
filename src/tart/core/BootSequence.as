@@ -3,7 +3,7 @@ package tart.core {
     import flash.display.Sprite;
 
     import dessert_knife.knife;
-    import dessert_knife.tools.async.Async;
+    import dessert_knife.tools.async.Defer;
 
     public class BootSequence {
 
@@ -14,40 +14,35 @@ package tart.core {
             _rootSprite = rootSprite;
         }
 
-        public function run(onComplete:Function):void {
-            _tartContext = new TartContext();
+        public function runAsync():Defer {
+            var tartContext:TartContext = new TartContext();
 
-            knife.async(
-                [
-                    _initGraphics,
-                    _initResource,
-                    _initDirector,
-                    _initSystem
-                ],
-                function():void {
-                    onComplete(_tartContext);
-                }
-            );
+            return _initGraphicsAsync(tartContext)
+                .then(_initResource)
+                .then(_initDirector)
+                .then(_initSystem);
         }
 
-        private function _initGraphics(async:Async):void {
-            _tartContext.graphics = new TartGraphics();
-            _tartContext.graphics.init(_rootSprite, null, async.done);
+        private function _initGraphicsAsync(tartContext:TartContext):Defer {
+            var defer:Defer = knife.defer();
+            tartContext.graphics = new TartGraphics();
+            tartContext.graphics.init(_rootSprite, null, defer.ender(tartContext));
+            return defer;
         }
 
-        private function _initResource(async:Async):void {
-            _tartContext.resource = new TartResource();
-            async.done();
+        private function _initResource(tartContext:TartContext):TartContext {
+            tartContext.resource = new TartResource();
+            return tartContext;
         }
 
-        private function _initDirector(async:Async):void {
-            _tartContext.director = new TartDirector();
-            async.done();
+        private function _initDirector(tartContext:TartContext):TartContext {
+            tartContext.director = new TartDirector();
+            return tartContext;
         }
 
-        private function _initSystem(async:Async):void {
-            _tartContext.system = new TartSystem();
-            async.done();
+        private function _initSystem(tartContext:TartContext):TartContext {
+            tartContext.system = new TartSystem();
+            return tartContext;
         }
 
     }

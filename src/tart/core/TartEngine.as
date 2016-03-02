@@ -22,7 +22,7 @@ package tart.core {
         // ToDo: 初期化方法を差し替えたい場合の BootConfig を渡すようにするか
         public function boot(rootSprite:Sprite, firstScene:TartScene):void {
             var bootSequence:BootSequence = new BootSequence(rootSprite);
-            bootSequence.run(function(tartContext:TartContext):void {
+            bootSequence.runAsync().then(function(tartContext:TartContext):void {
                 _tartContext = tartContext;
                 _initMainLoop(_tartContext.graphics);
             });
