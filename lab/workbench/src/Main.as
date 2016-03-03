@@ -6,14 +6,18 @@ package {
     import tart.config.BootConfigPrototype;
     import tart.core.TartEngine;
 
+    import scenes.Scene_Global;
+    import scenes.GlobalChapter;
+
     public class Main extends Sprite {
 
         public function Main() {
             _centeringWindowForDesktopApp();
 
             var bootConfig:BootConfigPrototype = new BootConfigPrototype();
-            bootConfig.rootSprite = this;
-            bootConfig.firstScene = null;
+            bootConfig.rootSprite    = this;
+            bootConfig.firstScene    = new Scene_Global();
+            bootConfig.globalChapter = new GlobalChapter();
 
             new TartEngine().boot(bootConfig);
         }

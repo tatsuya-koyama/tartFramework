@@ -3,9 +3,24 @@ package tart.core {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class TartScene implements ISceneScope {
+    /**
+     * Large scope including Scenes.
+     */
+    public class TartChapter implements ISceneScope {
 
-        public function TartScene() {}
+        public function TartChapter() {}
+
+        //----------------------------------------------------------------------
+        // public
+        //----------------------------------------------------------------------
+
+        public function scenes():Array {
+            return null;
+        }
+
+        public function addChapters(...args):void {
+
+        }
 
         //----------------------------------------------------------------------
         // implements ISceneScope

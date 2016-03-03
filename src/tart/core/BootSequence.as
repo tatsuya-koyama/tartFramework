@@ -40,7 +40,10 @@ package tart.core {
         }
 
         private function _initDirector(tartContext:TartContext):TartContext {
-            tartContext.director = new TartDirector(_bootConfig.firstScene);
+            tartContext.director = new TartDirector(
+                _bootConfig.firstScene,
+                _bootConfig.globalChapter
+            );
             return tartContext;
         }
 
