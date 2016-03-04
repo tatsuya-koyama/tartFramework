@@ -7,7 +7,6 @@ package tart.core {
 
     public class BootSequence {
 
-        private var _tartContext:TartContext;
         private var _bootConfig:IBootConfig;
 
         public function BootSequence(bootConfig:IBootConfig) {
@@ -44,11 +43,12 @@ package tart.core {
                 _bootConfig.firstScene,
                 _bootConfig.globalChapter
             );
+            tartContext.director.setup();
             return tartContext;
         }
 
         private function _initSystem(tartContext:TartContext):TartContext {
-            tartContext.system = new TartSystem(_tartContext);
+            tartContext.system = new TartSystem(tartContext);
             tartContext.system.init(_bootConfig.systemBootConfig);
             return tartContext;
         }

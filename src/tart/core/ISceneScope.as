@@ -12,6 +12,10 @@ package tart.core {
 
         function init():void;
 
+        function disposeAsync():Defer;
+
+        function dispose():void;
+
         function assets():Array;
 
         function initialActors():Array;

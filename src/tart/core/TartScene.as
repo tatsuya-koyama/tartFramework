@@ -16,10 +16,18 @@ package tart.core {
         }
 
         public function initAsync():Defer {
-            return null;
+            return knife.defer().done();
         }
 
         public function init():void {
+
+        }
+
+        public function disposeAsync():Defer {
+            return knife.defer().done();
+        }
+
+        public function dispose():void {
 
         }
 

@@ -9,7 +9,7 @@ package tart.systems {
         }
 
         public override function process(deltaTime:Number):void {
-
+            _tartContext.director.processTransition();
         }
 
     }

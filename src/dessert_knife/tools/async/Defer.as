@@ -66,14 +66,14 @@ package dessert_knife.tools.async {
             _value        = null;
         }
 
-        public function done(result:*):Defer {
+        public function done(result:*=null):Defer {
             _value      = result;
             _isResolved = true;
             return _handlePending();
         }
 
         /** Syntax sugar of making callback to call done(result). */
-        public function ender(result:*):Function {
+        public function ender(result:*=null):Function {
             return function():void {
                 done(result);
             }

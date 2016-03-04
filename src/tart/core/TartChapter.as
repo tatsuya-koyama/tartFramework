@@ -1,5 +1,7 @@
 package tart.core {
 
+    import flash.utils.getQualifiedClassName;
+
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
@@ -8,18 +10,38 @@ package tart.core {
      */
     public class TartChapter implements ISceneScope {
 
-        public function TartChapter() {}
+        private var _chapters:Vector.<TartChapter>;
+
+        public function TartChapter() {
+            _chapters = new Vector.<TartChapter>();
+        }
 
         //----------------------------------------------------------------------
         // public
         //----------------------------------------------------------------------
+
+        public function get name():String {
+            return getQualifiedClassName(this);
+        }
 
         public function scenes():Array {
             return null;
         }
 
         public function addChapters(...args):void {
+            for (var i:int = 0; i < args.length; ++i) {
+                if (!(args[i] is TartChapter)) {
+                    throw new Error("[TartChapter :: addChapters] " +
+                                    "Object is not TartChapter: " + args[i]);
+                }
 
+                var chapter:TartChapter = args[i] as TartChapter;
+                _chapters.push(chapter);
+            }
+        }
+
+        public function getChapters():Vector.<TartChapter> {
+            return _chapters;
         }
 
         //----------------------------------------------------------------------
@@ -31,10 +53,18 @@ package tart.core {
         }
 
         public function initAsync():Defer {
-            return null;
+            return knife.defer().done();
         }
 
         public function init():void {
+
+        }
+
+        public function disposeAsync():Defer {
+            return knife.defer().done();
+        }
+
+        public function dispose():void {
 
         }
 
