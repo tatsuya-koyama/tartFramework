@@ -7,9 +7,6 @@ package {
     import tart.core.TartEngine;
     import tart.core.TartScene;
 
-    import scenes.Scene_Global;
-    import scenes.GlobalChapter;
-
     import scenes.*;
     import flash.utils.setTimeout;
 
@@ -73,22 +70,28 @@ package {
             setTimeout(function():void {
                 trace("\n *************** 2 ***************");
                 navigate(new Scene_2A());
-            }, 3000);
+            }, 4000);
+
+            setTimeout(function():void {
+                // Chapter_1's dispose process takes time, now is under transition.
+                // This request will be rejected.
+                navigate(new Scene_2B());
+            }, 5000);
 
             setTimeout(function():void {
                 trace("\n *************** 3 ***************");
                 navigate(new Scene_Stray_A());
-            }, 4500);
+            }, 6500);
 
             setTimeout(function():void {
                 trace("\n *************** 4 ***************");
                 navigate(new Scene_Stray_B());
-            }, 6000);
+            }, 8000);
 
             setTimeout(function():void {
                 trace("\n *************** 5 ***************");
                 navigate(new Scene_1_2A());
-            }, 7500);
+            }, 9500);
         }
 
         private function _centeringWindowForDesktopApp():void {

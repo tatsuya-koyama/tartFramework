@@ -5,6 +5,8 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
+    import flash.utils.setTimeout;
+
     public class Chapter_1 extends TartChapter {
 
         public function Chapter_1() {
@@ -27,7 +29,13 @@ package scenes {
 
         public override function initAsync():Defer {
             trace("Chapter_1 :: initAsync");
-            return null;
+
+            var defer:Defer = knife.defer();
+            setTimeout(function():void { trace("."); }, 300);
+            setTimeout(function():void { trace("o"); }, 600);
+            setTimeout(function():void { trace("@"); }, 900);
+            setTimeout(defer.done, 1200);
+            return defer;
         }
 
         public override function init():void {
@@ -36,7 +44,13 @@ package scenes {
 
         public override function disposeAsync():Defer {
             trace("Chapter_1 :: disposeAsync");
-            return null;
+
+            var defer:Defer = knife.defer();
+            setTimeout(function():void { trace("@"); }, 300);
+            setTimeout(function():void { trace("o"); }, 600);
+            setTimeout(function():void { trace("."); }, 900);
+            setTimeout(defer.done, 1200);
+            return defer;
         }
 
         public override function dispose():void {

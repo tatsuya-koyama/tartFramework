@@ -163,8 +163,8 @@ package tart.core {
             var childScope:ISceneScope = _getTargetChildScope(oldScope, newScope);
             if (childScope) {
                 return _enterScopeAsync(childScope)
-                    .then(function():void {
-                        _transitFrom(childScope, newScope);
+                    .then(function():Defer {
+                        return _transitFrom(childScope, newScope);
                     });
             }
 
@@ -172,8 +172,8 @@ package tart.core {
             var parentScope:ISceneScope = _getParentScope(oldScope);
             if (parentScope) {
                 return _exitScopeAsync(oldScope)
-                    .then(function():void {
-                        _transitFrom(parentScope, newScope);
+                    .then(function():Defer {
+                        return _transitFrom(parentScope, newScope);
                     });
             }
 
@@ -181,8 +181,8 @@ package tart.core {
             // 遷移元 Scene が未登録ということなので root から辿り直す
             if (oldScope != _globalChapter) {
                 return _exitScopeAsync(oldScope)
-                    .then(function():void {
-                        _transitFrom(_globalChapter, newScope);
+                    .then(function():Defer {
+                        return _transitFrom(_globalChapter, newScope);
                     });
             }
 
@@ -242,7 +242,7 @@ package tart.core {
 
             scope.awake();
             return _loadScopeResourceAsync(scope)
-                .then(function():void { scope.initAsync(); })
+                .then(scope.initAsync)
                 .then(function():void { scope.init(); })
                 .then(function():void { _createInitialActors(scope); });
         }
@@ -264,7 +264,7 @@ package tart.core {
             }
 
             return knife.defer().done()
-                .then(function():void { scope.disposeAsync(); })
+                .then(scope.disposeAsync)
                 .then(function():void { scope.dispose(); })
                 .then(function():void { _disposeScopeResource(scope); })
                 .then(function():void { _disposeScopeActors(scope); });

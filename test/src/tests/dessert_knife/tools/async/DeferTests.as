@@ -5,6 +5,8 @@ package tests.dessert_knife.tools.async {
 
     import dessert_knife.tools.async.Defer;
 
+    import flash.utils.setTimeout;
+
     public class DeferTests {
 
         private function _virtualAsync():Object {
@@ -151,6 +153,28 @@ package tests.dessert_knife.tools.async {
 
             asyncB.exec();
             assertThat(seq, equalTo('12-A-AB'));
+        }
+
+        [Test]
+        public function defer_in_then_2():void {
+            var seq:String = '';
+
+            var defer:Defer = new Defer();
+            defer.done()
+                .then(function():Defer {
+                    var defer2:Defer = new Defer();
+                    setTimeout(function():void {
+                        seq += '1';
+                        defer2.done();
+                    }, 0);
+                    return defer2;
+                })
+                .then(function():void {
+                    seq += '2';
+                })
+                .then(function():void {
+                    assertThat(seq, equalTo('12'));
+                });
         }
 
     }

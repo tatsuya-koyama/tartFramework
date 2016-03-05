@@ -89,17 +89,25 @@ package dessert_knife.tools.async {
         }
 
         private function _handle(task:Function):Defer {
-            var result:* = task(_value);
+            var result:* = _safeCall(task, _value);
             if (result is Defer) {
+                _isResolved = false;
                 result.then(function(result2:*):void {
-                    _value = result2;
-                    _handlePending();
+                    done(result2);
                 });
                 return this;
             }
 
             _value = result;
             return _handlePending();
+        }
+
+        private function _safeCall(func:Function, arg:*):* {
+            // In AS3, Function.length returns the number of arguments
+            if (func.length > 0) {
+                return func(_value);
+            }
+            return func();
         }
 
         private function _handlePending():Defer {
