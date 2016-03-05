@@ -1,7 +1,7 @@
 COMMON_BUILD_OPTS=\
 	-swf-version=31 \
-	-source-path+="../../src/" \
-	-library-path+="../../lib/" \
+	-source-path+="../../../src/" \
+	-library-path+="../../../lib/" \
 	-load-config+="config.xml" \
 	-incremental=true
 
@@ -36,7 +36,7 @@ build_debug_desktop:
 # @private
 run_web:
 	adl app-web.xml build/ -screensize 640x960:640x960 \
-	    2>&1 | ../../tools/scripts/colorline "\[Error" "\[Warn" "\[Info" "\[Debug"
+	    2>&1 | ../../../tools/scripts/colorline "\[Error" "\[Warn" "\[Info" "\[Debug"
 
 # @private
 run_desktop:
@@ -86,7 +86,7 @@ endif
 ##----------------------------------------------------------
 
 help:
-	@../../tools/scripts/makedocs Makefile
+	@../../../tools/scripts/makedocs Makefile
 
 clean:
 	rm -f build/*.swf

@@ -11,6 +11,10 @@ package tart.core {
         // implements ISceneScope
         //----------------------------------------------------------------------
 
+        public function getChildren():Vector.<ISceneScope> {
+            return null;
+        }
+
         public function awake():void {
 
         }

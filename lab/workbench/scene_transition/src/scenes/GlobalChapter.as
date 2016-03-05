@@ -34,6 +34,15 @@ package scenes {
             trace("GlobalChapter :: init");
         }
 
+        public override function disposeAsync():Defer {
+            trace("GlobalChapter :: disposeAsync");
+            return null;
+        }
+
+        public override function dispose():void {
+            trace("GlobalChapter :: dispose");
+        }
+
         public override function assets():Array {
             trace("GlobalChapter :: assets");
             return null;

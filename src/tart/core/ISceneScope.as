@@ -5,6 +5,8 @@ package tart.core {
     /** Lifetime scope for entities and resources. */
     public interface ISceneScope {
 
+        function getChildren():Vector.<ISceneScope>;
+
         /** Handler called before loading assets. */
         function awake():void;
 

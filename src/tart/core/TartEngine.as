@@ -56,5 +56,13 @@ package tart.core {
             _componentMap[klass].push(component);
         }
 
+        //----------------------------------------------------------------------
+        // for debugging or testing
+        //----------------------------------------------------------------------
+
+        public function get tartContext():TartContext {
+            return _tartContext;
+        }
+
     }
 }

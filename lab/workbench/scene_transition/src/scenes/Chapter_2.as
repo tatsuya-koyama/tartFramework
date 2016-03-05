@@ -31,6 +31,15 @@ package scenes {
             trace("Chapter_2 :: init");
         }
 
+        public override function disposeAsync():Defer {
+            trace("Chapter_2 :: disposeAsync");
+            return null;
+        }
+
+        public override function dispose():void {
+            trace("Chapter_2 :: dispose");
+        }
+
         public override function assets():Array {
             trace("Chapter_2 :: assets");
             return null;

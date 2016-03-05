@@ -22,6 +22,15 @@ package scenes {
             trace("Scene_Global :: init");
         }
 
+        public override function disposeAsync():Defer {
+            trace("Scene_Global :: disposeAsync");
+            return null;
+        }
+
+        public override function dispose():void {
+            trace("Scene_Global :: dispose");
+        }
+
         public override function assets():Array {
             trace("Scene_Global :: assets");
             return null;
