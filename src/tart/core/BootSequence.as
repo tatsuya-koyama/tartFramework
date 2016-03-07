@@ -13,8 +13,9 @@ package tart.core {
             _bootConfig = bootConfig;
         }
 
-        public function runAsync():Defer {
+        public function runAsync(engine:TartEngine):Defer {
             var tartContext:TartContext = new TartContext();
+            tartContext.engine = engine;
 
             return _initGraphicsAsync(tartContext)
                 .then(_initResource)
@@ -40,6 +41,7 @@ package tart.core {
 
         private function _initDirector(tartContext:TartContext):TartContext {
             tartContext.director = new TartDirector(
+                tartContext,
                 _bootConfig.firstScene,
                 _bootConfig.globalChapter
             );

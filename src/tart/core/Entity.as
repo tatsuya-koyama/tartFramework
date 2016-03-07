@@ -16,6 +16,10 @@ package tart.core {
             return _componentList;
         }
 
+        public function getComponent(componentClass:Class):Component {
+            return _componentMap[componentClass] || null;
+        }
+
         public function attach(component:Component):Entity {
             var klass:Class = component.getClass();
             if (!klass) { throw new Error("Invalid component: Class not found."); }
@@ -25,6 +29,7 @@ package tart.core {
 
             _componentMap[klass] = component;
             _componentList.push(component);
+            component.entity = this;
             return this;
         }
 

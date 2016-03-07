@@ -20,7 +20,6 @@ package {
             bootConfig.firstScene    = new Scene_Global();
             bootConfig.globalChapter = new GlobalChapter();
 
-            // Scene transition test
             var engine:TartEngine = new TartEngine();
             engine.boot(bootConfig);
 

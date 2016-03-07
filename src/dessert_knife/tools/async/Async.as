@@ -223,7 +223,7 @@ package dessert_knife.tools.async {
             if (asyncDef.parallel != null) { ++exclusiveDefCount; }
 
             if (exclusiveDefCount != 1) {
-                throw new Error("[DessertKnife::Async] Error: Invalid async task definition.");
+                throw new Error("Error: Invalid async task definition.");
             }
         }
 

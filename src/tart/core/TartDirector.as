@@ -8,6 +8,7 @@ package tart.core {
 
     public class TartDirector {
 
+        private var _tartContext:TartContext;
         private var _currentScene:TartScene;
         private var _nextScene:TartScene;
         private var _isUnderTransition:Boolean;
@@ -16,7 +17,10 @@ package tart.core {
         private var _chapterToChapter:Dictionary;  // Chapter instance -> Parent Chapter instance
         private var _chapterToScenes:Dictionary;   // Chapter instance -> [Child Scene class name list]
 
-        public function TartDirector(firstScene:TartScene, globalChapter:TartChapter=null) {
+        public function TartDirector(tartContext:TartContext,
+                                     firstScene:TartScene, globalChapter:TartChapter=null)
+        {
+            _tartContext       = tartContext;
             _currentScene      = null;
             _nextScene         = firstScene;
             _isUnderTransition = false;
@@ -99,8 +103,7 @@ package tart.core {
         private function _validate_mapSceneToChapter(sceneName:String, chapter:TartChapter):void {
             if (!_sceneToChapter[sceneName]) { return; }
 
-            throw new Error("[TartChapter :: _mapSceneToChapter] " +
-                            sceneName + " is already registered to Chapter:" +
+            throw new Error(sceneName + " is already registered to Chapter:" +
                             _sceneToChapter[sceneName].name +
                             ", so cannot register to: " + chapter.name
                            );
@@ -122,8 +125,7 @@ package tart.core {
         {
             if (!_chapterToChapter[childChapter]) { return; }
 
-            throw new Error("[TartChapter :: _mapChapterToChapter] " +
-                            childChapter.name + " is already registered to Chapter:" +
+            throw new Error(childChapter.name + " is already registered to Chapter:" +
                             _chapterToChapter[childChapter].name +
                             ", so cannot register to: " + parentChapter.name
                            );
@@ -253,7 +255,13 @@ package tart.core {
         }
 
         private function _createInitialActors(scope:ISceneScope):void {
-            trace("ToDo: create initial actors");
+            var actors:Array = scope.initialActors();
+            if (!actors) { return; }
+
+            var engine:TartEngine = _tartContext.engine;
+            for each (var actor:TartActor in actors) {
+                engine.createActor(actor, scope);
+            }
         }
 
         private function _exitScopeAsync(scope:ISceneScope):Defer {

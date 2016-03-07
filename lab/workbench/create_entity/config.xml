@@ -1,0 +1,64 @@
+<flex-config>
+    <default-size>
+        <width>960</width>
+        <height>640</height>
+    </default-size>
+    <default-background-color>0x222222</default-background-color>
+    <default-frame-rate>60</default-frame-rate>
+
+    <default-script-limits>
+        <max-recursion-depth>65535</max-recursion-depth>
+        <max-execution-time>4</max-execution-time>
+    </default-script-limits>
+
+    <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+
+    <compiler>
+        <define append="true">
+            <name>TART::DEBUG_CONSOLE</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_ERROR</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_WARN</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_INFO</name>
+            <value>true</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_DEBUG</name>
+            <value>true</value>
+        </define>
+
+        <define append="true">
+            <name>PLATFORM::WEB</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::IOS</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::ANDROID</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::DESKTOP</name>
+            <value>false</value>
+        </define>
+    </compiler>
+
+    <metadata>
+        <title>tartFramework Workbench</title>
+        <description></description>
+        <publisher>Tatsuya Koyama</publisher>
+        <creator>Tatsuya Koyama</creator>
+        <language>JA</language>
+    </metadata>
+
+</flex-config>

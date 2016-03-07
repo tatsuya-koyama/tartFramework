@@ -6,6 +6,8 @@ package tart.core {
 
     import away3d.core.managers.Stage3DProxy;
 
+    import dessert_knife.tools.async.Defer;
+
     public class TartEngine {
 
         private var _tartContext:TartContext;
@@ -19,12 +21,36 @@ package tart.core {
         // public
         //----------------------------------------------------------------------
 
-        public function boot(bootConfig:IBootConfig):void {
+        public function boot(bootConfig:IBootConfig):Defer {
             var bootSequence:BootSequence = new BootSequence(bootConfig);
-            bootSequence.runAsync().then(function(tartContext:TartContext):void {
-                _tartContext = tartContext;
-                _initMainLoop(_tartContext.graphics);
-            });
+            return bootSequence.runAsync(this)
+                .then(function(tartContext:TartContext):TartContext {
+                    _tartContext = tartContext;
+                    _initMainLoop(_tartContext.graphics);
+                    return tartContext;
+                });
+        }
+
+        public function getComponents(componentClass:Class):Array {
+            return _componentMap[componentClass];
+        }
+
+        public function createActor(actor:TartActor, scope:ISceneScope):void {
+            // ToDo: scope の管理
+            var entity:Entity = new Entity;
+            entity.attach(actor);
+
+            var recipe:Array = actor.recipe();
+            if (recipe) {
+                for each (var componentClass:Class in recipe) {
+                    // ToDo: pooling
+                    var component:Component = new componentClass() as Component;
+                    entity.attach(component);
+                }
+            }
+
+            actor.internalAwake();
+            addEntity(entity);
         }
 
         public function addEntity(entity:Entity):void {
@@ -51,7 +77,7 @@ package tart.core {
         private function _addComponent(component:Component):void {
             var klass:Class = component.getClass();
             if (!_componentMap[klass]) {
-                _componentMap[klass] = new Vector.<Component>();
+                _componentMap[klass] = [];
             }
             _componentMap[klass].push(component);
         }
