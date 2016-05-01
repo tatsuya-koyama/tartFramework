@@ -10,6 +10,9 @@ package tart.core {
         protected var _transform:Transform;
         protected var _view2D:View2D;
 
+        public function get transform():Transform { return _transform; }
+        public function get view2D():View2D { return _view2D; }
+
         public function TartActor() {
 
         }

@@ -10,6 +10,12 @@ package tart.components {
         public var scale   :Vector3D;
         public var rotation:Vector3D;
 
+        public function Transform() {
+            position = new Vector3D();
+            scale    = new Vector3D();
+            rotation = new Vector3D();
+        }
+
         public override function getClass():Class {
             return Transform;
         }

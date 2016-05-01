@@ -13,9 +13,9 @@ package tart.core {
         private var _nextScene:TartScene;
         private var _isUnderTransition:Boolean;
         private var _globalChapter:TartChapter;
-        private var _sceneToChapter:Dictionary;    // Scene class name -> Chapter instance that Scene belongs to
-        private var _chapterToChapter:Dictionary;  // Chapter instance -> Parent Chapter instance
-        private var _chapterToScenes:Dictionary;   // Chapter instance -> [Child Scene class name list]
+        private var _sceneToChapter:Dictionary;    // {Scene class name : Chapter instance that Scene belongs to}
+        private var _chapterToChapter:Dictionary;  // {Chapter instance : Parent Chapter instance}
+        private var _chapterToScenes:Dictionary;   // {Chapter instance : [Child Scene class name]}
 
         public function TartDirector(tartContext:TartContext,
                                      firstScene:TartScene, globalChapter:TartChapter=null)
