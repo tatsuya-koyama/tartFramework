@@ -2,6 +2,7 @@ package tart.core {
 
     import tart.components.Transform;
     import tart.components.View2D;
+    import tart.core.tart_internal;
 
     public class TartActor extends Component {
 
@@ -12,6 +13,8 @@ package tart.core {
 
         public function get transform():Transform { return _transform; }
         public function get view2D():View2D { return _view2D; }
+
+        private var _afterAwakeTask:Function;
 
         public function TartActor() {
 
@@ -25,9 +28,17 @@ package tart.core {
             return null;
         }
 
-        internal function internalAwake():void {
+        protected function afterAwake(task:Function):void {
+            _afterAwakeTask = task;
+        }
+
+        tart_internal function internalAwake():void {
             _transform = getComponent(Transform) as Transform;
             _view2D    = getComponent(View2D) as View2D;
+
+            if (_afterAwakeTask != null) {
+                _afterAwakeTask();
+            }
         }
 
         public function awake():void {

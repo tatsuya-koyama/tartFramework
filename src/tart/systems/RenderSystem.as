@@ -24,6 +24,7 @@ package tart.systems {
             for each (var actor:TartActor in actors) {
                 if (!actor.view2D || !actor.transform) { continue; }
 
+                // ToDo: Dirty なものだけ処理する
                 actor.view2D.displayObj.x = actor.transform.position.x;
                 actor.view2D.displayObj.y = actor.transform.position.y;
             }

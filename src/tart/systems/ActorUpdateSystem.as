@@ -1,7 +1,10 @@
 package tart.systems {
 
+    import tart.core.tart_internal;
     import tart.core.TartActor;
     import tart.core.TartSubSystem;
+
+    use namespace tart_internal;
 
     public class ActorUpdateSystem extends TartSubSystem {
 
@@ -18,6 +21,7 @@ package tart.systems {
         private function _awakenActors(actors:Array):void {
             for each (var actor:TartActor in actors) {
                 if (actor.awakened) { continue; }
+                actor.internalAwake();
                 actor.awake();
                 actor.awakened = true;
             }

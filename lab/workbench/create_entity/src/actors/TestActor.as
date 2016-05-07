@@ -15,9 +15,6 @@ package actors {
         [Embed(source="../../../../lab_assets/piyo.png")]
         private static var PiyoImg:Class;
 
-        private var _x:Number;
-        private var _y:Number;
-
         public override function recipe():Array {
             return [
                 Transform, View2D
@@ -25,8 +22,10 @@ package actors {
         }
 
         public function TestActor(x:Number, y:Number) {
-            _x = x;
-            _y = y;
+            afterAwake(function():void {
+                _transform.position.x = x;
+                _transform.position.y = y;
+            });
         }
 
         public override function awake():void {
@@ -36,9 +35,6 @@ package actors {
 
             var rootSprite:Sprite = DebugContext.tartContext.graphics.starlingFore.root as Sprite;
             rootSprite.addChild(_view2D.displayObj);
-
-            _transform.position.x = _x;
-            _transform.position.y = _y;
         }
 
         public override function update(deltaTime:Number):void {

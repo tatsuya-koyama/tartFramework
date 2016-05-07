@@ -48,8 +48,6 @@ package tart.core {
                     entity.attach(component);
                 }
             }
-
-            actor.internalAwake();
             addEntity(entity);
         }
 

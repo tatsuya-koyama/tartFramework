@@ -147,12 +147,10 @@ package tart.core {
          *
          *     - Exit scopes:
          *         -  Exit current Scene
-         *         -  Exit current Chapter
-         *         - (Exit wide-scope Chapter if needed)
+         *         -  Exit current Chapter if needed (from child to parent)
          *
          *     - Enter scopes:
-         *         -  Enter next Chapter
-         *         - (Enter narrow-scope Chapter if needed)
+         *         -  Enter next Chapter if needed (from parent to child)
          *         -  Enter next Scene
          */
         private function _transitFrom(oldScope:ISceneScope, newScope:ISceneScope):Defer {
