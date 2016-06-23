@@ -39,12 +39,12 @@ package dessert_knife.tools.async {
             return _promise;
         }
 
-        public function done(result:*):Deferred {
+        public function done(result:*=null):Deferred {
             _resolve(result);
             return this;
         }
 
-        public function fail(error:*):Deferred {
+        public function fail(error:*=null):Deferred {
             _reject(error);
             return this;
         }

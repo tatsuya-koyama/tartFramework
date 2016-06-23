@@ -8,10 +8,38 @@ package tart.core {
     import starling.textures.Texture;
     import starling.textures.TextureAtlas;
 
+    import tart.core_internal.ResourceMultiLoader;
+
+    import dessert_knife.knife;
+    import dessert_knife.tools.async.Deferred;
+    import dessert_knife.tools.async.Promise;
+
     public class TartResource {
 
-        public function TartResource() {
+        private var _resourceMultiLoader:ResourceMultiLoader;
+        private var _loadDeferred:Deferred;
+        private var _urlQueue:Array;
+        private var _isLoading:Boolean = false;
 
+        public function TartResource() {
+            _resourceMultiLoader = new ResourceMultiLoader();
+        }
+
+        /**
+         * @param urls - Array of URL String.
+         */
+        public function loadAssetsAsync(urls:Array):void {
+            _resourceMultiLoader.loadAll(urls, _onLoadResource)
+                .then(function():void {
+                    TART::LOG_DEBUG {
+                        trace("[Debug :: TartResource] Load complete.");
+                    }
+                });
+        }
+
+        private function _onLoadResource(resource:*):void {
+            // ToDo
+            trace("--- on load resource");
         }
 
         //----------------------------------------------------------------------

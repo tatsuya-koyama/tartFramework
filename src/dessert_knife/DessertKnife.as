@@ -1,5 +1,6 @@
 package dessert_knife {
 
+    import dessert_knife.blades.ListKnife;
     import dessert_knife.blades.RandomKnife;
     import dessert_knife.tools.async.Async;
     import dessert_knife.tools.async.Await;
@@ -115,11 +116,19 @@ package dessert_knife {
         //----------------------------------------------------------------------
 
         /**
-         * Returns instance of RandomKnife.
+         * Returns singleton instance of RandomKnife.
          * @see dessert_knife.blades.RandomKnife
          */
         public function get rand():RandomKnife {
             return RandomKnife.instance;
+        }
+
+        /**
+         * Returns singleton instance of ListKnife.
+         * @see dessert_knife.blades.ListKnife
+         */
+        public function get list():ListKnife {
+            return ListKnife.instance;
         }
 
     }

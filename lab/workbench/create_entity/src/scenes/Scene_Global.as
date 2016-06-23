@@ -7,6 +7,9 @@ package scenes {
 
     import actors.*;
 
+    // testing
+    import tart.core.TartResource;
+
     public class Scene_Global extends TartScene {
 
         public function Scene_Global() {}
@@ -22,6 +25,17 @@ package scenes {
 
         public override function init():void {
             trace("Scene_Global :: init");
+
+            // testing
+            var resource:TartResource = new TartResource();
+            resource.loadAssetsAsync([
+                "lab_assets/piyo.png",
+                "lab_assets/dust.png",
+                "lab_assets/piyo.png",
+                "lab_assets/dust.png",
+                "lab_assets/piyo.png",
+                "lab_assets/dust.png"
+            ]);
         }
 
         public override function disposeAsync():Defer {

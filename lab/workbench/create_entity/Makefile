@@ -10,6 +10,10 @@ COMMON_BUILD_OPTS=\
 #----------------------------------------------------------
 
 # @private
+assets_dir:
+	ln -sf ../../../lab_assets ./build/
+
+# @private
 build_debug_web:
 	mxmlc \
 	$(COMMON_BUILD_OPTS) \
@@ -47,10 +51,12 @@ run_desktop:
 ##----------------------------------------------------------
 
 web:
+	make assets_dir
 	make build_debug_web
 	make run_web
 
 desk:
+	make assets_dir
 	make build_debug_desktop
 	make run_desktop
 
