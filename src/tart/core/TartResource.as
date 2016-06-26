@@ -9,12 +9,14 @@ package tart.core {
     import starling.textures.TextureAtlas;
 
     import tart.core_internal.ResourceMultiLoader;
+    import tart.core_internal.deserializer.BitmapDeserializer;
 
     import dessert_knife.knife;
+    import dessert_knife.tools.async.Defer;
     import dessert_knife.tools.async.Deferred;
     import dessert_knife.tools.async.Promise;
 
-    public class TartResource {
+    public class TartResource implements IResourceDeserializer {
 
         private var _resourceMultiLoader:ResourceMultiLoader;
         private var _loadDeferred:Deferred;
@@ -29,17 +31,41 @@ package tart.core {
          * @param urls - Array of URL String.
          */
         public function loadAssetsAsync(urls:Array):void {
-            _resourceMultiLoader.loadAll(urls, _onLoadResource)
+            if (_isLoading) {
+                throw new Error("[Error :: TartResource] Multiple load error.");
+            }
+            _isLoading = true;
+
+            _resourceMultiLoader.loadAll(urls, this)
                 .then(function():void {
+                    _isLoading = false;
+
                     TART::LOG_DEBUG {
                         trace("[Debug :: TartResource] Load complete.");
                     }
                 });
         }
 
-        private function _onLoadResource(resource:*):void {
-            // ToDo
-            trace("--- on load resource");
+        //----------------------------------------------------------------------
+        // implements IResourceDeserializer
+        //----------------------------------------------------------------------
+
+        public function deserializeResourceAsync(bytes:ByteArray, url:String):Defer {
+            var extension:String = knife.str.extensionOf(url);
+            var defer:Defer = knife.defer();
+
+            switch (extension) {
+            case "png":
+                var deserializer:BitmapDeserializer = new BitmapDeserializer();
+                deserializer.deserializeAsync(bytes).then(function(texture:Texture):void {
+                    // ToDo: store data
+                    trace("--- deserialized:", texture);
+                    defer.done();
+                });
+                break;
+            }
+
+            return defer;
         }
 
         //----------------------------------------------------------------------
