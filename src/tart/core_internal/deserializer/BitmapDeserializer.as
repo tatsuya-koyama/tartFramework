@@ -44,7 +44,7 @@ package tart.core_internal.deserializer {
         }
 
         private function _onIoError(event:IOErrorEvent):void {
-            throw new Error("[Error :: ImageDeserializer] IO Error: " + event.text);
+            throw new Error("[Error :: BitmapDeserializer] IO Error: " + event.text);
         }
 
         private function _onLoadComplete(event:Event):void {
@@ -63,7 +63,8 @@ package tart.core_internal.deserializer {
          */
         private function _bitmapToTexture(bitmap:Bitmap):Texture {
             var texture:Texture = Texture.fromData(bitmap, _textureOptions)
-            // ToDo: texture の restore 処理
+
+            // ToDo: lost context 時の texture の restore 処理
 
             bitmap.bitmapData.dispose();
             return texture;

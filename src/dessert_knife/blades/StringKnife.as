@@ -23,6 +23,29 @@ package dessert_knife.blades {
         //----------------------------------------------------------------------
 
         /**
+         * Alias of checking if string contains some phrase.
+         */
+        public function contains(src:String, phrase:String):Boolean {
+            return (src.indexOf(phrase) != -1);
+        }
+
+        /**
+         * Returns file name of file path without extension.
+         * Example: "path/to/file.txt" -> "file"
+         */
+        public function fileNameOf(filePath:String):String {
+            var fileName:String = filePath.substring(
+                filePath.lastIndexOf("/") + 1
+            );
+            if (!contains(fileName, ".")) {
+                return fileName;
+            }
+            return fileName.substring(
+                0, fileName.indexOf(".")
+            );
+        }
+
+        /**
          * Returns extension of file path.
          * Example: "path/to/file.txt" -> "txt"
          */

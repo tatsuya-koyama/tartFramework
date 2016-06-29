@@ -23,8 +23,11 @@ package tart.core {
         private var _urlQueue:Array;
         private var _isLoading:Boolean = false;
 
+        private var _textureRepo:Dictionary;
+
         public function TartResource() {
             _resourceMultiLoader = new ResourceMultiLoader();
+            _textureRepo         = new Dictionary();
         }
 
         /**
@@ -51,17 +54,22 @@ package tart.core {
         //----------------------------------------------------------------------
 
         public function deserializeResourceAsync(bytes:ByteArray, url:String):Defer {
-            var extension:String = knife.str.extensionOf(url);
+            var extension:String    = knife.str.extensionOf(url);
+            var resourceName:String = knife.str.fileNameOf(url);
             var defer:Defer = knife.defer();
 
+            // ToDo: デシリアライザのタイプを簡単に足せるようプラガブルにする
             switch (extension) {
             case "png":
                 var deserializer:BitmapDeserializer = new BitmapDeserializer();
                 deserializer.deserializeAsync(bytes).then(function(texture:Texture):void {
-                    // ToDo: store data
-                    trace("--- deserialized:", texture);
+                    _textureRepo[resourceName] = texture;
                     defer.done();
                 });
+                break;
+
+            default:
+                defer.done();
                 break;
             }
 
@@ -73,11 +81,19 @@ package tart.core {
         //----------------------------------------------------------------------
 
         public function getImage(name:String):Image {
+            var texture:Texture = getTexture(name);
+            if (texture) {
+                return new Image(texture);
+            }
+
+            TART::LOG_ERROR {
+                trace("[Error :: TartResource] Image not found: " + name);
+            }
             return null;
         }
 
         public function getTexture(name:String):Texture {
-            return null;
+            return _textureRepo[name];
         }
 
         public function getTextureAtlas(name:String):TextureAtlas {
