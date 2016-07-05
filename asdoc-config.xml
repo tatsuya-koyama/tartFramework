@@ -1,0 +1,41 @@
+<flex-config>
+    <compiler>
+        <define append="true">
+            <name>TART::DEBUG_CONSOLE</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_ERROR</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_WARN</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_INFO</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>TART::LOG_DEBUG</name>
+            <value>false</value>
+        </define>
+
+        <define append="true">
+            <name>PLATFORM::WEB</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::IOS</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::ANDROID</name>
+            <value>false</value>
+        </define>
+        <define append="true">
+            <name>PLATFORM::DESKTOP</name>
+            <value>false</value>
+        </define>
+    </compiler>
+</flex-config>

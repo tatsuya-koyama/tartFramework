@@ -3,6 +3,8 @@ package tart.core {
     import flash.utils.Dictionary;
     import flash.utils.getQualifiedClassName;
 
+    import tart.core.tart_internal;
+
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
@@ -34,10 +36,10 @@ package tart.core {
         // public
         //----------------------------------------------------------------------
 
-        public function setNextScene(scene:TartScene):void {
+        public function navigateTo(scene:TartScene):void {
             if (_nextScene) {
                 TART::LOG_WARN {
-                    trace("[Warn :: TartDirector] setNextScene: Multiple Request.",
+                    trace("[Warn :: TartDirector] navigateTo: Multiple Request.",
                           getQualifiedClassName(_nextScene), "is already requested, so",
                           getQualifiedClassName(scene), "is rejected.");
                 }
@@ -46,8 +48,12 @@ package tart.core {
             _nextScene = scene;
         }
 
+        //----------------------------------------------------------------------
+        // internal
+        //----------------------------------------------------------------------
+
         /** @private */
-        public function setup():void {
+        internal function setup():void {
             if (!_globalChapter) { return; }
             _registerChapters(_globalChapter);
             _groupByChapters();
@@ -59,17 +65,16 @@ package tart.core {
             }
         }
 
-        /** @private */
-        public function processTransition():void {
+        tart_internal function processTransition():void {
             if (!_nextScene) { return; }
 
             if (_isUnderTransition) { return; }
             _isUnderTransition = true;
 
             var startingScope:ISceneScope = _currentScene || _globalChapter;
-            _transitFrom(startingScope, _nextScene).then(function():void {
-                _currentScene = _nextScene;
-                _nextScene    = null;
+            _transitFromTo(startingScope, _nextScene).then(function():void {
+                _currentScene      = _nextScene;
+                _nextScene         = null;
                 _isUnderTransition = false;
             });
         }
@@ -147,13 +152,13 @@ package tart.core {
          *
          *     - Exit scopes:
          *         -  Exit current Scene
-         *         -  Exit current Chapter if needed (from child to parent)
+         *         -  Exit current Chapter (from child to parent)
          *
          *     - Enter scopes:
-         *         -  Enter next Chapter if needed (from parent to child)
+         *         -  Enter next Chapter (from parent to child)
          *         -  Enter next Scene
          */
-        private function _transitFrom(oldScope:ISceneScope, newScope:ISceneScope):Defer {
+        private function _transitFromTo(oldScope:ISceneScope, newScope:ISceneScope):Defer {
             // 今見ている Chapter 直下にある場合は遷移完了
             if (_chapterContainsScene(oldScope, newScope)) {
                 return _enterScopeAsync(newScope);
@@ -164,7 +169,7 @@ package tart.core {
             if (childScope) {
                 return _enterScopeAsync(childScope)
                     .then(function():Defer {
-                        return _transitFrom(childScope, newScope);
+                        return _transitFromTo(childScope, newScope);
                     });
             }
 
@@ -173,7 +178,7 @@ package tart.core {
             if (parentScope) {
                 return _exitScopeAsync(oldScope)
                     .then(function():Defer {
-                        return _transitFrom(parentScope, newScope);
+                        return _transitFromTo(parentScope, newScope);
                     });
             }
 
@@ -182,7 +187,7 @@ package tart.core {
             if (oldScope != _globalChapter) {
                 return _exitScopeAsync(oldScope)
                     .then(function():Defer {
-                        return _transitFrom(_globalChapter, newScope);
+                        return _transitFromTo(_globalChapter, newScope);
                     });
             }
 
@@ -234,6 +239,9 @@ package tart.core {
             return _chapterToChapter[scope];
         }
 
+        /**
+         * Sequence for enter process.
+         */
         private function _enterScopeAsync(scope:ISceneScope):Defer {
             TART::LOG_DEBUG {
                 trace("[Debug :: TartDirector] --> Enter:",
@@ -262,10 +270,13 @@ package tart.core {
             }
         }
 
+        /**
+         * Sequence for exit process.
+         */
         private function _exitScopeAsync(scope:ISceneScope):Defer {
             if (!scope) { return knife.defer().done(); }
             TART::LOG_DEBUG {
-                trace("[Debug :: TartDirector] *** Exit :",
+                trace("[Debug :: TartDirector] <-- Exit :",
                       getQualifiedClassName(scope));
             }
 

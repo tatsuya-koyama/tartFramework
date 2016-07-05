@@ -57,7 +57,7 @@ package {
          */
         private function _sceneTransitionTest(engine:TartEngine):void {
             var navigate:Function = function(scene:TartScene):void {
-                engine.tartContext.director.setNextScene(scene);
+                engine.tartContext.director.navigateTo(scene);
             };
 
             setTimeout(function():void {

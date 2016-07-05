@@ -32,8 +32,9 @@ package tart.core {
 
         /**
          * @param urls - Array of URL String.
+         * @param scope - Target scene scope you want to load resource.
          */
-        public function loadAssetsAsync(urls:Array):void {
+        public function loadAssetsAsync(urls:Array, scope:ISceneScope):void {
             if (_isLoading) {
                 throw new Error("[Error :: TartResource] Multiple load error.");
             }
