@@ -5,7 +5,6 @@ package tests.dessert_knife.tools.async {
     import org.hamcrest.object.equalTo;
     import org.hamcrest.object.instanceOf;
 
-    import dessert_knife.knife;
     import dessert_knife.tools.async.Async;
 
     public class AsyncTests {
@@ -759,52 +758,8 @@ package tests.dessert_knife.tools.async {
             assertThat("12[5]_[4][6][3]7a!", equalTo(trail.join('')));
         }
 
-        [Test]
-        public function test_with_knife():void {
-            var trail:Array = [];
-            var onTickHandlers:Array = [];
-
-            /**
-             *             |3 -------->|
-             *             |           |
-             *   1 -> 2 -> |4 --->.....| -> 7 -> anyway
-             *             |           |
-             *             |5 -> 6 ->..|
-             */
-            knife.async({
-                serial: [
-                    function(async:Async):void {
-                        trail.push("1");  async.done();
-                    },
-                    function(async:Async):void {
-                        trail.push("2");  async.done();
-                    },
-
-                    new MyAsync(onTickHandlers, trail),
-
-                    function(async:Async):void {
-                        trail.push("7");  async.done();
-                    }
-                ],
-                anyway: function():void {
-                    trail.push("a");
-                }
-            }, function():void {
-                trail.push("!!!");
-            });
-
-            for (var i:int = 0;  i < 10;  ++i) {
-                for each (var handler:Function in onTickHandlers) {
-                    handler(i);
-                }
-            }
-
-            assertThat("12[5]_[4][6][3]7a!!!", equalTo(trail.join('')));
-        }
-
     }
 }
-
 
 
 import dessert_knife.tools.async.Async;
