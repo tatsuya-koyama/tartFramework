@@ -33,8 +33,11 @@ package tart.core_internal {
             if (_isLoading) {
                 throw new Error("[Error :: ResourceMultiLoader] Multiple load error.");
             }
-            _isLoading = true;
+            if (!urls || urls.length == 0) {
+                return knife.deferred().done().promise;
+            }
 
+            _isLoading    = true;
             _urlQueue     = knife.list.clone(urls);
             _deserializer = deserializer;
             _loadNext(_urlQueue);

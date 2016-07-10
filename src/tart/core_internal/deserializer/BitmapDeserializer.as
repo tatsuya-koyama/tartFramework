@@ -43,6 +43,11 @@ package tart.core_internal.deserializer {
             return _defer;
         }
 
+        public function dispose(resource:*):void {
+            var texture:Texture = resource as Texture;
+            texture.dispose();
+        }
+
         private function _onIoError(event:IOErrorEvent):void {
             throw new Error("[Error :: BitmapDeserializer] IO Error: " + event.text);
         }

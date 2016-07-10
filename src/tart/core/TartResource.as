@@ -9,6 +9,7 @@ package tart.core {
     import starling.textures.TextureAtlas;
 
     import tart.core_internal.ResourceMultiLoader;
+    import tart.core_internal.ResourceRepository;
     import tart.core_internal.deserializer.BitmapDeserializer;
 
     import dessert_knife.knife;
@@ -22,32 +23,65 @@ package tart.core {
         private var _loadDeferred:Deferred;
         private var _urlQueue:Array;
         private var _isLoading:Boolean = false;
-
-        private var _textureRepo:Dictionary;
+        private var _resourceRepo:ResourceRepository;
 
         public function TartResource() {
             _resourceMultiLoader = new ResourceMultiLoader();
-            _textureRepo         = new Dictionary();
+            _resourceRepo        = new ResourceRepository();
         }
+
+        //----------------------------------------------------------------------
+        // public
+        //----------------------------------------------------------------------
 
         /**
          * @param urls - Array of URL String.
-         * @param scope - Target scene scope you want to load resource.
          */
-        public function loadAssetsAsync(urls:Array, scope:ISceneScope):void {
+        public function loadAssetsAsync(urls:Array):Promise {
             if (_isLoading) {
                 throw new Error("[Error :: TartResource] Multiple load error.");
             }
             _isLoading = true;
 
-            _resourceMultiLoader.loadAll(urls, this)
+            var urlsNewlyFound:Array = _extractUrlsNewlyFound(urls);
+
+            return _resourceMultiLoader.loadAll(urlsNewlyFound, this)
                 .then(function():void {
                     _isLoading = false;
 
                     TART::LOG_DEBUG {
                         trace("[Debug :: TartResource] Load complete.");
+                        _resourceRepo.debug_dumpRefCounts();
                     }
                 });
+        }
+
+        /**
+         * @param urls - Array of URL String.
+         */
+        public function releaseAssets(urls:Array):void {
+            var urlsNoLongerUsed:Array = _extractUrlsNoLongerUsed(urls);
+
+            for each (var url:String in urlsNoLongerUsed) {
+                TART::LOG_INFO {
+                    trace("[Info :: ResourceLoader] Release asset:", url);
+                }
+                var extension:String    = knife.str.extensionOf(url);
+                var resourceName:String = knife.str.fileNameOf(url);
+
+                // ToDo: プラガブルにする
+                switch (extension) {
+                case "png":
+                    var texture:Texture = _resourceRepo.removeByKey("tex:" + resourceName) as Texture;
+                    var deserializer:BitmapDeserializer = new BitmapDeserializer();
+                    deserializer.dispose(texture);
+                }
+            }
+
+            TART::LOG_DEBUG {
+                trace("[Debug :: TartResource] Release complete.");
+                _resourceRepo.debug_dumpRefCounts();
+            }
         }
 
         //----------------------------------------------------------------------
@@ -64,7 +98,7 @@ package tart.core {
             case "png":
                 var deserializer:BitmapDeserializer = new BitmapDeserializer();
                 deserializer.deserializeAsync(bytes).then(function(texture:Texture):void {
-                    _textureRepo[resourceName] = texture;
+                    _resourceRepo.store(texture, url, "tex:" + resourceName);
                     defer.done();
                 });
                 break;
@@ -81,40 +115,55 @@ package tart.core {
         // getters
         //----------------------------------------------------------------------
 
-        public function getImage(name:String):Image {
-            var texture:Texture = getTexture(name);
-            if (texture) {
-                return new Image(texture);
+        public function getImage(key:String):Image {
+            var texture:Texture = getTexture(key);
+            if (!texture) {
+                TART::LOG_ERROR {
+                    trace("[Error :: TartResource] Image not found:", key);
+                }
+                return null;
             }
+            return new Image(texture);
+        }
 
-            TART::LOG_ERROR {
-                trace("[Error :: TartResource] Image not found: " + name);
-            }
+        public function getTexture(key:String):Texture {
+            return _resourceRepo.getByKey("tex:" + key);
+        }
+
+        public function getTextureAtlas(key:String):TextureAtlas {
             return null;
         }
 
-        public function getTexture(name:String):Texture {
-            return _textureRepo[name];
-        }
-
-        public function getTextureAtlas(name:String):TextureAtlas {
+        public function getSound(key:String):Sound {
             return null;
         }
 
-        public function getSound(name:String):Sound {
+        public function getObject(key:String):Object {
             return null;
         }
 
-        public function getObject(name:String):Object {
+        public function getXml(key:String):XML {
             return null;
         }
 
-        public function getXml(name:String):XML {
+        public function getByteArray(key:String):ByteArray {
             return null;
         }
 
-        public function getByteArray(name:String):ByteArray {
-            return null;
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
+        private function _extractUrlsNewlyFound(urls:Array):Array {
+            return urls.filter(function(url:String, index:int, array:Array):Boolean {
+                return (_resourceRepo.loadUrl(url) == 1);
+            });
+        }
+
+        private function _extractUrlsNoLongerUsed(urls:Array):Array {
+            return urls.filter(function(url:String, index:int, array:Array):Boolean {
+                return (_resourceRepo.releaseUrl(url) == 0);
+            });
         }
 
     }

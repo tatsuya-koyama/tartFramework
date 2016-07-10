@@ -18,7 +18,7 @@ package tart.core_internal {
 
         private var _urlLoader:URLLoader;
         private var _deferred:Deferred;
-        private var _urlQueue:Array;
+        private var _url:String;
         private var _isLoading:Boolean = false;
 
         public function ResourceLoader() {
@@ -44,6 +44,7 @@ package tart.core_internal {
             }
             _isLoading = true;
 
+            _url = url;
             var urlRequest:URLRequest = new URLRequest(url);
             _urlLoader.load(urlRequest);
 
@@ -60,13 +61,13 @@ package tart.core_internal {
         }
 
         private function _onLoadProgress(event:ProgressEvent):void {
-
+            // todo
         }
 
         private function _onLoadComplete(event:Event):void {
             var bytes:ByteArray = _urlLoader.data as ByteArray;
             TART::LOG_INFO {
-                trace("[Info :: ResourceLoader] Load bytes:", bytes.length);
+                trace("[Info :: ResourceLoader] Load bytes:", _url, "-", bytes.length);
             }
             _finalizeLoad().done(bytes);
         }
@@ -74,7 +75,6 @@ package tart.core_internal {
         private function _finalizeLoad():Deferred {
             var deferred:Deferred = _deferred;
             _deferred  = null;
-            _urlQueue  = null;
             _isLoading = false;
             return deferred;
         }

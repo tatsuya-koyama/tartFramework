@@ -256,8 +256,14 @@ package tart.core {
         }
 
         private function _loadScopeResourceAsync(scope:ISceneScope):Defer {
-            trace("ToDo: load resource");
-            return knife.defer().done();
+            var defer:Defer = knife.defer();
+            var urls:Array  = scope.assets();
+            if (!urls) {
+                return defer.done();
+            }
+
+            _tartContext.resource.loadAssetsAsync(urls).then(defer.ender());
+            return defer;
         }
 
         private function _createInitialActors(scope:ISceneScope):void {
@@ -288,7 +294,10 @@ package tart.core {
         }
 
         private function _disposeScopeResource(scope:ISceneScope):void {
-            trace("ToDo: dispose resource");
+            var urls:Array  = scope.assets();
+            if (!urls) { return; }
+
+            _tartContext.resource.releaseAssets(urls);
         }
 
         private function _disposeScopeActors(scope:ISceneScope):void {

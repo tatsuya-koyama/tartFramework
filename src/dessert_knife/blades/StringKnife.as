@@ -1,5 +1,7 @@
 package dessert_knife.blades {
 
+    import flash.utils.Dictionary;
+
     /**
      * Utilities for String.
      */
@@ -52,6 +54,18 @@ package dessert_knife.blades {
         public function extensionOf(filePath:String):String {
             var parts:Array = filePath.split(".");
             return (parts.length >= 2) ? parts.pop() : null;
+        }
+
+        /**
+         * Stringify Dictionary like Object.
+         * This is useful in traditional print debugging.
+         */
+        public function stringifyDictionary(dict:Dictionary, space:int=4):String {
+            var obj:Object = {};
+            for (var key:String in dict) {
+                obj[key] = dict[key];
+            }
+            return JSON.stringify(obj, null, space);
         }
 
     }

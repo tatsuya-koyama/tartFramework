@@ -1,48 +1,49 @@
 package scenes {
 
-    import tart.core.TartChapter;
+    import tart.core.TartScene;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class GlobalChapter extends TartChapter {
+    import actors.*;
 
-        public override function scenes():Array {
-            return [
-                Scene_1,
-                Scene_2
-            ];
-        }
+    public class Scene_2 extends TartScene {
+
+        public function Scene_2() {}
 
         public override function awake():void {
-            trace("GlobalChapter :: awake");
+            trace("Scene_2 :: awake");
         }
 
         public override function initAsync():Defer {
-            trace("GlobalChapter :: initAsync");
+            trace("Scene_2 :: initAsync");
             return null;
         }
 
         public override function init():void {
-            trace("GlobalChapter :: init");
+            trace("Scene_2 :: init");
         }
 
         public override function disposeAsync():Defer {
-            trace("GlobalChapter :: disposeAsync");
+            trace("Scene_2 :: disposeAsync");
             return null;
         }
 
         public override function dispose():void {
-            trace("GlobalChapter :: dispose");
+            trace("Scene_2 :: dispose");
         }
 
         public override function assets():Array {
-            trace("GlobalChapter :: assets");
-            return null;
+            trace("Scene_2 :: assets");
+            return [
+                "lab_assets/piyo.png",
+                "lab_assets/dust.png",
+                "lab_assets/piyo.png",
+            ];
         }
 
         public override function initialActors():Array {
-            trace("GlobalChapter :: initialActors");
+            trace("Scene_2 :: initialActors");
             return null;
         }
 
