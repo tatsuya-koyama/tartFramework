@@ -53,8 +53,10 @@ package tart.core {
         //----------------------------------------------------------------------
 
         /** @private */
-        internal function setup():void {
-            if (!_globalChapter) { return; }
+        internal function setupAsync():Defer {
+            if (!_globalChapter) {
+                return knife.defer().done();
+            }
             _registerChapters(_globalChapter);
             _groupByChapters();
 
@@ -63,6 +65,8 @@ package tart.core {
                 debug_dumpChapterMap();
                 debug_dumpChapterTree();
             }
+
+            return _enterScopeAsync(_globalChapter);
         }
 
         tart_internal function processTransition():void {

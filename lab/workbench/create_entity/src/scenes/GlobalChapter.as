@@ -38,7 +38,9 @@ package scenes {
 
         public override function assets():Array {
             trace("GlobalChapter :: assets");
-            return null;
+            return [
+                "lab_assets/piyo.png"
+            ];
         }
 
         public override function initialActors():Array {

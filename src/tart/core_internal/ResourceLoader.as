@@ -67,7 +67,7 @@ package tart.core_internal {
         private function _onLoadComplete(event:Event):void {
             var bytes:ByteArray = _urlLoader.data as ByteArray;
             TART::LOG_INFO {
-                trace("[Info :: ResourceLoader] Load bytes:", _url, "-", bytes.length);
+                trace("[Info :: ResourceLoader] +++ Load bytes:", _url, "-", bytes.length);
             }
             _finalizeLoad().done(bytes);
         }

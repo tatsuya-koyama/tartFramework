@@ -19,7 +19,7 @@ package tart.core {
 
             return _initGraphicsAsync(tartContext)
                 .then(_initResource)
-                .then(_initDirector)
+                .then(_initDirectorAsync)
                 .then(_initSystem);
         }
 
@@ -39,14 +39,15 @@ package tart.core {
             return tartContext;
         }
 
-        private function _initDirector(tartContext:TartContext):TartContext {
+        private function _initDirectorAsync(tartContext:TartContext):Defer {
             tartContext.director = new TartDirector(
                 tartContext,
                 _bootConfig.firstScene,
                 _bootConfig.globalChapter
             );
-            tartContext.director.setup();
-            return tartContext;
+            return tartContext.director.setupAsync().then(function():TartContext {
+                return tartContext;
+            });
         }
 
         private function _initSystem(tartContext:TartContext):TartContext {
