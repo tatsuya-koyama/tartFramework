@@ -39,7 +39,7 @@ package dessert_knife.blades {
          * <listing>
          *     float()      -> [ 0.0, Number.MAX_VALUE)
          *     float(5)     -> [ 0.0, 5.0)  // 5.0 is not inclusive.
-         *     float(-5)    -> [-5.0, 0.0)
+         *     float(-5)    -> [-5.0, 0.0)  // 0.0 is not inclusive.
          *     float(2, 4)  -> [ 2.0, 4.0)
          *     float(4, 2)  -> [ 2.0, 4.0)  // swapping is OK.
          *     float(-3, 3) -> [-3.0, 3.0)
@@ -63,25 +63,29 @@ package dessert_knife.blades {
          *
          * <p>Example:</p>
          * <listing>
-         *     integer()      -> any of  0, 1, ..., int.MAX_VALUE
-         *     integer(5)     -> any of  0, 1, 2, 3, 4, 5  // 5 is inclusive
-         *     integer(-5)    -> any of  -5, -4, -3, -2, -1, 0
-         *     integer(0, 5)  -> any of  0, 1, 2, 3, 4, 5
-         *     integer(5, 0)  -> any of  0, 1, 2, 3, 4, 5  // swapping is OK.
+         *     integer()      -> any of  0, 1, ..., (int.MAX_VALUE - 1)
+         *     integer(5)     -> any of  0, 1, 2, 3, 4       // 5 is not inclusive.
+         *     integer(-5)    -> any of  -5, -4, -3, -2, -1  // 0 is not inclusive.
+         *     integer(2, 4)  -> any of  2, 3, 4             // Unlike float(), 4 is inclusive.
+         *     integer(4, 2)  -> any of  2, 3, 4             // swapping is OK.
          *     integer(-3, 3) -> any of  -3, -2, -1, 0, 1, 2, 3
          * </listing>
          */
-        public function integer(min:int=int.MAX_VALUE, max:int=NaN):int {
-            if (isNaN(max)) {
-                max = min;
-                min = 0;
+        public function integer(min:Number=int.MAX_VALUE, max:Number=NaN):int {
+            if (!isNaN(max)) {
+                if (max > min) {
+                    max += 1.0;
+                } else {
+                    min += 1.0;
+                }
             }
-            if (max < min) {
-                var tmp:int = max;
-                max = min;
-                min = tmp;
+            if (Math.abs(min) > int.MAX_VALUE ||
+                Math.abs(max) > int.MAX_VALUE)
+            {
+                throw new Error("[Error :: RandomKnife.integer] min or max is too large: "
+                                + min + ", " + max);
             }
-            return Math.floor(this.float(min, max + 1));
+            return Math.floor(this.float(min, max));
         }
 
         /**

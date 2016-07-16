@@ -94,8 +94,8 @@ package tart.core {
             var chapterChildren:Vector.<TartChapter> = chapter.getChapters();
             if (!chapterChildren) { return; }
 
-            for each (var chapter:TartChapter in chapterChildren) {
-                _registerChapters(chapter);
+            for each (var childChapter:TartChapter in chapterChildren) {
+                _registerChapters(childChapter);
             }
         }
 

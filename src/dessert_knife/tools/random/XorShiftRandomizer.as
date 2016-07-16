@@ -2,7 +2,7 @@ package dessert_knife.tools.random {
 
     public class XorShiftRandomizer implements IRandomizer {
 
-        private const MAX:uint = uint.MAX_VALUE / 2;
+        private const MAX:uint = uint(uint.MAX_VALUE / 2);
 
         private var x:uint = 123456789;
         private var y:uint = 362436069;

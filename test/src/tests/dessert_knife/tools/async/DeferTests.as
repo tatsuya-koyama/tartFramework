@@ -12,7 +12,7 @@ package tests.dessert_knife.tools.async {
         private function _virtualAsync():Object {
             return {
                 _task: null,
-                set: function(task:Function):void {
+                setTask: function(task:Function):void {
                     this._task = task;
                 },
                 exec: function():void {
@@ -28,7 +28,7 @@ package tests.dessert_knife.tools.async {
 
             var deferredTask:Function = function():Defer {
                 var defer:Defer = new Defer();
-                async.set(function():void {
+                async.setTask(function():void {
                     defer.done('3');
                 });
                 return defer;
@@ -52,7 +52,7 @@ package tests.dessert_knife.tools.async {
 
             var deferredTask:Function = function():Defer {
                 var defer:Defer = new Defer();
-                async.set(function():void {
+                async.setTask(function():void {
                     defer.done('3');
                 });
                 return defer;
@@ -80,7 +80,7 @@ package tests.dessert_knife.tools.async {
 
             var deferredTask:Function = function():Defer {
                 var defer:Defer = new Defer();
-                async.set(function():void {
+                async.setTask(function():void {
                     defer.done(10);
                 });
                 return defer;
@@ -123,7 +123,7 @@ package tests.dessert_knife.tools.async {
             var asyncA:Object = _virtualAsync();
             var appendA:Function = function(input:String):Defer {
                 var defer:Defer = new Defer();
-                asyncA.set(function():void {
+                asyncA.setTask(function():void {
                     defer.done(input + 'A');
                 });
                 return defer;
@@ -133,7 +133,7 @@ package tests.dessert_knife.tools.async {
             var asyncB:Object = _virtualAsync();
             var appendB:Function = function(input:String):Defer {
                 var defer:Defer = new Defer();
-                asyncB.set(function():void {
+                asyncB.setTask(function():void {
                     defer.done(input + 'B');
                 });
                 return defer;

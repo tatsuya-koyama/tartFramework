@@ -24,10 +24,10 @@ package tests.dessert_knife.blades {
             assertThat(rand.integer(), equalTo(0));
 
             randomizer.nextValue = LIMIT_1;
-            assertThat(rand.integer(), equalTo(int.MAX_VALUE));
+            assertThat(rand.integer(), equalTo(int.MAX_VALUE - 1));
 
             randomizer.nextValue = 0.5;
-            assertThat(rand.integer(), equalTo(Math.round(int.MAX_VALUE / 2)));
+            assertThat(rand.integer(), equalTo(Math.round((int.MAX_VALUE - 1) / 2)));
         }
 
         [Test]
@@ -35,7 +35,7 @@ package tests.dessert_knife.blades {
             var randomizer:DebugRandomizer = new DebugRandomizer();
             var rand:RandomKnife = knife.rand.seeded(0, randomizer);
 
-            //----- [0, 100]
+            //----- [0, 99]
             randomizer.nextValue = 0.0;
             assertThat(rand.integer(100), equalTo(0));
 
@@ -46,9 +46,9 @@ package tests.dessert_knife.blades {
             assertThat(rand.integer(100), equalTo(63));
 
             randomizer.nextValue = LIMIT_1;
-            assertThat(rand.integer(100), equalTo(100));
+            assertThat(rand.integer(100), equalTo(99));
 
-            //----- [-100, 0]
+            //----- [-100, -0]
             randomizer.nextValue = 0.0;
             assertThat(rand.integer(-100), equalTo(-100));
 
@@ -56,7 +56,7 @@ package tests.dessert_knife.blades {
             assertThat(rand.integer(-100), equalTo(-55));
 
             randomizer.nextValue = LIMIT_1;
-            assertThat(rand.integer(-100), equalTo(0));
+            assertThat(rand.integer(-100), equalTo(-1));
         }
 
         [Test]
