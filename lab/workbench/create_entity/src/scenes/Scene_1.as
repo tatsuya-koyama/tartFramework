@@ -50,8 +50,8 @@ package scenes {
                 "lab_assets/dust.png",
                 "lab_assets/piyo.png",
                 "lab_assets/dust.png",
-                "lab_assets/piyo.png",
-                "lab_assets/dust.png"
+                "lab_assets/atlas_world.png",
+                "lab_assets/atlas_world.xml"
             ];
         }
 

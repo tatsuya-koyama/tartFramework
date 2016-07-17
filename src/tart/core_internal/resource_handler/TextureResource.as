@@ -19,9 +19,7 @@ package tart.core_internal.resource_handler {
 
     public class TextureResource implements IResourceHandler {
 
-        private var _loaderInfo:LoaderInfo;
         private var _textureOptions:TextureOptions;
-        private var _defer:Defer;
 
         public function TextureResource(scaleFactor:Number=1, useMipmaps:Boolean=false) {
             _textureOptions = new TextureOptions(scaleFactor, useMipmaps);
@@ -47,18 +45,18 @@ package tart.core_internal.resource_handler {
          * Converts byte array to bitmap data and pass it to deferred object.
          */
         public function deserializeAsync(bytes:ByteArray):Defer {
+            var defer:Defer   = knife.defer();
             var loader:Loader = new Loader();
-            _loaderInfo = loader.contentLoaderInfo;
-            _loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, _onIoError);
-            _loaderInfo.addEventListener(Event.COMPLETE, _onLoadComplete);
+            var loaderInfo:LoaderInfo = loader.contentLoaderInfo;
+            loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, _onIoError);
+            loaderInfo.addEventListener(Event.COMPLETE, _onLoadHandler(loaderInfo, defer));
 
             var checkPolicyFile:Boolean = false;
-            var loaderContext:LoaderContext = new LoaderContext(checkPolicyFile)
+            var loaderContext:LoaderContext = new LoaderContext(checkPolicyFile);
             loaderContext.imageDecodingPolicy = ImageDecodingPolicy.ON_LOAD;
             loader.loadBytes(bytes, loaderContext);
 
-            _defer = knife.defer();
-            return _defer;
+            return defer;
         }
 
         public function dispose(resource:*):void {
@@ -74,13 +72,19 @@ package tart.core_internal.resource_handler {
             throw new Error("[Error :: TextureResource] IO Error: " + event.text);
         }
 
-        private function _onLoadComplete(event:Event):void {
-            _loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, _onIoError);
-            _loaderInfo.removeEventListener(Event.COMPLETE, _onLoadComplete);
+        /**
+         * Create function to handle Loader's load-complete event.
+         */
+        private function _onLoadHandler(loaderInfo:LoaderInfo, defer:Defer):Function {
+            var loadHandler:Function = function(event:Event):void {
+                loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, _onIoError);
+                loaderInfo.removeEventListener(Event.COMPLETE, loadHandler);
 
-            var bitmap:Bitmap   = event.target.content;
-            var texture:Texture = _bitmapToTexture(bitmap);
-            _defer.done(texture);
+                var bitmap:Bitmap   = event.target.content;
+                var texture:Texture = _bitmapToTexture(bitmap);
+                defer.done(texture);
+            };
+            return loadHandler;
         }
 
         /**

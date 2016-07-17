@@ -11,6 +11,7 @@ package tart.core {
     import tart.core_internal.ResourceMultiLoader;
     import tart.core_internal.ResourceRepository;
     import tart.core_internal.resource_handler.TextureResource;
+    import tart.core_internal.resource_handler.XmlResource;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
@@ -29,7 +30,8 @@ package tart.core {
         public function TartResource() {
             // Todo : enable to customize by boot config
             _handlers = new <IResourceHandler>[
-                new TextureResource()
+                new TextureResource(),
+                new XmlResource()
             ];
 
             _resourceMultiLoader = new ResourceMultiLoader();
@@ -135,7 +137,7 @@ package tart.core {
         }
 
         public function getXml(key:String):XML {
-            return null;
+            return _resourceRepo.getByKey("xml:" + key);
         }
 
         public function getByteArray(key:String):ByteArray {

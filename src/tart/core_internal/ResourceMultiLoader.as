@@ -62,6 +62,9 @@ package tart.core_internal {
             }
         }
 
+        /**
+         * Create function to handle ResourceLoader's load callback.
+         */
         private function _onLoadHandler(loader:ResourceLoader,
                                         url:String, urlQueue:Array):Function
         {
