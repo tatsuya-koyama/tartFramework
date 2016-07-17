@@ -10,7 +10,7 @@ package tart.core {
 
     import tart.core_internal.ResourceMultiLoader;
     import tart.core_internal.ResourceRepository;
-    import tart.core_internal.deserializer.BitmapDeserializer;
+    import tart.core_internal.resource_handler.TextureResource;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
@@ -19,6 +19,7 @@ package tart.core {
 
     public class TartResource implements IResourceDeserializer {
 
+        private var _handlers:Vector.<IResourceHandler>;
         private var _resourceMultiLoader:ResourceMultiLoader;
         private var _loadDeferred:Deferred;
         private var _urlQueue:Array;
@@ -26,6 +27,11 @@ package tart.core {
         private var _resourceRepo:ResourceRepository;
 
         public function TartResource() {
+            // Todo : enable to customize by boot config
+            _handlers = new <IResourceHandler>[
+                new TextureResource()
+            ];
+
             _resourceMultiLoader = new ResourceMultiLoader();
             _resourceRepo        = new ResourceRepository();
         }
@@ -69,13 +75,9 @@ package tart.core {
                 var extension:String    = knife.str.extensionOf(url);
                 var resourceName:String = knife.str.fileNameOf(url);
 
-                // ToDo: プラガブルにする
-                switch (extension) {
-                case "png":
-                    var texture:Texture = _resourceRepo.removeByKey("tex:" + resourceName) as Texture;
-                    var deserializer:BitmapDeserializer = new BitmapDeserializer();
-                    deserializer.dispose(texture);
-                }
+                var handler:IResourceHandler = _findHandler(extension);
+                var resource:* = _resourceRepo.removeByKey(handler.keyPrefix + resourceName);
+                handler.dispose(resource);
             }
 
             TART::LOG_DEBUG {
@@ -93,21 +95,11 @@ package tart.core {
             var resourceName:String = knife.str.fileNameOf(url);
             var defer:Defer = knife.defer();
 
-            // ToDo: デシリアライザのタイプを簡単に足せるようプラガブルにする
-            switch (extension) {
-            case "png":
-                var deserializer:BitmapDeserializer = new BitmapDeserializer();
-                deserializer.deserializeAsync(bytes).then(function(texture:Texture):void {
-                    _resourceRepo.store(texture, url, "tex:" + resourceName);
-                    defer.done();
-                });
-                break;
-
-            default:
+            var handler:IResourceHandler = _findHandler(extension);
+            handler.deserializeAsync(bytes).then(function(resource:*):void {
+                _resourceRepo.store(resource, url, handler.keyPrefix + resourceName);
                 defer.done();
-                break;
-            }
-
+            });
             return defer;
         }
 
@@ -153,6 +145,16 @@ package tart.core {
         //----------------------------------------------------------------------
         // private
         //----------------------------------------------------------------------
+
+        private function _findHandler(extension:String):IResourceHandler {
+            for each (var handler:IResourceHandler in _handlers) {
+                if (handler.canHandle(extension)) {
+                    return handler;
+                }
+            }
+            throw new Error("[Error :: TartResource] Cannot handle aseet type: " + extension);
+            return null;
+        }
 
         private function _extractUrlsNewlyFound(urls:Array):Array {
             return urls.filter(function(url:String, index:int, array:Array):Boolean {

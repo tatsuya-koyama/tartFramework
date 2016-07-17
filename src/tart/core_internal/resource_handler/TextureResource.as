@@ -1,4 +1,4 @@
-package tart.core_internal.deserializer {
+package tart.core_internal.resource_handler {
 
     import flash.display.Bitmap;
     import flash.display.Loader;
@@ -12,17 +12,35 @@ package tart.core_internal.deserializer {
     import starling.textures.Texture;
     import starling.textures.TextureOptions;
 
+    import tart.core.IResourceHandler;
+
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class BitmapDeserializer {
+    public class TextureResource implements IResourceHandler {
 
         private var _loaderInfo:LoaderInfo;
         private var _textureOptions:TextureOptions;
         private var _defer:Defer;
 
-        public function BitmapDeserializer(scaleFactor:Number=1, useMipmaps:Boolean=false) {
+        public function TextureResource(scaleFactor:Number=1, useMipmaps:Boolean=false) {
             _textureOptions = new TextureOptions(scaleFactor, useMipmaps);
+        }
+
+        //----------------------------------------------------------------------
+        // implements IResourceHandler
+        //----------------------------------------------------------------------
+
+        public function get keyPrefix():String {
+            return "tex:";
+        }
+
+        public function get resourceType():Class {
+            return Texture;
+        }
+
+        public function canHandle(extension:String):Boolean {
+            return (extension == "png");
         }
 
         /**
@@ -48,8 +66,12 @@ package tart.core_internal.deserializer {
             texture.dispose();
         }
 
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
         private function _onIoError(event:IOErrorEvent):void {
-            throw new Error("[Error :: BitmapDeserializer] IO Error: " + event.text);
+            throw new Error("[Error :: TextureResource] IO Error: " + event.text);
         }
 
         private function _onLoadComplete(event:Event):void {
