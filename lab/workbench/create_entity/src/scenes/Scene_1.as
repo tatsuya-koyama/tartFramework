@@ -51,7 +51,9 @@ package scenes {
                 "lab_assets/piyo.png",
                 "lab_assets/dust.png",
                 "lab_assets/atlas_world.png",
-                "lab_assets/atlas_world.xml"
+                "lab_assets/atlas_world.xml",
+                "lab_assets/sub_dir/atlas_game.png",
+                "lab_assets/sub_dir/atlas_game.xml"
             ];
         }
 

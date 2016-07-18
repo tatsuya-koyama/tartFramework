@@ -9,12 +9,14 @@ package tart.core_internal.resource_handler {
 
     public class XmlResource implements IResourceHandler {
 
+        public static const KEY_PREFIX:String = "xml:";
+
         //----------------------------------------------------------------------
         // implements IResourceHandler
         //----------------------------------------------------------------------
 
         public function get keyPrefix():String {
-            return "xml:";
+            return KEY_PREFIX;
         }
 
         public function get resourceType():Class {

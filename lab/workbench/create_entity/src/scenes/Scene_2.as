@@ -39,12 +39,16 @@ package scenes {
                 "lab_assets/piyo.png",
                 "lab_assets/dust.png",
                 "lab_assets/piyo.png",
+                "lab_assets/sub_dir/atlas_game.png",
+                "lab_assets/sub_dir/atlas_game.xml"
             ];
         }
 
         public override function initialActors():Array {
             trace("Scene_2 :: initialActors");
-            return null;
+            return [
+                new TestActor(400, 150)
+            ];
         }
 
     }

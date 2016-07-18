@@ -1,6 +1,7 @@
 package tart.core_internal {
 
     import flash.utils.Dictionary;
+    import flash.utils.getQualifiedClassName;
 
     import dessert_knife.knife;
 
@@ -50,6 +51,9 @@ package tart.core_internal {
                 if (_urlToResource[url]) {
                     trace("[Warn :: ResourceRepository] Resource already stored :", url, "-", resource);
                 }
+                if (_keyToUrl[key]) {
+                    trace("[Warn :: ResourceRepository] Key is always in use :", key);
+                }
             }
 
             _urlToResource[url] = resource;
@@ -71,11 +75,13 @@ package tart.core_internal {
             return removedResource;
         }
 
-        public function getByKey(key:String):* {
+        public function getByKey(key:String, allowNotFound:Boolean=false):* {
             var url:String = _keyToUrl[key];
             if (!url) {
                 TART::LOG_ERROR {
-                    trace("[Error :: ResourceRepository] Key not found :", key);
+                    if (!allowNotFound) {
+                        trace("[Error :: ResourceRepository] Key not found :", key);
+                    }
                 }
                 return null;
             }
@@ -89,6 +95,20 @@ package tart.core_internal {
         public function debug_dumpRefCounts():void {
             trace("[Debug :: ResourceRepository] ***** {URL : Reference Count} map *****");
             trace(knife.str.stringifyDictionary(_urlToRefCounts));
+        }
+
+        public function debug_dumpKeys():void {
+            trace("[Debug :: ResourceRepository] ***** {key : URL} map *****");
+            trace(knife.str.stringifyDictionary(_keyToUrl));
+        }
+
+        public function debug_dumpResources():void {
+            trace("[Debug :: ResourceRepository] ***** {URL : Resource instance} map *****");
+            var obj:Object = {};
+            for (var url:String in _urlToResource) {
+                obj[url] = getQualifiedClassName(_urlToResource[url]);
+            }
+            trace(JSON.stringify(obj, null, 4));
         }
 
     }

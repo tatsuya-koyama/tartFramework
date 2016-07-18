@@ -19,6 +19,8 @@ package tart.core_internal.resource_handler {
 
     public class TextureResource implements IResourceHandler {
 
+        public static const KEY_PREFIX:String = "tex:";
+
         private var _textureOptions:TextureOptions;
 
         public function TextureResource(scaleFactor:Number=1, useMipmaps:Boolean=false) {
@@ -30,7 +32,7 @@ package tart.core_internal.resource_handler {
         //----------------------------------------------------------------------
 
         public function get keyPrefix():String {
-            return "tex:";
+            return KEY_PREFIX;
         }
 
         public function get resourceType():Class {
