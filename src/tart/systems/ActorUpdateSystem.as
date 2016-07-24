@@ -20,6 +20,7 @@ package tart.systems {
 
         private function _awakenActors(actors:Array):void {
             for each (var actor:TartActor in actors) {
+                if (!actor.isAlive) { continue; }
                 if (actor.awakened) { continue; }
                 actor.internalAwake();
                 actor.awake();
@@ -29,6 +30,7 @@ package tart.systems {
 
         private function _updateActors(actors:Array, deltaTime:Number):void {
             for each (var actor:TartActor in actors) {
+                if (!actor.isAlive) { continue; }
                 actor.update(deltaTime);
             }
         }

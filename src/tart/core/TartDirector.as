@@ -305,7 +305,7 @@ package tart.core {
         }
 
         private function _disposeScopeActors(scope:ISceneScope):void {
-            trace("ToDo: dispose scope actors");
+            _tartContext.engine.disposeScopeEntities(scope);
         }
 
         //----------------------------------------------------------------------

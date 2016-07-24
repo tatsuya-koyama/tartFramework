@@ -11,6 +11,7 @@ COMMON_BUILD_OPTS=\
 
 # @private
 assets_dir:
+	mkdir -p ./build
 	ln -sf ../../../lab_assets ./build/
 
 # @private

@@ -11,10 +11,12 @@ package tart.core {
     public class TartEngine {
 
         private var _tartContext:TartContext;
-        private var _componentMap:Dictionary;
+        private var _componentMap:Dictionary;     // {Class.<Component> : Vector.<Component>}
+        private var _entities:Vector.<Entity>;
 
         public function TartEngine() {
             _componentMap = new Dictionary();
+            _entities     = new Vector.<Entity>();
         }
 
         //----------------------------------------------------------------------
@@ -36,7 +38,6 @@ package tart.core {
         }
 
         public function createActor(actor:TartActor, scope:ISceneScope):void {
-            // ToDo: scope の管理
             var entity:Entity = new Entity;
             entity.attach(actor);
 
@@ -48,14 +49,36 @@ package tart.core {
                     entity.attach(component);
                 }
             }
-            addEntity(entity);
+            addEntity(entity, scope);
         }
 
-        public function addEntity(entity:Entity):void {
+        public function addEntity(entity:Entity, scope:ISceneScope):void {
+            // Gathers same components
             var components:Vector.<Component> = entity.componentList;
             for each (var component:Component in components) {
                 _addComponent(component);
             }
+
+            // Remembers entity and its scope
+            entity.scope   = scope;
+            entity.isAlive = true;
+            _entities.push(entity);
+        }
+
+        public function disposeScopeEntities(scope:ISceneScope):void {
+            for (var i:int = 0; i < _entities.length; ++i) {
+                var entity:Entity = _entities[i];
+                if (!entity.isAlive) { continue; }
+                if (entity.scope != scope) { continue; }
+
+                entity.recycle();
+                _entities.removeAt(i);
+                --i;
+            }
+        }
+
+        public function removeEntity(entity:Entity):void {
+            // todo
         }
 
         //----------------------------------------------------------------------
@@ -78,6 +101,8 @@ package tart.core {
                 _componentMap[klass] = [];
             }
             _componentMap[klass].push(component);
+
+            component.isAlive = true;
         }
 
         //----------------------------------------------------------------------

@@ -22,6 +22,7 @@ package tart.systems {
         private function _applyTransformToView2D():void {
             var actors:Array = _getComponents(TartActor);
             for each (var actor:TartActor in actors) {
+                if (!actor.isAlive) { continue; }
                 if (!actor.view2D || !actor.transform) { continue; }
 
                 // ToDo: Dirty なものだけ処理する

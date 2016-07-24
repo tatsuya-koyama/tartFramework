@@ -2,9 +2,19 @@ package tart.core {
 
     public class Component {
 
+        public var isAlive:Boolean;
+
         private var _entity:Entity;  // Entity that this Component is attached
 
-        public function Component() {}
+        public function Component() {
+            isAlive = false;
+            _entity = null;
+        }
+
+        public function recycle():void {
+            isAlive = false;
+            _entity = null;
+        }
 
         public function set entity(entity:Entity):void {
             _entity = entity;

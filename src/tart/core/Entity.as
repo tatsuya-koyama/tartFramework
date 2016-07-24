@@ -4,12 +4,33 @@ package tart.core {
 
     public class Entity {
 
-        private var _componentMap:Dictionary;
+        public var scope:ISceneScope;
+        public var isAlive:Boolean;
+
+        private var _componentMap:Dictionary;  // {Class.<Component> : Component}
         private var _componentList:Vector.<Component>;
 
         public function Entity() {
+            scope   = null;
+            isAlive = false;
+
             _componentMap  = new Dictionary();
             _componentList = new Vector.<Component>();
+        }
+
+        public function recycle():void {
+            scope   = null;
+            isAlive = false;
+
+            for each (var component:Component in _componentList) {
+                component.recycle();
+                component.reset();
+            }
+            _componentList.length = 0;
+
+            for (var klass:Class in _componentMap) {
+                delete _componentMap[klass];
+            }
         }
 
         public function get componentList():Vector.<Component> {
