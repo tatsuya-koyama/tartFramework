@@ -10,6 +10,7 @@ package tart.core {
      */
     public class TartChapter implements ISceneScope {
 
+        private var _tartContext:TartContext;
         private var _chapters:Vector.<TartChapter>;
 
         public function TartChapter() {
@@ -47,6 +48,14 @@ package tart.core {
         //----------------------------------------------------------------------
         // implements ISceneScope
         //----------------------------------------------------------------------
+
+        public function get tart():TartContext {
+            return _tartContext;
+        }
+
+        public function set tart(tartContext:TartContext):void {
+            _tartContext = tartContext;
+        }
 
         public function getChildren():Vector.<ISceneScope> {
             return Vector.<ISceneScope>(_chapters);

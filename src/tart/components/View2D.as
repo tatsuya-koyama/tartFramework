@@ -13,7 +13,10 @@ package tart.components {
         }
 
         public override function reset():void {
-
+            if (displayObj) {
+                displayObj.removeFromParent(true);
+                displayObj = null;
+            }
         }
 
     }

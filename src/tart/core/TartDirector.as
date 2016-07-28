@@ -252,6 +252,7 @@ package tart.core {
                       getQualifiedClassName(scope));
             }
 
+            scope.tart = _tartContext;
             scope.awake();
             return _loadScopeResourceAsync(scope)
                 .then(scope.initAsync)

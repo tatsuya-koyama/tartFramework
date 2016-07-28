@@ -51,7 +51,7 @@ package tart.core_internal.resource_plugin {
 
                 _textureKeyToAtlasKey[TextureResource.KEY_PREFIX + atlasName] = resourceKey;
                 TART::LOG_INFO {
-                    trace("[Info :: TextureAtlasPlugin] +++ Create Texture Atlas:", atlasName);
+                    trace("[Info :: TextureAtlasPlugin] (+) Create Texture Atlas:", atlasName);
                 }
             }
         }
@@ -69,7 +69,7 @@ package tart.core_internal.resource_plugin {
 
                 delete _textureKeyToAtlasKey[key];
                 TART::LOG_INFO {
-                    trace("[Info :: TextureAtlasPlugin] --- Dispose Texture Atlas:", atlasKey);
+                    trace("[Info :: TextureAtlasPlugin] (-) Dispose Texture Atlas:", atlasKey);
                 }
             }
         }

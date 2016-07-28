@@ -5,11 +5,21 @@ package tart.core {
 
     public class TartScene implements ISceneScope {
 
+        private var _tartContext:TartContext;
+
         public function TartScene() {}
 
         //----------------------------------------------------------------------
         // implements ISceneScope
         //----------------------------------------------------------------------
+
+        public function get tart():TartContext {
+            return _tartContext;
+        }
+
+        public function set tart(tartContext:TartContext):void {
+            _tartContext = tartContext;
+        }
 
         public function getChildren():Vector.<ISceneScope> {
             return null;

@@ -9,7 +9,6 @@ package scenes {
 
     // testing
     import flash.utils.setTimeout;
-    import DebugContext;
 
     public class Scene_1 extends TartScene {
 
@@ -30,7 +29,7 @@ package scenes {
             // testing
             setTimeout(function():void {
                 trace("\n\n");
-                DebugContext.tartContext.director.navigateTo(new Scene_2());
+                tart.director.navigateTo(new Scene_2());
             }, 1000);
         }
 

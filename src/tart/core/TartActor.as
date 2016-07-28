@@ -2,10 +2,10 @@ package tart.core {
 
     import tart.components.Transform;
     import tart.components.View2D;
-    import tart.core.tart_internal;
 
     public class TartActor extends Component {
 
+        public var tart:TartContext;
         public var awakened:Boolean = false;
 
         protected var _transform:Transform;

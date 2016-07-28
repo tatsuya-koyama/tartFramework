@@ -38,6 +38,8 @@ package tart.core {
         }
 
         public function createActor(actor:TartActor, scope:ISceneScope):void {
+            actor.tart = _tartContext;
+
             var entity:Entity = new Entity;
             entity.attach(actor);
 

@@ -84,7 +84,7 @@ package tart.core {
 
             for each (var url:String in urlsNoLongerUsed) {
                 TART::LOG_INFO {
-                    trace("[Info :: TartResource] --- Release asset:", url);
+                    trace("[Info :: TartResource] (-) Release asset:", url);
                 }
                 var extension:String    = knife.str.extensionOf(url);
                 var resourceName:String = knife.str.fileNameOf(url);

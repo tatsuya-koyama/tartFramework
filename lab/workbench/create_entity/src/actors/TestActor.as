@@ -26,15 +26,15 @@ package actors {
         }
 
         public override function awake():void {
-            var image:Image = DebugContext.tartContext.resource.getImage("piyo");
+            var image:Image = tart.resource.getImage("piyo");
             _view2D.displayObj = image;
 
-            var rootSprite:Sprite = DebugContext.tartContext.graphics.starlingFore.root as Sprite;
+            var rootSprite:Sprite = tart.graphics.starlingFore.root as Sprite;
             rootSprite.addChild(_view2D.displayObj);
         }
 
         public override function update(deltaTime:Number):void {
-
+            _transform.position.x += 1.0;
         }
 
     }

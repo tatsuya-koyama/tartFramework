@@ -59,7 +59,7 @@ package dessert_knife.blades {
         }
 
         /**
-         * Returns integer random number in the range [min, max].
+         * Returns integer random number in the range [min, max) or [min, max].
          *
          * <p>Example:</p>
          * <listing>
