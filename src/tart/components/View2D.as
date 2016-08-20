@@ -1,9 +1,13 @@
 package tart.components {
 
     import starling.display.DisplayObject;
+    import starling.display.Image;
 
     import tart.core.Component;
 
+    /**
+     * 2D view component powered by Starling.
+     */
     public class View2D extends Component {
 
         public var displayObj:DisplayObject;
@@ -17,6 +21,15 @@ package tart.components {
                 displayObj.removeFromParent(true);
                 displayObj = null;
             }
+        }
+
+        //----------------------------------------------------------------------
+        // helper methods
+        //----------------------------------------------------------------------
+
+        public function addImage():Image {
+            // ToDo
+            return null;
         }
 
     }

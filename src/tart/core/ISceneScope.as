@@ -22,7 +22,11 @@ package tart.core {
 
         function dispose():void;
 
+        /** @return String[] - Paths of resource files used in this scope. */
         function assets():Array;
+
+        /** @return ILayer2D[] - Instances of ILayer2D used in this scope. */
+        function layers():Array;
 
         function initialActors():Array;
 

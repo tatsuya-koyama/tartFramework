@@ -178,6 +178,10 @@ package dessert_knife.tools.async {
         }
 
         private function _handleException(ex:Error):void {
+            TART::LOG_ERROR {
+                trace("[Error :: Promise]", ex);
+            }
+
             if (_throwException) { throw ex; }
             _reject(ex);
         }

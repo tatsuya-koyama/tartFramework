@@ -2,6 +2,7 @@ package tart.core {
 
     public class Component {
 
+        public var tart:TartContext;
         public var isAlive:Boolean;
 
         private var _entity:Entity;  // Entity that this Component is attached
@@ -28,6 +29,10 @@ package tart.core {
             // implement in subclasses
             return null;
         }
+
+        //----------------------------------------------------------------------
+        // Handlers for user code (please override in subclasses.)
+        //----------------------------------------------------------------------
 
         public function reset():void {}
 

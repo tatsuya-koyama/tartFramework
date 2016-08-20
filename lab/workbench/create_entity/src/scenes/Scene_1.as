@@ -1,5 +1,6 @@
 package scenes {
 
+    import tart.actors.Layer2D;
     import tart.core.TartScene;
 
     import dessert_knife.knife;
@@ -53,6 +54,19 @@ package scenes {
                 "lab_assets/atlas_world.xml",
                 "lab_assets/sub_dir/atlas_game.png",
                 "lab_assets/sub_dir/atlas_game.xml"
+            ];
+        }
+
+        public override function layers():Array {
+            trace("Scene_1 :: layers");
+            return [
+                 new Layer2D("f-fore",   0, Layer2D.STARLING_FORE)
+                ,new Layer2D("f-middle", 1, Layer2D.STARLING_FORE)
+                ,new Layer2D("f-back",   2, Layer2D.STARLING_FORE)
+
+                ,new Layer2D("b-fore",   0, Layer2D.STARLING_BACK)
+                ,new Layer2D("b-middle", 1, Layer2D.STARLING_BACK)
+                ,new Layer2D("b-back",   2, Layer2D.STARLING_BACK)
             ];
         }
 

@@ -2,6 +2,7 @@ package tart.core_internal {
 
     import flash.utils.getQualifiedClassName;
 
+    import tart.core.ILayer;
     import tart.core.ISceneScope;
     import tart.core.TartActor;
     import tart.core.TartContext;
@@ -32,7 +33,8 @@ package tart.core_internal {
             scope.awake();
             return _loadScopeResourceAsync(scope)
                 .then(scope.initAsync)
-                .then(function():void { scope.init(); })
+                .then(scope.init)
+                .then(function():void { _createLayers(scope); })
                 .then(function():void { _createInitialActors(scope); });
         }
 
@@ -45,6 +47,22 @@ package tart.core_internal {
 
             _tartContext.resource.loadAssetsAsync(urls).then(defer.ender());
             return defer;
+        }
+
+        private function _createLayers(scope:ISceneScope):void {
+            var layers:Array = scope.layers();
+            if (layers) {
+                var engine:TartEngine = _tartContext.engine;
+                for each (var layer:ILayer in layers) {
+                    layer.scope = scope;
+                    engine.createActor(layer.layerActor, scope);
+                    _tartContext.layers.addLayer(layer);
+                }
+            }
+
+            TART::LOG_DEBUG {
+                _tartContext.layers.debug_dumpLayers();
+            }
         }
 
         private function _createInitialActors(scope:ISceneScope):void {
@@ -72,7 +90,8 @@ package tart.core_internal {
                 .then(scope.disposeAsync)
                 .then(function():void { scope.dispose(); })
                 .then(function():void { _disposeScopeResource(scope); })
-                .then(function():void { _disposeScopeActors(scope); });
+                .then(function():void { _disposeScopeActors(scope); })
+                .then(function():void { _disposeScopeLayers(scope); });
         }
 
         private function _disposeScopeResource(scope:ISceneScope):void {
@@ -86,6 +105,9 @@ package tart.core_internal {
             _tartContext.engine.disposeScopeEntities(scope);
         }
 
-    }
+        private function _disposeScopeLayers(scope:ISceneScope):void {
+            _tartContext.layers.removeScopeLayers(scope);
+        }
 
+    }
 }

@@ -48,6 +48,7 @@ package tart.core {
                 for each (var componentClass:Class in recipe) {
                     // ToDo: pooling
                     var component:Component = new componentClass() as Component;
+                    component.tart = _tartContext;
                     entity.attach(component);
                 }
             }
@@ -76,6 +77,7 @@ package tart.core {
                 entity.recycle();
                 _entities.removeAt(i);
                 --i;
+                // ToDo: pooling
             }
         }
 

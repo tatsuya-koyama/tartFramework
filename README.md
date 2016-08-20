@@ -21,9 +21,9 @@ Game Framework for ActionScript3.0 with Stage3D.
 - Beautifying
     - 👍 `:+1:` Small improvement
     - 🎨 `:art:` Refactoring: improve format/structure of the code
-    - 👕 `:shirt:` Follow cording standard
+    - 👔 `:necktie:` Follow cording standard
     - 🔥 `:fire:` Remove unused code or files
-- Fixing
+- Fixing / Testing
     - 🐛 `:bug:` Bug fix
     - ✅ `:white_check_mark:` Add test
     - 💚 `:green_heart:` Fix test / build stability

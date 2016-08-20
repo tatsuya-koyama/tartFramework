@@ -49,6 +49,10 @@ package tart.core {
             return null;
         }
 
+        public function layers():Array {
+            return null;
+        }
+
         public function initialActors():Array {
             return null;
         }

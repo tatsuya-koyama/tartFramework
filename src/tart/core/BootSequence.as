@@ -13,15 +13,24 @@ package tart.core {
             _bootConfig = bootConfig;
         }
 
+        //----------------------------------------------------------------------
+        // public
+        //----------------------------------------------------------------------
+
         public function runAsync(engine:TartEngine):Defer {
             var tartContext:TartContext = new TartContext();
             tartContext.engine = engine;
 
             return _initGraphicsAsync(tartContext)
                 .then(_initResource)
-                .then(_initDirectorAsync)
-                .then(_initSystem);
+                .then(_initSystem)
+                .then(_initLayerRegistry)
+                .then(_initDirectorAsync);
         }
+
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
 
         private function _initGraphicsAsync(tartContext:TartContext):Defer {
             var defer:Defer = knife.defer();
@@ -39,6 +48,21 @@ package tart.core {
             return tartContext;
         }
 
+        private function _initSystem(tartContext:TartContext):TartContext {
+            tartContext.system = new TartSystem(tartContext);
+            tartContext.system.init(_bootConfig.systemBootConfig);
+            return tartContext;
+        }
+
+        private function _initLayerRegistry(tartContext:TartContext):TartContext {
+            tartContext.layers = new TartLayerRegistry();
+            return tartContext;
+        }
+
+        /**
+         * Initialize TartDirector and then enter the scope which is entry point of the game.
+         * This should be called after initialization of TartResource and TartLayerRegistry.
+         */
         private function _initDirectorAsync(tartContext:TartContext):Defer {
             tartContext.director = new TartDirector(
                 tartContext,
@@ -48,12 +72,6 @@ package tart.core {
             return tartContext.director.setupAsync().then(function():TartContext {
                 return tartContext;
             });
-        }
-
-        private function _initSystem(tartContext:TartContext):TartContext {
-            tartContext.system = new TartSystem(tartContext);
-            tartContext.system.init(_bootConfig.systemBootConfig);
-            return tartContext;
         }
 
     }

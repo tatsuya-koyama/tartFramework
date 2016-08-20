@@ -44,6 +44,11 @@ package scenes {
             ];
         }
 
+        public override function layers():Array {
+            trace("Scene_2 :: layers");
+            return null;
+        }
+
         public override function initialActors():Array {
             trace("Scene_2 :: initialActors");
             return [

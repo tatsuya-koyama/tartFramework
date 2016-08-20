@@ -5,7 +5,6 @@ package tart.core {
 
     public class TartActor extends Component {
 
-        public var tart:TartContext;
         public var awakened:Boolean = false;
 
         protected var _transform:Transform;
@@ -16,16 +15,10 @@ package tart.core {
 
         private var _afterAwakeTask:Function;
 
-        public function TartActor() {
-
-        }
+        public function TartActor() {}
 
         public override function getClass():Class {
             return TartActor;
-        }
-
-        public function recipe():Array {
-            return null;
         }
 
         protected function afterAwake(task:Function):void {
@@ -41,13 +34,17 @@ package tart.core {
             }
         }
 
-        public function awake():void {
+        //----------------------------------------------------------------------
+        // Handlers for user code (please override in subclasses.)
+        //----------------------------------------------------------------------
 
+        public function recipe():Array {
+            return null;
         }
 
-        public function update(deltaTime:Number):void {
+        public function awake():void {}
 
-        }
+        public function update(deltaTime:Number):void {}
 
     }
 }

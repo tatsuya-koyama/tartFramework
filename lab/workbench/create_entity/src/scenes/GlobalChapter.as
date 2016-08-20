@@ -43,6 +43,11 @@ package scenes {
             ];
         }
 
+        public override function layers():Array {
+            trace("GlobalChapter :: layers");
+            return null;
+        }
+
         public override function initialActors():Array {
             trace("GlobalChapter :: initialActors");
             return null;

@@ -85,20 +85,24 @@ package dessert_knife {
 
         /**
          * Returns promise object.
-         * Its option ensureAsync is false for performance reasons.
+         * By default, its option ensureAsync is false for performance reasons.
          * @see dessert_knife.tools.async.Promise
          */
-        public function promise(task:Function):Promise {
-            return new Promise(task, false, false);
+        public function promise(task:Function, throwException:Boolean=false,
+                                ensureAsync:Boolean=false):Promise
+        {
+            return new Promise(task, throwException, ensureAsync);
         }
 
         /**
          * Returns wrapped-promise object.
-         * Its option ensureAsync is false for performance reasons.
+         * By default, its option ensureAsync is false for performance reasons.
          * @see dessert_knife.tools.async.Deferred
          */
-        public function deferred():Deferred {
-            return new Deferred(false, false);
+        public function deferred(throwException:Boolean=false,
+                                 ensureAsync:Boolean=false):Deferred
+        {
+            return new Deferred(throwException, ensureAsync);
         }
 
         /**
