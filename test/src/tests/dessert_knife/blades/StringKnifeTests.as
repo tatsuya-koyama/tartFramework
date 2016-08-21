@@ -30,5 +30,25 @@ package tests.dessert_knife.blades {
             assertThat(knife.str.fileNameOf("file"),             equalTo("file"));
         }
 
+        [Test]
+        public function padLeft():void {
+            assertThat(knife.str.padLeft("abc",      8      ), equalTo("     abc"));
+            assertThat(knife.str.padLeft("abc",      8, "-" ), equalTo("-----abc"));
+            assertThat(knife.str.padLeft("",         6, "*" ), equalTo("******"));
+            assertThat(knife.str.padLeft("ABCDEFG",  6, "*" ), equalTo("ABCDEFG"));
+            assertThat(knife.str.padLeft("ABCDEFG", -1, "*" ), equalTo("ABCDEFG"));
+            assertThat(knife.str.padLeft("123",      5, "AB"), equalTo("AA123"));
+        }
+
+        [Test]
+        public function padRight():void {
+            assertThat(knife.str.padRight("abc",      8      ), equalTo("abc     "));
+            assertThat(knife.str.padRight("abc",      8, "-" ), equalTo("abc-----"));
+            assertThat(knife.str.padRight("",         6, "*" ), equalTo("******"));
+            assertThat(knife.str.padRight("ABCDEFG",  6, "*" ), equalTo("ABCDEFG"));
+            assertThat(knife.str.padRight("ABCDEFG", -1, "*" ), equalTo("ABCDEFG"));
+            assertThat(knife.str.padRight("123",      5, "AB"), equalTo("123AA"));
+        }
+
     }
 }

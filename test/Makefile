@@ -10,6 +10,7 @@ build_test:
 	      -library-path+="lib/" \
 	      -library-path+="../lib/" \
 	      -source-path+="../src/" \
+	      -load-config+="src/config.xml" \
 	      -swf-version=$(SWF_VERSION) \
 	      -output="build/TestRunner.swf" \
 	      -debug=true \

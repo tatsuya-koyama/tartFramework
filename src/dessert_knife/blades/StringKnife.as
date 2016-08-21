@@ -7,6 +7,9 @@ package dessert_knife.blades {
      */
     public class StringKnife {
 
+        private static const PAD_LEFT :int = 0;
+        private static const PAD_RIGHT:int = 1;
+
         //----------------------------------------------------------------------
         // Instant accessor
         //----------------------------------------------------------------------
@@ -66,6 +69,54 @@ package dessert_knife.blades {
                 obj[key] = dict[key];
             }
             return JSON.stringify(obj, null, space);
+        }
+
+        /**
+         * Pads the left side of string with characters
+         * until the string length reaches target length.
+         *
+         * <p>Example:</p>
+         * <listing>
+         *     padLeft("abc",     6, "-") -> "---abc"
+         *     padLeft("ABCDEFG", 6, "-") -> "ABCDEFG"
+         * </listing>
+         */
+        public function padLeft(srcStr:String, targetLength:int, padChar:String=" "):String {
+            return _pad(srcStr, targetLength, padChar, PAD_LEFT);
+        }
+
+        /**
+         * Pads the right side of string with characters
+         * until the string length reaches target length.
+         *
+         * <p>Example:</p>
+         * <listing>
+         *     padRight("abc",     6, "-") -> "abc---"
+         *     padRight("ABCDEFG", 6, "-") -> "ABCDEFG"
+         * </listing>
+         */
+        public function padRight(srcStr:String, targetLength:int, padChar:String=" "):String {
+            return _pad(srcStr, targetLength, padChar, PAD_RIGHT);
+        }
+
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
+        private function _pad(srcStr:String, targetLength:int, padChar:String, padMode:int):String {
+            if (srcStr.length >= targetLength) { return srcStr; }
+
+            padChar = padChar.charAt(0) || " ";
+
+            var paddedStr:String = srcStr;
+            while (paddedStr.length < targetLength) {
+                if (padMode == PAD_LEFT) {
+                    paddedStr = padChar + paddedStr;
+                } else {
+                    paddedStr = paddedStr + padChar;
+                }
+            }
+            return paddedStr;
         }
 
     }
