@@ -1,5 +1,6 @@
 package scenes {
 
+    import tart.actors.Layer2D;
     import tart.core.TartChapter;
 
     import dessert_knife.knife;
@@ -45,7 +46,10 @@ package scenes {
 
         public override function layers():Array {
             trace("GlobalChapter :: layers");
-            return null;
+            return [
+                 new Layer2D("f-global", 99, Layer2D.STARLING_FORE)
+                ,new Layer2D("b-global",  0, Layer2D.STARLING_BACK)
+            ];
         }
 
         public override function initialActors():Array {

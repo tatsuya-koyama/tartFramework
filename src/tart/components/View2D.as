@@ -2,8 +2,10 @@ package tart.components {
 
     import starling.display.DisplayObject;
     import starling.display.Image;
+    import starling.display.Sprite;
 
     import tart.core.Component;
+    import tart.core.ILayer;
 
     /**
      * 2D view component powered by Starling.
@@ -27,9 +29,15 @@ package tart.components {
         // helper methods
         //----------------------------------------------------------------------
 
-        public function addImage():Image {
-            // ToDo
-            return null;
+        public function addImage(imageName:String, layerName:String):Image {
+            var image:Image = tart.resource.getImage(imageName);
+            displayObj = image;
+
+            var layer:ILayer = tart.layers.getLayer(layerName);
+            var layerSprite:Sprite = layer.layerUserData as Sprite;
+            layerSprite.addChild(displayObj);
+
+            return image;
         }
 
     }

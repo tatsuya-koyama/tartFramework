@@ -18,19 +18,14 @@ package actors {
             ];
         }
 
-        public function TestActor(x:Number, y:Number) {
+        public function TestActor(x:Number, y:Number, imageName:String="piyo",
+                                  layerName:String="f-fore")
+        {
             afterAwake(function():void {
                 _transform.position.x = x;
                 _transform.position.y = y;
+                _view2D.addImage(imageName, layerName);
             });
-        }
-
-        public override function awake():void {
-            var image:Image = tart.resource.getImage("piyo");
-            _view2D.displayObj = image;
-
-            var rootSprite:Sprite = tart.graphics.starlingFore.root as Sprite;
-            rootSprite.addChild(_view2D.displayObj);
         }
 
         public override function update(deltaTime:Number):void {

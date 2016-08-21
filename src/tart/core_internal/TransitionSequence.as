@@ -54,7 +54,7 @@ package tart.core_internal {
             if (layers) {
                 var engine:TartEngine = _tartContext.engine;
                 for each (var layer:ILayer in layers) {
-                    layer.scope = scope;
+                    layer.layerScope = scope;
                     engine.createActor(layer.layerActor, scope);
                     _tartContext.layers.addLayer(layer);
                 }

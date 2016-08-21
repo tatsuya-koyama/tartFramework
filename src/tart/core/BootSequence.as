@@ -17,10 +17,7 @@ package tart.core {
         // public
         //----------------------------------------------------------------------
 
-        public function runAsync(engine:TartEngine):Defer {
-            var tartContext:TartContext = new TartContext();
-            tartContext.engine = engine;
-
+        public function runAsync(tartContext:TartContext):Defer {
             return _initGraphicsAsync(tartContext)
                 .then(_initResource)
                 .then(_initSystem)

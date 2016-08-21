@@ -4,8 +4,6 @@ package tart.systems {
     import tart.core.TartActor;
     import tart.core.TartSubSystem;
 
-    use namespace tart_internal;
-
     public class ActorUpdateSystem extends TartSubSystem {
 
         public override function get name():String {
@@ -22,7 +20,6 @@ package tart.systems {
             for each (var actor:TartActor in actors) {
                 if (!actor.isAlive) { continue; }
                 if (actor.awakened) { continue; }
-                actor.internalAwake();
                 actor.awake();
                 actor.awakened = true;
             }

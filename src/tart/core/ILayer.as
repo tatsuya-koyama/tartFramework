@@ -7,19 +7,25 @@ package tart.core {
         function get layerName():String;
 
         /** Returns scope object that this layer belongs. */
-        function get scope():ISceneScope;
+        function get layerScope():ISceneScope;
 
         /** Setter for scope object. */
-        function set scope(scope:ISceneScope):void;
+        function set layerScope(scope:ISceneScope):void;
 
         /** Returns TartActor instance that has behavior of this layer. */
         function get layerActor():TartActor;
+
+        /** [Optional] Returns data for convenience. */
+        function get layerUserData():*;
 
         /** Called when this layer is created. */
         function onLayerCreated():void;
 
         /** Called when this layer is disposed. */
         function onLayerDisposed():void;
+
+        /** Returns text that describes this layer. */
+        function toString():String;
 
     }
 }

@@ -3,6 +3,8 @@ package tart.core {
     import flash.utils.getQualifiedClassName;
     import flash.utils.Dictionary;
 
+    import dessert_knife.knife;
+
     public class TartLayerRegistry {
 
         private var _layers:Dictionary;  // {"Layer name" : <ILayer>}
@@ -31,11 +33,20 @@ package tart.core {
         public function removeScopeLayers(scope:ISceneScope):void {
             for (var layerName:String in _layers) {
                 var layer:ILayer = _layers[layerName];
-                if (layer.scope != scope) { continue; }
+                if (layer.layerScope != scope) { continue; }
 
                 delete _layers[layer.layerName];
                 layer.onLayerDisposed();
             }
+        }
+
+        public function getLayer(layerName:String):ILayer {
+            TART::LOG_WARN {
+                if (!_layers[layerName]) {
+                    trace("[Warn :: TartLayerRegistry] Layer not found:", layerName);
+                }
+            }
+            return _layers[layerName];
         }
 
         //----------------------------------------------------------------------
@@ -43,15 +54,33 @@ package tart.core {
         //----------------------------------------------------------------------
 
         public function debug_dumpLayers():void {
-            trace("[Debug :: TartLayerRegistry] ***** {layerName : layer - scope} *****");
-            var obj:Object = {};
+            trace("[Debug :: TartLayerRegistry] ///// Layers /////");
+
+            var maxLayerDescLength:int = _getMaxLayerDescLength();
+
+            var list:Array = [];
             for (var layerName:String in _layers) {
                 var layer:ILayer = _layers[layerName];
-                obj[layerName] =
-                    getQualifiedClassName(layer) + " - " +
-                    getQualifiedClassName(layer.scope);
+                list.push(
+                    knife.str.padRight(layer.toString(), maxLayerDescLength) + "  :  "
+                        + getQualifiedClassName(layer) + " ... ("
+                        + getQualifiedClassName(layer.layerScope) + ")"
+                );
             }
-            trace(JSON.stringify(obj, null, 4));
+            list.sort();
+            trace(JSON.stringify(list, null, 4));
+        }
+
+        private function _getMaxLayerDescLength():int {
+            var maxLen:int = 0;
+            for (var layerName:String in _layers) {
+                var layer:ILayer = _layers[layerName];
+                var descLen:int  = layer.toString().length;
+                if (descLen > maxLen) {
+                    maxLen = descLen;
+                }
+            }
+            return maxLen;
         }
 
     }

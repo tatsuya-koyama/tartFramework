@@ -8,6 +8,9 @@ package tart.actors {
     import tart.core.ISceneScope;
     import tart.core.ILayer;
     import tart.core.TartActor;
+    import tart.starling_extension.OrderedSprite;
+
+    import dessert_knife.knife;
 
     use namespace tart_internal;
 
@@ -16,12 +19,12 @@ package tart.actors {
      */
     public class Layer2D extends TartActor implements ILayer {
 
-        public static const STARLING_FORE:int = 1;
-        public static const STARLING_BACK:int = 2;
+        public static const STARLING_FORE:String = "Starling_Fore";
+        public static const STARLING_BACK:String = "Starling_Back";
 
         private var _layerName:String;
         private var _zOrder:int;
-        private var _starlingId:int;
+        private var _starlingId:String;
         private var _scope:ISceneScope;
 
         /**
@@ -30,7 +33,7 @@ package tart.actors {
          * @param starlingId - ID to specify target Starling instance.
          */
         public function Layer2D(layerName:String, zOrder:int,
-                                starlingId:int=STARLING_FORE)
+                                starlingId:String=STARLING_FORE)
         {
             _layerName  = layerName;
             _zOrder     = zOrder;
@@ -45,11 +48,11 @@ package tart.actors {
             return _layerName;
         }
 
-        public function get scope():ISceneScope {
+        public function get layerScope():ISceneScope {
             return _scope;
         }
 
-        public function set scope(scope:ISceneScope):void {
+        public function set layerScope(scope:ISceneScope):void {
             _scope = scope;
         }
 
@@ -57,18 +60,29 @@ package tart.actors {
             return this;
         }
 
-        public function onLayerCreated():void {
-            var view2D:View2D = getComponent(View2D) as View2D;
-            view2D.displayObj = new Sprite();
+        /** Returns layer sprite. */
+        public function get layerUserData():* {
+            return _view2D.displayObj;
+        }
 
-            var starling:Starling = getStarling(_starlingId);
+        public function onLayerCreated():void {
+            _view2D.displayObj = new OrderedSprite(_zOrder);
+
+            var starling:Starling = _getStarling(_starlingId);
             var rootSprite:Sprite = starling.root as Sprite;
 
-            // ToDo: add sprite to starling.root with zOrder
+            rootSprite.addChild(_view2D.displayObj);
+            _sortDisplayOrder(rootSprite);
         }
 
         public function onLayerDisposed():void {
-            // ToDo
+            // Nothing to do: displayObj is removed automatically when actor is disposed.
+        }
+
+        public function toString():String {
+            return _starlingId + " - "
+                + knife.str.padLeft("" + _zOrder, 3, "0") + "."
+                + _layerName;
         }
 
         //----------------------------------------------------------------------
@@ -83,10 +97,21 @@ package tart.actors {
         // private
         //----------------------------------------------------------------------
 
-        private function getStarling(starlingId:int):Starling {
+        private function _getStarling(starlingId:String):Starling {
             return (starlingId == STARLING_FORE) ?
                 tart.graphics.starlingFore :
                 tart.graphics.starlingBack;
+        }
+
+        private function _sortDisplayOrder(parentSprite:Sprite):void {
+            parentSprite.sortChildren(function(a:*, b:*):int {
+                if (!(a is OrderedSprite)) { return 0; }
+                if (!(b is OrderedSprite)) { return 0; }
+
+                if (a.zOrder < b.zOrder) { return -1; }
+                if (a.zOrder > b.zOrder) { return  1; }
+                return 0;
+            });
         }
 
     }

@@ -31,7 +31,7 @@ package scenes {
             setTimeout(function():void {
                 trace("\n\n");
                 tart.director.navigateTo(new Scene_2());
-            }, 1000);
+            }, 3000);
         }
 
         public override function disposeAsync():Defer {
@@ -60,21 +60,23 @@ package scenes {
         public override function layers():Array {
             trace("Scene_1 :: layers");
             return [
-                 new Layer2D("f-fore",   0, Layer2D.STARLING_FORE)
-                ,new Layer2D("f-middle", 1, Layer2D.STARLING_FORE)
-                ,new Layer2D("f-back",   2, Layer2D.STARLING_FORE)
+                 new Layer2D("f-back",   1, Layer2D.STARLING_FORE)
+                ,new Layer2D("f-middle", 2, Layer2D.STARLING_FORE)
+                ,new Layer2D("f-fore",   3, Layer2D.STARLING_FORE)
 
-                ,new Layer2D("b-fore",   0, Layer2D.STARLING_BACK)
-                ,new Layer2D("b-middle", 1, Layer2D.STARLING_BACK)
-                ,new Layer2D("b-back",   2, Layer2D.STARLING_BACK)
+                ,new Layer2D("b-back",   1, Layer2D.STARLING_BACK)
+                ,new Layer2D("b-middle", 2, Layer2D.STARLING_BACK)
+                ,new Layer2D("b-fore",   3, Layer2D.STARLING_BACK)
             ];
         }
 
         public override function initialActors():Array {
             trace("Scene_1 :: initialActors");
             return [
-                 new TestActor(100, 100)
-                ,new TestActor(200, 200)
+                 new TestActor(200, 200, "circle_jiro",    "f-fore")
+                ,new TestActor( 70, 100, "piyo",           "f-back")
+                ,new TestActor(150, 150, "rectangle_taro", "f-middle")
+                ,new TestActor(150, 280, "red_button",     "b-fore")
             ];
         }
 

@@ -8,6 +8,8 @@ package tart.core {
 
     import dessert_knife.tools.async.Defer;
 
+    use namespace tart_internal;
+
     public class TartEngine {
 
         private var _tartContext:TartContext;
@@ -24,11 +26,13 @@ package tart.core {
         //----------------------------------------------------------------------
 
         public function boot(bootConfig:IBootConfig):Defer {
+            _tartContext = new TartContext();
+            _tartContext.engine = this;
+
             var bootSequence:BootSequence = new BootSequence(bootConfig);
-            return bootSequence.runAsync(this)
+            return bootSequence.runAsync(_tartContext)
                 .then(function(tartContext:TartContext):TartContext {
-                    _tartContext = tartContext;
-                    _initMainLoop(_tartContext.graphics);
+                    _initMainLoop(tartContext.graphics);
                     return tartContext;
                 });
         }
@@ -53,6 +57,8 @@ package tart.core {
                 }
             }
             addEntity(entity, scope);
+
+            actor.internalAwake();
         }
 
         public function addEntity(entity:Entity, scope:ISceneScope):void {
