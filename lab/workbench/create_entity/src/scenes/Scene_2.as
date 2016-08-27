@@ -8,6 +8,9 @@ package scenes {
 
     import actors.*;
 
+    // test
+    import flash.utils.setTimeout;
+
     public class Scene_2 extends TartScene {
 
         public function Scene_2() {}
@@ -23,6 +26,12 @@ package scenes {
 
         public override function init():void {
             trace("Scene_2 :: init");
+
+            // test
+            setTimeout(function():void {
+                trace("\n\n");
+                tart.director.navigateTo(new Scene_1());
+            }, 5000);
         }
 
         public override function disposeAsync():Defer {
@@ -61,8 +70,8 @@ package scenes {
         public override function initialActors():Array {
             trace("Scene_2 :: initialActors");
             return [
-                 new TestActor(300, 150, "piyo", "f-global")
-                ,new TestActor(300, 350, "man",  "b-global")
+                 new TestActor_1(300, 150, "piyo", "f-global")
+                ,new TestActor_1(300, 280, "man",  "b-global")
             ];
         }
 

@@ -1,5 +1,8 @@
 package tart.systems {
 
+    import starling.display.DisplayObject;
+
+    import tart.components.Transform;
     import tart.core.TartActor;
     import tart.core.TartGraphics;
     import tart.core.TartSubSystem;
@@ -19,6 +22,10 @@ package tart.systems {
             graphics.starlingFore.nextFrame();
         }
 
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
         private function _applyTransformToView2D():void {
             var actors:Array = _getComponents(TartActor);
             for each (var actor:TartActor in actors) {
@@ -26,9 +33,19 @@ package tart.systems {
                 if (!actor.view2D || !actor.transform) { continue; }
 
                 // ToDo: Dirty なものだけ処理する
-                actor.view2D.displayObj.x = actor.transform.position.x;
-                actor.view2D.displayObj.y = actor.transform.position.y;
+
+                _updateView2DTransform(actor.transform, actor.view2D.displayObj);
+                _updateView2DTransform(actor.transform, actor.view2D.displayObjContainer);
             }
+        }
+
+        private function _updateView2DTransform(transform:Transform, view:DisplayObject):void {
+            if (!view) { return; }
+
+            view.x = transform.position.x;
+            view.y = transform.position.y;
+
+            view.rotation = transform.rotation.z;
         }
 
     }

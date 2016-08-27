@@ -8,9 +8,7 @@ package actors {
     import tart.components.View2D;
     import tart.core.TartActor;
 
-    import DebugContext;
-
-    public class TestActor extends TartActor {
+    public class TestActor_2 extends TartActor {
 
         public override function recipe():Array {
             return [
@@ -18,18 +16,22 @@ package actors {
             ];
         }
 
-        public function TestActor(x:Number, y:Number, imageName:String="piyo",
-                                  layerName:String="f-fore")
-        {
+        public function TestActor_2(x:Number, y:Number) {
             afterAwake(function():void {
                 _transform.position.x = x;
                 _transform.position.y = y;
-                _view2D.addImage(imageName, layerName);
             });
         }
 
+        public override function awake():void {
+            var sprite:Sprite = _view2D.makeSprite("f-middle");
+            _view2D.addImage("tree_1", sprite,    0,    0, 300 * 0.8, 500 * 0.8);
+            _view2D.addImage("tree_1", sprite, -100, -150, 300 * 0.4, 500 * 0.4);
+            _view2D.addImage("tree_1", sprite,   80, -180, 300 * 0.3, 500 * 0.3);
+        }
+
         public override function update(deltaTime:Number):void {
-            _transform.position.x += 1.0;
+            _transform.rotation.z += 0.03;
         }
 
     }
