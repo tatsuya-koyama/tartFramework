@@ -70,6 +70,17 @@ package tart.components {
             return image;
         }
 
+        public function addSprite(parentView:DisplayObjectContainer,
+                                  offsetX:Number=0, offsetY:Number=0):Sprite
+        {
+            var sprite:Sprite = new Sprite();
+            sprite.x = offsetX;
+            sprite.y = offsetY;
+
+            parentView.addChild(sprite);
+            return sprite;
+        }
+
         //----------------------------------------------------------------------
         // private
         //----------------------------------------------------------------------
