@@ -32,8 +32,6 @@ package tart.systems {
                 if (!actor.isAlive) { continue; }
                 if (!actor.view2D || !actor.transform) { continue; }
 
-                // ToDo: Dirty なものだけ処理する
-
                 _updateView2DTransform(actor.transform, actor.view2D.displayObj);
                 _updateView2DTransform(actor.transform, actor.view2D.displayObjContainer);
             }

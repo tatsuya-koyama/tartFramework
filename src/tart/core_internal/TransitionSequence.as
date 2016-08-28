@@ -2,6 +2,8 @@ package tart.core_internal {
 
     import flash.utils.getQualifiedClassName;
 
+    import tart.core.tart_internal;
+    import tart.core.Entity;
     import tart.core.ILayer;
     import tart.core.ISceneScope;
     import tart.core.TartActor;
@@ -10,6 +12,8 @@ package tart.core_internal {
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
+
+    use namespace tart_internal;
 
     public class TransitionSequence {
 
@@ -55,7 +59,8 @@ package tart.core_internal {
                 var engine:TartEngine = _tartContext.engine;
                 for each (var layer:ILayer in layers) {
                     layer.layerScope = scope;
-                    engine.createActor(layer.layerActor, scope);
+                    var entity:Entity = engine.buildActor(layer.layerActor);
+                    engine.addEntity(entity, scope);
                     _tartContext.layers.addLayer(layer);
                 }
             }
@@ -71,7 +76,8 @@ package tart.core_internal {
 
             var engine:TartEngine = _tartContext.engine;
             for each (var actor:TartActor in actors) {
-                engine.createActor(actor, scope);
+                var entity:Entity = engine.buildActor(actor);
+                engine.addEntity(entity, scope);
             }
         }
 

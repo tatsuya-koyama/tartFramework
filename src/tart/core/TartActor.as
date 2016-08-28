@@ -5,7 +5,7 @@ package tart.core {
 
     public class TartActor extends Component {
 
-        public var awakened:Boolean = false;
+        public var markedForDeath:Boolean = false;
 
         protected var _transform:Transform;
         protected var _view2D:View2D;
@@ -21,17 +21,33 @@ package tart.core {
             return TartActor;
         }
 
+        //----------------------------------------------------------------------
+        // public
+        //----------------------------------------------------------------------
+
+        public function destroy():void {
+            _entity.isAlive = false;
+        }
+
+        public override function recycle():void {
+            super.recycle();
+
+            _transform      = null;
+            _view2D         = null;
+            _afterAwakeTask = null;
+        }
+
+        //----------------------------------------------------------------------
+        // protected
+        //----------------------------------------------------------------------
+
         protected function afterAwake(task:Function):void {
             _afterAwakeTask = task;
         }
 
-        tart_internal function internalAwake():void {
-            _transform = getComponent(Transform) as Transform;
-            _view2D    = getComponent(View2D) as View2D;
-
-            if (_afterAwakeTask != null) {
-                _afterAwakeTask();
-            }
+        protected function spawnActor(actor:TartActor):void {
+            var newEntity:Entity = tart.engine.buildActor(actor);
+            tart.engine.addEntityAfterUpdate(newEntity, _entity.scope);
         }
 
         //----------------------------------------------------------------------
@@ -45,6 +61,19 @@ package tart.core {
         public function awake():void {}
 
         public function update(deltaTime:Number):void {}
+
+        //----------------------------------------------------------------------
+        // internal
+        //----------------------------------------------------------------------
+
+        tart_internal function internalAwake():void {
+            _transform = getComponent(Transform) as Transform;
+            _view2D    = getComponent(View2D) as View2D;
+
+            if (_afterAwakeTask != null) {
+                _afterAwakeTask();
+            }
+        }
 
     }
 }

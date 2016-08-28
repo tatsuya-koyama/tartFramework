@@ -5,7 +5,7 @@ package tart.core {
         public var tart:TartContext;
         public var isAlive:Boolean;
 
-        private var _entity:Entity;  // Entity that this Component is attached
+        protected var _entity:Entity;  // Entity that this Component is attached
 
         public function Component() {
             isAlive = false;

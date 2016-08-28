@@ -1,6 +1,5 @@
 package tart.systems {
 
-    import tart.core.tart_internal;
     import tart.core.TartActor;
     import tart.core.TartSubSystem;
 
@@ -12,17 +11,7 @@ package tart.systems {
 
         public override function process(deltaTime:Number):void {
             var actors:Array = _getComponents(TartActor);
-            _awakenActors(actors);
             _updateActors(actors, deltaTime);
-        }
-
-        private function _awakenActors(actors:Array):void {
-            for each (var actor:TartActor in actors) {
-                if (!actor.isAlive) { continue; }
-                if (actor.awakened) { continue; }
-                actor.awake();
-                actor.awakened = true;
-            }
         }
 
         private function _updateActors(actors:Array, deltaTime:Number):void {

@@ -12,9 +12,8 @@ package actors {
 
     import dessert_knife.knife;
 
-    public class TestActor_1 extends TartActor {
+    public class ActorGenerator extends TartActor {
 
-        private var _speed:Vector3D;
         private var _elapsedTime:Number = 0;
 
         public override function recipe():Array {
@@ -23,26 +22,24 @@ package actors {
             ];
         }
 
-        public function TestActor_1(x:Number, y:Number) {
+        public function ActorGenerator() {
             afterAwake(function():void {
-                _transform.position.x = x;
-                _transform.position.y = y;
-                var image:Image = _view2D.makeImage('dust', 'f-global');
-                image.blendMode = BlendMode.SCREEN;
-
-                var vx:Number = knife.rand.float(-4, 4);
-                var vy:Number = knife.rand.float(-4, 4);
-                _speed = new Vector3D(vx, vy, 0);
+                var image:Image = _view2D.makeImage('piyo', 'f-global', 60, 60);
             });
         }
 
         public override function update(deltaTime:Number):void {
-            _transform.position.x += _speed.x;
-            _transform.position.y += _speed.y;
-
             _elapsedTime += deltaTime;
-            if (_elapsedTime > 3.0) {
-                destroy();
+
+            _transform.position.x = 480 + Math.sin(_elapsedTime) * 200;
+            _transform.position.y = 320 + Math.cos(_elapsedTime) * 200;
+
+            _transform.rotation.z = -0.2 + Math.sin(_elapsedTime * 10) * 0.6;
+
+            // Generate actor
+            if (knife.rand.float(1.0) < 0.1) {
+                var pos:Vector3D = _transform.position;
+                spawnActor(new TestActor_1(pos.x, pos.y));
             }
         }
 

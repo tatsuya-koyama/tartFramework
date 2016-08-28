@@ -1,5 +1,7 @@
 package scenes {
 
+    import flash.utils.setTimeout;
+
     import tart.actors.Layer2D;
     import tart.core.TartScene;
 
@@ -18,7 +20,12 @@ package scenes {
             return null;
         }
 
-        public override function init():void {}
+        public override function init():void {
+            setTimeout(function():void {
+                trace("\n\n");
+                tart.director.navigateTo(new Scene_1());
+            }, 10 * 1000);
+        }
 
         public override function disposeAsync():Defer {
             return null;
@@ -36,7 +43,7 @@ package scenes {
 
         public override function initialActors():Array {
             return [
-                // ToDo
+                new ActorGenerator()
             ];
         }
 
