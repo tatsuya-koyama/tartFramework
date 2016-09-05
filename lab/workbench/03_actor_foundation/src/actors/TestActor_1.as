@@ -29,6 +29,7 @@ package actors {
                 _transform.position.y = y;
                 var image:Image = _view2D.makeImage('dust', 'f-global');
                 image.blendMode = BlendMode.SCREEN;
+                image.alpha     = 0.6;
 
                 var vx:Number = knife.rand.float(-4, 4);
                 var vy:Number = knife.rand.float(-4, 4);
@@ -39,6 +40,8 @@ package actors {
         public override function update(deltaTime:Number):void {
             _transform.position.x += _speed.x;
             _transform.position.y += _speed.y;
+
+            _view2D.displayObj.alpha -= deltaTime * 0.2;
 
             _elapsedTime += deltaTime;
             if (_elapsedTime > 3.0) {

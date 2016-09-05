@@ -43,7 +43,9 @@ package scenes {
 
         public override function initialActors():Array {
             return [
-                new ActorGenerator()
+                 new ActorGenerator()
+                ,new ActorGenerator()
+                ,new ActorGenerator()
             ];
         }
 

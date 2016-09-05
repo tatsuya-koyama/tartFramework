@@ -15,6 +15,7 @@ package actors {
     public class ActorGenerator extends TartActor {
 
         private var _elapsedTime:Number = 0;
+        private var _offsetPhase:Number = 0;
 
         public override function recipe():Array {
             return [
@@ -23,6 +24,7 @@ package actors {
         }
 
         public function ActorGenerator() {
+            _offsetPhase = knife.rand.float(99);
             afterAwake(function():void {
                 var image:Image = _view2D.makeImage('piyo', 'f-global', 60, 60);
             });
@@ -31,10 +33,11 @@ package actors {
         public override function update(deltaTime:Number):void {
             _elapsedTime += deltaTime;
 
-            _transform.position.x = 480 + Math.sin(_elapsedTime) * 200;
-            _transform.position.y = 320 + Math.cos(_elapsedTime) * 200;
+            var phase:Number = _elapsedTime + _offsetPhase;
+            _transform.position.x = 480 + Math.sin(phase) * 200;
+            _transform.position.y = 320 + Math.cos(phase) * 200;
 
-            _transform.rotation.z = -0.2 + Math.sin(_elapsedTime * 10) * 0.6;
+            _transform.rotation.z = -0.2 + Math.sin(phase * 10) * 0.6;
 
             // Generate actor
             if (knife.rand.float(1.0) < 0.1) {
