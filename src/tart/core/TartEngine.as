@@ -44,7 +44,7 @@ package tart.core {
             return _componentMap[componentClass];
         }
 
-        public function buildActor(actor:TartActor):Entity {
+        public function buildActor(actor:ActorCore):Entity {
             actor.tart = _tartContext;
 
             var entity:Entity = new Entity;

@@ -8,11 +8,11 @@ package actors {
 
     import tart.components.Transform;
     import tart.components.View2D;
-    import tart.core.TartActor;
+    import tart.core.ActorCore;
 
     import dessert_knife.knife;
 
-    public class ActorGenerator extends TartActor {
+    public class ActorGenerator extends ActorCore {
 
         private var _elapsedTime:Number = 0;
         private var _offsetPhase:Number = 0;

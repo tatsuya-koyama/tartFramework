@@ -6,9 +6,9 @@ package actors {
 
     import tart.components.Transform;
     import tart.components.View2D;
-    import tart.core.TartActor;
+    import tart.core.ActorCore;
 
-    public class TestActor_2 extends TartActor {
+    public class TestActor_2 extends ActorCore {
 
         public override function recipe():Array {
             return [

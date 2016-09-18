@@ -3,10 +3,10 @@ package tart.core_internal {
     import flash.utils.getQualifiedClassName;
 
     import tart.core.tart_internal;
+    import tart.core.ActorCore;
     import tart.core.Entity;
     import tart.core.ILayer;
     import tart.core.ISceneScope;
-    import tart.core.TartActor;
     import tart.core.TartContext;
     import tart.core.TartEngine;
 
@@ -75,7 +75,7 @@ package tart.core_internal {
             if (!actors) { return; }
 
             var engine:TartEngine = _tartContext.engine;
-            for each (var actor:TartActor in actors) {
+            for each (var actor:ActorCore in actors) {
                 var entity:Entity = engine.buildActor(actor);
                 engine.addEntity(entity, scope);
             }

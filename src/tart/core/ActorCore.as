@@ -3,7 +3,7 @@ package tart.core {
     import tart.components.Transform;
     import tart.components.View2D;
 
-    public class TartActor extends Component {
+    public class ActorCore extends Component {
 
         public var markedForDeath:Boolean = false;
 
@@ -15,10 +15,10 @@ package tart.core {
 
         private var _afterAwakeTask:Function;
 
-        public function TartActor() {}
+        public function ActorCore() {}
 
         public override function getClass():Class {
-            return TartActor;
+            return ActorCore;
         }
 
         //----------------------------------------------------------------------
@@ -45,7 +45,7 @@ package tart.core {
             _afterAwakeTask = task;
         }
 
-        protected function spawnActor(actor:TartActor):void {
+        protected function spawnActor(actor:ActorCore):void {
             var newEntity:Entity = tart.engine.buildActor(actor);
             tart.engine.addEntityAfterUpdate(newEntity, _entity.scope);
         }

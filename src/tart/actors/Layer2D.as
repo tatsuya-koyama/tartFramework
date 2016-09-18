@@ -5,9 +5,9 @@ package tart.actors {
 
     import tart.components.View2D;
     import tart.core.tart_internal;
+    import tart.core.ActorCore;
     import tart.core.ISceneScope;
     import tart.core.ILayer;
-    import tart.core.TartActor;
     import tart.starling_extension.OrderedSprite;
 
     import dessert_knife.knife;
@@ -17,7 +17,7 @@ package tart.actors {
     /**
      * Layer object to manage 2D rendering order.
      */
-    public class Layer2D extends TartActor implements ILayer {
+    public class Layer2D extends ActorCore implements ILayer {
 
         public static const STARLING_FORE:String = "Starling_Fore";
         public static const STARLING_BACK:String = "Starling_Back";
@@ -56,7 +56,7 @@ package tart.actors {
             _scope = scope;
         }
 
-        public function get layerActor():TartActor {
+        public function get layerActor():ActorCore {
             return this;
         }
 
@@ -86,7 +86,7 @@ package tart.actors {
         }
 
         //----------------------------------------------------------------------
-        // overrides TartActor
+        // overrides ActorCore
         //----------------------------------------------------------------------
 
         public override function recipe():Array {

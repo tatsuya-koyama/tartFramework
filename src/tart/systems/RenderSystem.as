@@ -3,7 +3,7 @@ package tart.systems {
     import starling.display.DisplayObject;
 
     import tart.components.Transform;
-    import tart.core.TartActor;
+    import tart.core.ActorCore;
     import tart.core.TartGraphics;
     import tart.core.TartSubSystem;
 
@@ -27,8 +27,8 @@ package tart.systems {
         //----------------------------------------------------------------------
 
         private function _applyTransformToView2D():void {
-            var actors:Array = _getComponents(TartActor);
-            for each (var actor:TartActor in actors) {
+            var actors:Array = _getComponents(ActorCore);
+            for each (var actor:ActorCore in actors) {
                 if (!actor.isAlive) { continue; }
                 if (!actor.view2D || !actor.transform) { continue; }
 

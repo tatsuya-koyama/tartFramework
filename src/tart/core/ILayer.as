@@ -12,8 +12,8 @@ package tart.core {
         /** Setter for scope object. */
         function set layerScope(scope:ISceneScope):void;
 
-        /** Returns TartActor instance that has behavior of this layer. */
-        function get layerActor():TartActor;
+        /** Returns ActorCore instance that has behavior of this layer. */
+        function get layerActor():ActorCore;
 
         /** [Optional] Returns data for convenience. */
         function get layerUserData():*;
