@@ -43,6 +43,9 @@ package tart.systems {
             view.x = transform.position.x;
             view.y = transform.position.y;
 
+            view.scaleX = transform.scale.x;
+            view.scaleY = transform.scale.y;
+
             view.rotation = transform.rotation.z;
         }
 

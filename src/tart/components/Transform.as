@@ -11,9 +11,9 @@ package tart.components {
         public var rotation:Vector3D;
 
         public function Transform() {
-            position = new Vector3D();
-            scale    = new Vector3D();
-            rotation = new Vector3D();
+            position = new Vector3D(0, 0, 0);
+            scale    = new Vector3D(1, 1, 1);
+            rotation = new Vector3D(0, 0, 0);
         }
 
         public override function getClass():Class {
@@ -22,7 +22,7 @@ package tart.components {
 
         public override function reset():void {
             position.setTo(0, 0, 0);
-            scale   .setTo(0, 0, 0);
+            scale   .setTo(1, 1, 1);
             rotation.setTo(0, 0, 0);
         }
 

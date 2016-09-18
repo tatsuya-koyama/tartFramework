@@ -45,6 +45,14 @@ package tart.components {
             var image:Image = _makeImage(imageName, width, height, anchorX, anchorY);
             displayObj = image;
 
+            // In starling.display.DisplayObject, to set width / height is
+            // to change scaleX / scaleY. So sync it with transform component.
+            var transform:Transform = getComponent(Transform) as Transform;
+            if (transform) {
+                transform.scale.x = image.scaleX;
+                transform.scale.y = image.scaleY;
+            }
+
             _addViewToLayer(image, layerName);
             return image;
         }
