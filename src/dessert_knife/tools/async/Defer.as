@@ -1,5 +1,7 @@
 package dessert_knife.tools.async {
 
+    import dessert_knife.knife;
+
     /**
      * Simple, light-weight deferred utility.
      * It has only poor features, but fast and low memory consumption.
@@ -89,7 +91,7 @@ package dessert_knife.tools.async {
         }
 
         private function _handle(task:Function):Defer {
-            var result:* = _safeCall(task, _value);
+            var result:* = knife.func.safeCall(task, _value);
             if (result is Defer) {
                 _isResolved = false;
                 result.then(function(result2:*):void {
@@ -100,14 +102,6 @@ package dessert_knife.tools.async {
 
             _value = result;
             return _handlePending();
-        }
-
-        private function _safeCall(func:Function, arg:*):* {
-            // In AS3, Function.length returns the number of arguments
-            if (func.length > 0) {
-                return func(_value);
-            }
-            return func();
         }
 
         private function _handlePending():Defer {

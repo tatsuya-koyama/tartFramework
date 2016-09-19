@@ -2,6 +2,7 @@ package {
 
     import tests.SampleTests;
     import tests.dessert_knife.KnifeTests;
+    import tests.dessert_knife.blades.FunctionKnifeTests;
     import tests.dessert_knife.blades.RandomKnifeTests;
     import tests.dessert_knife.blades.StringKnifeTests;
     import tests.dessert_knife.tools.async.AwaitTests;
@@ -15,6 +16,7 @@ package {
 
         public var sampleTests:SampleTests;
         public var knife_knifeTests:KnifeTests;
+        public var knife_blades_functionKnifeTests:FunctionKnifeTests;
         public var knife_blades_randomKnifeTests:RandomKnifeTests;
         public var knife_blades_stringKnifeTests:StringKnifeTests;
         public var knife_tools_awaitTests:AwaitTests;

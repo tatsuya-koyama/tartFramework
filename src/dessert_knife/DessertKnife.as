@@ -1,5 +1,6 @@
 package dessert_knife {
 
+    import dessert_knife.blades.FunctionKnife;
     import dessert_knife.blades.ListKnife;
     import dessert_knife.blades.RandomKnife;
     import dessert_knife.blades.StringKnife;
@@ -142,6 +143,14 @@ package dessert_knife {
          */
         public function get str():StringKnife {
             return StringKnife.instance;
+        }
+
+        /**
+         * Returns singleton instance of FunctionKnife.
+         * @see dessert_knife.blades.FunctionKnife
+         */
+        public function get func():FunctionKnife {
+            return FunctionKnife.instance;
         }
 
     }
