@@ -30,6 +30,7 @@ package tests.dessert_knife.blades {
             _testArgError(function():void { handler1(1, 2); });
 
             _testNotArgError(function():void { knife.func.safeCall(handler1); });
+            _testNotArgError(function():void { knife.func.safeCall(handler1, 1); });
             _testNotArgError(function():void { knife.func.safeCall(handler1, 1, 2); });
             _testNotArgError(function():void { knife.func.safeCall(handler1, 1, 2 ,3); });
             _testNotArgError(function():void { knife.func.safeCall(handler1, 1 ,2 ,3, 4); });
