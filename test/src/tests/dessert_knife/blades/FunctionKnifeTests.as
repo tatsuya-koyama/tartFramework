@@ -51,5 +51,22 @@ package tests.dessert_knife.blades {
             _testNotArgError(function():void { knife.func.safeCall(handler2, 1 ,2 ,3, 4); });
         }
 
+        [Test]
+        public function safeApply():void {
+            var seq:String = '';
+            var handler2:Function = function(arg1:int, arg2:int):void {
+                seq += ':' + arg1 + arg2;
+            };
+
+            _testNotArgError(function():void { knife.func.safeApply(handler2); });
+            assertThat(seq, equalTo(':00'));
+
+            _testNotArgError(function():void { knife.func.safeApply(handler2, [1]); });
+            assertThat(seq, equalTo(':00:10'));
+
+            _testNotArgError(function():void { knife.func.safeApply(handler2, [2, 3]); });
+            assertThat(seq, equalTo(':00:10:23'));
+        }
+
     }
 }

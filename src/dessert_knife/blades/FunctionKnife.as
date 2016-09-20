@@ -54,5 +54,15 @@ package dessert_knife.blades {
             return func.apply(NaN, args);
         }
 
+        /**
+         * Another version of safeCall() using Array arguments instead of
+         * variadic parameters.
+         */
+        public function safeApply(func:Function, args:Array=null):* {
+            if (!args) { args = []; }
+            var funcAndArgs:Array = [func].concat(args);
+            return safeCall.apply(NaN, funcAndArgs);
+        }
+
     }
 }
