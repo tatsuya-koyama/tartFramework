@@ -10,6 +10,7 @@ package {
     import tests.dessert_knife.tools.async.DeferTests;
     import tests.dessert_knife.tools.async.DeferredTests;
     import tests.dessert_knife.tools.async.PromiseTests;
+    import tests.dessert_knife.tools.signal.SignalTests;
 
     [Suite]
     public class AllTests {
@@ -24,6 +25,7 @@ package {
         public var knife_tools_deferTests:DeferTests;
         public var knife_tools_deferredTests:DeferredTests;
         public var knife_tools_promiseTests:PromiseTests;
+        public var knife_tools_signalTests:SignalTests;
 
     }
 }
