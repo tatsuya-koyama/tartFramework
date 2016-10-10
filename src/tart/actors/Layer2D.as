@@ -89,8 +89,8 @@ package tart.actors {
         // overrides ActorCore
         //----------------------------------------------------------------------
 
-        public override function recipe():Array {
-            return [View2D];
+        public override function build():void {
+            compose(View2D);
         }
 
         //----------------------------------------------------------------------

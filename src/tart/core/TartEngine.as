@@ -50,16 +50,7 @@ package tart.core {
             var entity:Entity = new Entity;
             entity.attach(actor);
 
-            var recipe:Array = actor.recipe();
-            if (recipe) {
-                for each (var componentClass:Class in recipe) {
-                    // ToDo: pooling
-                    var component:Component = new componentClass() as Component;
-                    component.tart = _tartContext;
-                    entity.attach(component);
-                }
-            }
-
+            actor.build();
             actor.internalAwake();
             actor.awake();
             return entity;

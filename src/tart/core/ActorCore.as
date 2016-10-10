@@ -41,6 +41,20 @@ package tart.core {
         // protected
         //----------------------------------------------------------------------
 
+        protected function attach(component:Component):Component {
+            component.tart = this.tart;
+            _entity.attach(component);
+            return component;
+        }
+
+        protected function compose(...componentClasses):void {
+            for each (var componentClass:Class in componentClasses) {
+                // ToDo: pooling
+                var component:Component = new componentClass() as Component;
+                attach(component);
+            }
+        }
+
         protected function afterAwake(task:Function):void {
             _afterAwakeTask = task;
         }
@@ -54,9 +68,7 @@ package tart.core {
         // Handlers for user code (please override in subclasses.)
         //----------------------------------------------------------------------
 
-        public function recipe():Array {
-            return null;
-        }
+        public function build():void {}
 
         public function awake():void {}
 

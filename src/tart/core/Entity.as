@@ -43,9 +43,9 @@ package tart.core {
 
         public function attach(component:Component):Entity {
             var klass:Class = component.getClass();
-            if (!klass) { throw new Error("Invalid component: Class not found."); }
+            if (!klass) { throw new Error("Invalid component: Class not defined."); }
             if (_componentMap[klass]) {
-                throw new Error("Component already attached: typeId = " + klass);
+                throw new Error("Component already attached: type = " + klass);
             }
 
             _componentMap[klass] = component;

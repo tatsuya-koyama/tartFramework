@@ -10,10 +10,8 @@ package actors {
 
     public class TestActor_1 extends ActorCore {
 
-        public override function recipe():Array {
-            return [
-                Transform, View2D
-            ];
+        public override function build():void {
+            compose(Transform, View2D);
         }
 
         public function TestActor_1(x:Number, y:Number, imageName:String="piyo",

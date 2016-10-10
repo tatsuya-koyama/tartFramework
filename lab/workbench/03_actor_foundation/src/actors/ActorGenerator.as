@@ -17,10 +17,8 @@ package actors {
         private var _elapsedTime:Number = 0;
         private var _offsetPhase:Number = 0;
 
-        public override function recipe():Array {
-            return [
-                Transform, View2D
-            ];
+        public override function build():void {
+            compose(Transform, View2D);
         }
 
         public function ActorGenerator() {
