@@ -39,7 +39,7 @@ package dessert_knife.tools.signal {
             signal.disconnectAll();
         }
 
-        public function publish(message:*, data):void {
+        public function publish(message:*, data=null):void {
             if (!_signals[message]) {
                 TART::LOG_WARN {
                     trace("[Warn :: MessageChannel] Message is not subscribed: ", message);
@@ -51,7 +51,7 @@ package dessert_knife.tools.signal {
             signal.emit(data);
         }
 
-        /** Clean up all subscriber of all messages. */
+        /** Clean up all subscribers of each message. */
         public function reset():void {
             for (var message:* in _signals) {
                 var signal:Signal = _signals[message];
