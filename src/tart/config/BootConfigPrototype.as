@@ -12,7 +12,7 @@ package tart.config {
 
         private var _rootSprite:Sprite;
         private var _firstScene:TartScene;
-        private var _globalChapter:TartChapter;
+        private var _rootChapter:TartChapter;
         private var _graphicsBootConfig:IGraphicsBootConfig;
         private var _systemBootConfig:ISystemBootConfig;
 
@@ -21,7 +21,7 @@ package tart.config {
         public function set firstScene(scene:TartScene):void { _firstScene = scene; }
 
         // [Optional params]
-        public function set globalChapter(chapter:TartChapter):void { _globalChapter = chapter; }
+        public function set rootChapter(chapter:TartChapter):void { _rootChapter = chapter; }
         public function set graphicsBootConfig(config:IGraphicsBootConfig):void { _graphicsBootConfig = config; }
         public function set systemBootConfig(config:ISystemBootConfig):void { _systemBootConfig = config; }
 
@@ -37,8 +37,8 @@ package tart.config {
             return _firstScene;
         }
 
-        public function get globalChapter():TartChapter {
-            return _globalChapter;
+        public function get rootChapter():TartChapter {
+            return _rootChapter;
         }
 
         public function get graphicsBootConfig():IGraphicsBootConfig {

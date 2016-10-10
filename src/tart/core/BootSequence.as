@@ -64,7 +64,7 @@ package tart.core {
             tartContext.director = new TartDirector(
                 tartContext,
                 _bootConfig.firstScene,
-                _bootConfig.globalChapter
+                _bootConfig.rootChapter
             );
             return tartContext.director.setupAsync().then(function():TartContext {
                 return tartContext;

@@ -18,7 +18,7 @@ package {
             var bootConfig:BootConfigPrototype = new BootConfigPrototype();
             bootConfig.rootSprite    = this;
             bootConfig.firstScene    = new Scene_1();
-            bootConfig.globalChapter = new GlobalChapter();
+            bootConfig.rootChapter = new RootChapter();
 
             var engine:TartEngine = new TartEngine();
             engine.boot(bootConfig);

@@ -16,9 +16,9 @@ package {
             _centeringWindowForDesktopApp();
 
             var bootConfig:BootConfigPrototype = new BootConfigPrototype();
-            bootConfig.rootSprite    = this;
-            bootConfig.firstScene    = new Scene_Global();
-            bootConfig.globalChapter = new GlobalChapter();
+            bootConfig.rootSprite  = this;
+            bootConfig.firstScene  = new Scene_Root();
+            bootConfig.rootChapter = new RootChapter();
 
             var engine:TartEngine = new TartEngine();
             engine.boot(bootConfig);
@@ -28,8 +28,8 @@ package {
 
         /**
          * {
-         *     "scenes::GlobalChapter": [
-         *         "scenes::Scene_Global",
+         *     "scenes::RootChapter": [
+         *         "scenes::Scene_Root",
          *         {
          *             "scenes::Chapter_1": [
          *                 "scenes::Scene_1A",

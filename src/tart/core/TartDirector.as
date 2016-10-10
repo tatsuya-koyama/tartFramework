@@ -15,20 +15,20 @@ package tart.core {
         private var _currentScene:TartScene;
         private var _nextScene:TartScene;
         private var _isUnderTransition:Boolean;
-        private var _globalChapter:TartChapter;
+        private var _rootChapter:TartChapter;
         private var _sceneToChapter:Dictionary;    // {Scene class name : Chapter instance that Scene belongs to}
         private var _chapterToChapter:Dictionary;  // {Chapter instance : Parent Chapter instance}
         private var _chapterToScenes:Dictionary;   // {Chapter instance : [Child Scene class name]}
         private var _transitionSequence:TransitionSequence;
 
         public function TartDirector(tartContext:TartContext,
-                                     firstScene:TartScene, globalChapter:TartChapter=null)
+                                     firstScene:TartScene, rootChapter:TartChapter=null)
         {
             _tartContext       = tartContext;
             _currentScene      = null;
             _nextScene         = firstScene;
             _isUnderTransition = false;
-            _globalChapter     = globalChapter;
+            _rootChapter     = rootChapter;
             _sceneToChapter    = new Dictionary();
             _chapterToChapter  = new Dictionary();
             _chapterToScenes   = new Dictionary();
@@ -58,10 +58,10 @@ package tart.core {
 
         /** @private */
         internal function setupAsync():Defer {
-            if (!_globalChapter) {
+            if (!_rootChapter) {
                 return knife.defer().done();
             }
-            _registerChapters(_globalChapter);
+            _registerChapters(_rootChapter);
             _groupByChapters();
 
             TART::LOG_DEBUG {
@@ -70,7 +70,7 @@ package tart.core {
                 debug_dumpChapterTree();
             }
 
-            return _enterScopeAsync(_globalChapter);
+            return _enterScopeAsync(_rootChapter);
         }
 
         tart_internal function processTransition():void {
@@ -79,7 +79,7 @@ package tart.core {
             if (_isUnderTransition) { return; }
             _isUnderTransition = true;
 
-            var startingScope:ISceneScope = _currentScene || _globalChapter;
+            var startingScope:ISceneScope = _currentScene || _rootChapter;
             _transitFromTo(startingScope, _nextScene).then(function():void {
                 _currentScene      = _nextScene;
                 _nextScene         = null;
@@ -192,10 +192,10 @@ package tart.core {
 
             // 所属 Chapter が見つからなかった場合は
             // 遷移元 Scene が未登録ということなので root から辿り直す
-            if (oldScope != _globalChapter) {
+            if (oldScope != _rootChapter) {
                 return _exitScopeAsync(oldScope)
                     .then(function():Defer {
-                        return _transitFromTo(_globalChapter, newScope);
+                        return _transitFromTo(_rootChapter, newScope);
                     });
             }
 
@@ -289,7 +289,7 @@ package tart.core {
                 childrenList[chapter.name] = children || [];
             }
 
-            var tree:Object = __makeChapterInfo(_globalChapter.name, chapters, childrenList);
+            var tree:Object = __makeChapterInfo(_rootChapter.name, chapters, childrenList);
             trace("[Debug :: TartDirector] ***** Chapter tree *****");
             trace(JSON.stringify(tree, null, 4));
         }

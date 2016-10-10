@@ -6,7 +6,7 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class GlobalChapter extends TartChapter {
+    public class RootChapter extends TartChapter {
 
         public override function scenes():Array {
             return [

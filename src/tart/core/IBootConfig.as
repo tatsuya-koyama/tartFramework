@@ -8,7 +8,7 @@ package tart.core {
 
         function get firstScene():TartScene;
 
-        function get globalChapter():TartChapter;
+        function get rootChapter():TartChapter;
 
         function get graphicsBootConfig():IGraphicsBootConfig;
 

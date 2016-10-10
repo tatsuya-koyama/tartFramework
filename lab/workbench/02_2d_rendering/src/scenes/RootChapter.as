@@ -6,7 +6,7 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class GlobalChapter extends TartChapter {
+    public class RootChapter extends TartChapter {
 
         public override function scenes():Array {
             return [
@@ -16,36 +16,36 @@ package scenes {
         }
 
         public override function awake():void {
-            trace("GlobalChapter :: awake");
+            trace("RootChapter :: awake");
         }
 
         public override function initAsync():Defer {
-            trace("GlobalChapter :: initAsync");
+            trace("RootChapter :: initAsync");
             return null;
         }
 
         public override function init():void {
-            trace("GlobalChapter :: init");
+            trace("RootChapter :: init");
         }
 
         public override function disposeAsync():Defer {
-            trace("GlobalChapter :: disposeAsync");
+            trace("RootChapter :: disposeAsync");
             return null;
         }
 
         public override function dispose():void {
-            trace("GlobalChapter :: dispose");
+            trace("RootChapter :: dispose");
         }
 
         public override function assets():Array {
-            trace("GlobalChapter :: assets");
+            trace("RootChapter :: assets");
             return [
                 "lab_assets/piyo.png"
             ];
         }
 
         public override function layers():Array {
-            trace("GlobalChapter :: layers");
+            trace("RootChapter :: layers");
             return [
                  new Layer2D("f-global", 99, Layer2D.STARLING_FORE)
                 ,new Layer2D("b-global",  0, Layer2D.STARLING_BACK)
@@ -53,7 +53,7 @@ package scenes {
         }
 
         public override function initialActors():Array {
-            trace("GlobalChapter :: initialActors");
+            trace("RootChapter :: initialActors");
             return null;
         }
 
