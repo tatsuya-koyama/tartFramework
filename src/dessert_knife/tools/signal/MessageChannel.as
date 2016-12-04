@@ -6,10 +6,11 @@ package dessert_knife.tools.signal {
 
     /**
      * Provides Publish / Subscribe messaging system using Signal.
+     * MessageChannel holds Signal instances of each message.
      */
     public class MessageChannel {
 
-        private var _signals:Dictionary;
+        private var _signals:Dictionary;  // {<message:*> : <Signal>}
 
         public function MessageChannel() {
             _signals = new Dictionary();
@@ -19,19 +20,24 @@ package dessert_knife.tools.signal {
         // public
         //----------------------------------------------------------------------
 
-        public function subscribe(message:*, listener:Function):void {
+        public function subscribe(message:*, handler:Function, listener:*=null):void {
             var signal:Signal = _getSignal(message);
-            signal.connect(listener);
+            signal.connect(handler, listener);
         }
 
-        public function subscribeOnce(message:*, listener:Function):void {
+        public function subscribeOnce(message:*, handler:Function, listener:*=null):void {
             var signal:Signal = _getSignal(message);
-            signal.connectOnce(listener);
+            signal.connectOnce(handler, listener);
         }
 
-        public function unsubscribe(message:*, listener:Function):void {
+        public function unsubscribe(message:*, handler:Function):void {
             var signal:Signal = _getSignal(message);
-            signal.disconnect(listener);
+            signal.disconnect(handler);
+        }
+
+        public function unsubscribeListener(message:*, listener:*):void {
+            var signal:Signal = _getSignal(message);
+            signal.disconnectListener(listener);
         }
 
         public function unsubscribeAll(message:*):void {

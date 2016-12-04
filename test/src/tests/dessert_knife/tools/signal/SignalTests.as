@@ -123,5 +123,46 @@ package tests.dessert_knife.tools.signal {
             assertThat(seq, equalTo(''));
         }
 
+        [Test]
+        public function disconnectListener():void {
+            var signal:Signal = new Signal();
+            var seq:String = '';
+
+            var fn_a:Function = function(arg:int):void { seq += ':a' + arg; };
+            var fn_b:Function = function(arg:int):void { seq += ':b' + arg; };
+            var fn_c:Function = function(arg:int):void { seq += ':c' + arg; };
+
+            var obj_a:Object = {};
+            var obj_b:Object = {};
+            var obj_c:Object = {};
+            var obj_d:Object = {};
+
+            signal.connect(fn_a, obj_a);
+            signal.connect(fn_a);        // ** null **
+            signal.connect(fn_b, obj_b); // obj_b
+            signal.connect(fn_c, obj_b); // obj_b
+            signal.connect(fn_c, obj_c);
+
+            signal.emit(1);
+            assertThat(seq, equalTo(':a1:a1:b1:c1:c1'));
+
+            signal.disconnectListener(obj_b);
+            assertThat(signal.numListeners(), equalTo(3));
+            signal.emit(2);
+            assertThat(seq, equalTo(':a1:a1:b1:c1:c1:a2:a2:c2'));
+
+            // Multiple call is safety.
+            signal.disconnectListener(obj_b);
+            assertThat(signal.numListeners(), equalTo(3));
+
+            // Giving unregistered listener is safety.
+            signal.disconnectListener(obj_d);
+            assertThat(signal.numListeners(), equalTo(3));
+
+            // Giving false value is safety.
+            signal.disconnectListener(null);
+            assertThat(signal.numListeners(), equalTo(3));
+        }
+
     }
 }

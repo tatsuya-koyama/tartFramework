@@ -18,8 +18,8 @@ package dessert_knife.tools.signal {
         }
 
         /** Add event listener. */
-        public function connect(handler:Function):void {
-            var listener:SignalListener = new SignalListener(handler);
+        public function connect(handler:Function, listener:*=null):void {
+            var listener:SignalListener = new SignalListener(handler, listener);
             _listeners.push(listener);
         }
 
@@ -27,19 +27,37 @@ package dessert_knife.tools.signal {
          * Add one-shot event listener.
          * The listener is automatically removed after dispatching event.
          */
-        public function connectOnce(handler:Function):void {
-            var listener:SignalListener = new SignalListener(handler, true);
+        public function connectOnce(handler:Function, listener:*=null):void {
+            var listener:SignalListener = new SignalListener(handler, listener, true);
             _listeners.push(listener);
         }
 
-        /** Remove event listener. */
+        /** Remove event handler (just remove the first matched handler.) */
         public function disconnect(handler:Function):void {
             for (var i:int = 0; i < _listeners.length; ++i) {
                 var listener:SignalListener = _listeners[i];
                 if (listener.handler != handler) { continue; }
 
+                listener.dispose();
                 _listeners.removeAt(i);
                 break;
+            }
+        }
+
+        /**
+         * Remove all event handlers of the given listener.
+         * If the given listener is false value, do nothing.
+         */
+        public function disconnectListener(targetListener:*):void {
+            if (!targetListener) { return; }
+
+            for (var i:int = 0; i < _listeners.length; ++i) {
+                var listener:SignalListener = _listeners[i];
+                if (listener.listener != targetListener) { continue; }
+
+                listener.dispose();
+                _listeners.removeAt(i);
+                --i;
             }
         }
 
@@ -55,6 +73,7 @@ package dessert_knife.tools.signal {
                 knife.func.safeApply(listener.handler, eventArgs);
 
                 if (listener.once) {
+                    listener.dispose();
                     _listeners.removeAt(i);
                     --i;
                 }
