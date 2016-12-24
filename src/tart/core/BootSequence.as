@@ -22,6 +22,7 @@ package tart.core {
                 .then(_initResource)
                 .then(_initSystem)
                 .then(_initLayerRegistry)
+                .then(_initKeyboard)
                 .then(_initDirectorAsync);
         }
 
@@ -53,6 +54,12 @@ package tart.core {
 
         private function _initLayerRegistry(tartContext:TartContext):TartContext {
             tartContext.layers = new TartLayerRegistry();
+            return tartContext;
+        }
+
+        private function _initKeyboard(tartContext:TartContext):TartContext {
+            tartContext.keyboard = new TartKeyboard();
+            tartContext.keyboard.init(_bootConfig.rootSprite.stage);
             return tartContext;
         }
 

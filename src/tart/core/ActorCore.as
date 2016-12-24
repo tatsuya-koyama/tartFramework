@@ -41,7 +41,10 @@ package tart.core {
         // protected
         //----------------------------------------------------------------------
 
-        protected function attach(component:Component):Component {
+        protected function attach(componentClass:Class):* {
+            // ToDo: pooling
+            var component:Component = new componentClass() as Component;
+
             component.tart = this.tart;
             _entity.attach(component);
             return component;
@@ -49,9 +52,7 @@ package tart.core {
 
         protected function compose(...componentClasses):void {
             for each (var componentClass:Class in componentClasses) {
-                // ToDo: pooling
-                var component:Component = new componentClass() as Component;
-                attach(component);
+                attach(componentClass);
             }
         }
 

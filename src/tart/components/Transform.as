@@ -20,7 +20,7 @@ package tart.components {
             return Transform;
         }
 
-        public override function reset():void {
+        public override function onDetach():void {
             position.setTo(0, 0, 0);
             scale   .setTo(1, 1, 1);
             rotation.setTo(0, 0, 0);

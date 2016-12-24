@@ -34,7 +34,9 @@ package tart.core {
         // Handlers for user code (please override in subclasses.)
         //----------------------------------------------------------------------
 
-        public function reset():void {}
+        public function onAttach():void {}
+
+        public function onDetach():void {}
 
     }
 }

@@ -2,6 +2,8 @@ package tart.core {
 
     import flash.utils.Dictionary;
 
+    import dessert_knife.knife;
+
     public class Entity {
 
         public var scope:ISceneScope;
@@ -24,13 +26,11 @@ package tart.core {
 
             for each (var component:Component in _componentList) {
                 component.recycle();
-                component.reset();
+                component.onDetach();
             }
             _componentList.length = 0;
 
-            for (var klass:Class in _componentMap) {
-                delete _componentMap[klass];
-            }
+            knife.map.clear(_componentMap);
         }
 
         public function get componentList():Vector.<Component> {
@@ -51,6 +51,7 @@ package tart.core {
             _componentMap[klass] = component;
             _componentList.push(component);
             component.entity = this;
+            component.onAttach();
             return this;
         }
 

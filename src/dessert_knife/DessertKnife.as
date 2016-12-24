@@ -2,6 +2,7 @@ package dessert_knife {
 
     import dessert_knife.blades.FunctionKnife;
     import dessert_knife.blades.ListKnife;
+    import dessert_knife.blades.MapKnife;
     import dessert_knife.blades.RandomKnife;
     import dessert_knife.blades.StringKnife;
     import dessert_knife.tools.async.Async;
@@ -135,6 +136,14 @@ package dessert_knife {
          */
         public function get list():ListKnife {
             return ListKnife.instance;
+        }
+
+        /**
+         * Returns singleton instance of MapKnife.
+         * @see dessert_knife.blades.MapKnife
+         */
+        public function get map():MapKnife {
+            return MapKnife.instance;
         }
 
         /**

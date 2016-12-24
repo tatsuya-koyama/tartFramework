@@ -4,4 +4,6 @@ asdoc:
 	      -load-config+="asdoc-config.xml" \
 	      -main-title   "tartFramework" \
 	      -window-title "tartFramework" \
-	      -output ./asdoc-output
+	      -strict=false \
+	      -output ./asdoc-output \
+	2>&1 | tools/scripts/colorline error: warning:

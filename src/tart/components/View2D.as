@@ -22,7 +22,7 @@ package tart.components {
             return View2D;
         }
 
-        public override function reset():void {
+        public override function onDetach():void {
             if (displayObj) {
                 displayObj.removeFromParent(true);
                 displayObj = null;

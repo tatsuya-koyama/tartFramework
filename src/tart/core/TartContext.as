@@ -8,6 +8,7 @@ package tart.core {
         public var resource:TartResource;
         public var graphics:TartGraphics;
         public var layers:TartLayerRegistry;
+        public var keyboard:TartKeyboard;
         public var sound:Object;
         public var message:Object;
 

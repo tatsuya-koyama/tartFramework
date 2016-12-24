@@ -16,8 +16,8 @@ package {
             _centeringWindowForDesktopApp();
 
             var bootConfig:BootConfigPrototype = new BootConfigPrototype();
-            bootConfig.rootSprite    = this;
-            bootConfig.firstScene    = new Scene_1();
+            bootConfig.rootSprite  = this;
+            bootConfig.firstScene  = new Scene_1();
             bootConfig.rootChapter = new RootChapter();
 
             var engine:TartEngine = new TartEngine();

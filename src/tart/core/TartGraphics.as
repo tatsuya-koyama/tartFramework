@@ -54,6 +54,14 @@ package tart.core {
             return _starlingBack;
         }
 
+        public function get rootSprite():flash.display.Sprite {
+            return _rootSprite;
+        }
+
+        public function get stage():Stage {
+            return _stage;
+        }
+
         //----------------------------------------------------------------------
         // public
         //----------------------------------------------------------------------
