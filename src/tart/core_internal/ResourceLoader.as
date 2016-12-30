@@ -14,6 +14,17 @@ package tart.core_internal {
     import dessert_knife.tools.async.Deferred;
     import dessert_knife.tools.async.Promise;
 
+    /**
+     * Simple file loader.
+     *
+     * <p>Usage:</p>
+     * <listing>
+     *     var loader:ResourceLoader = new ResourceLoader();
+     *     loader.load(filePathOrUrl).then(function(bytes:ByteArray):void {
+     *         // handling loaded bytes...
+     *     });
+     * <listing>
+     */
     public class ResourceLoader {
 
         private var _urlLoader:URLLoader;

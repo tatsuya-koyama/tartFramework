@@ -54,7 +54,7 @@ package tart.core_internal {
             _numActiveLoader += 1;
 
             loader.load(url).then(
-                _onLoadHandler(loader, url, urlQueue)
+                _makeLoadHandler(loader, url, urlQueue)
             );
 
             if (urlQueue.length > 0) {
@@ -65,8 +65,8 @@ package tart.core_internal {
         /**
          * Create function to handle ResourceLoader's load callback.
          */
-        private function _onLoadHandler(loader:ResourceLoader,
-                                        url:String, urlQueue:Array):Function
+        private function _makeLoadHandler(loader:ResourceLoader,
+                                          url:String, urlQueue:Array):Function
         {
             return function(bytes:ByteArray):void {
                 _deserializer.deserializeResourceAsync(bytes, url).then(function():void {
