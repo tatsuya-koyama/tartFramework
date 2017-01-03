@@ -12,7 +12,7 @@
     </default-script-limits>
 
     <!-- for old compiler -->
-    <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+    <!-- <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries> -->
 
     <compiler>
         <define append="true">

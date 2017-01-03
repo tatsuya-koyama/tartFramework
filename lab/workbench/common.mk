@@ -1,9 +1,8 @@
 COMMON_BUILD_OPTS=\
-	-swf-version=31 \
+	-swf-version=35 \
 	-source-path+="../../../src/" \
 	-library-path+="../../../lib/" \
-	-load-config+="config.xml" \
-	-incremental=true
+	-load-config+="config.xml"
 
 #----------------------------------------------------------
 # build swf for each platforms

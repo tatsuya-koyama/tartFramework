@@ -1,14 +1,9 @@
 package actors {
 
-    import flash.events.KeyboardEvent;
+    import flash.display.BlendMode;
     import flash.geom.Vector3D;
-    import flash.net.URLRequest;
-    import flash.ui.Keyboard;
     import flash.utils.ByteArray;
-    import flash.utils.getTimer;
 
-    import away3d.cameras.lenses.OrthographicLens;
-    import away3d.containers.View3D;
     import away3d.events.AssetEvent;
     import away3d.library.assets.AssetType;
     import away3d.lights.DirectionalLight;
@@ -19,44 +14,41 @@ package actors {
     import away3d.materials.lightpickers.StaticLightPicker;
     import away3d.materials.methods.FogMethod;
 
-    import starling.display.Image;
-
-    import tart.components.KeyInput;
     import tart.components.Transform;
-    import tart.components.View2D;
+    import tart.components.View3D;
     import tart.core.ActorCore;
+
+    import dessert_knife.knife;
 
     public class View3DTester_2 extends ActorCore {
 
-        private var _keyInput:KeyInput;
+        private var _obj3d:Loader3D;
+        private var _lifeTime:Number;
 
         public override function build():void {
-            compose(Transform, View2D);
-            _keyInput = attach(KeyInput);
+            compose(Transform, View3D);
         }
 
-        public function View3DTester_2() {}
+        public function View3DTester_2() {
+            _lifeTime = knife.rand.float(3.0, 10.0);
+        }
 
         public override function awake():void {
-            Parsers.enableAllBundled();
+            _view3D.makeMeshFromAwd('ruin');
+            _view3D.displayObjContainer.addEventListener(AssetEvent.ASSET_COMPLETE, _onAssetComplete);
 
-            var awdData:ByteArray = tart.resource.getAwd('ruin');
-
-            var loader:Loader3D = new Loader3D(true, null);
-            loader.loadData(awdData, null, null, new AWDParser());
-            loader.scaleX = loader.scaleY = loader.scaleZ = 10.0;
-
-            loader.addEventListener(AssetEvent.ASSET_COMPLETE, _onAssetComplete);
-
-            tart.graphics.away3DView.scene.addChild(loader);
+            _transform.position.x = knife.rand.float(-100, 100);
+            _transform.position.y = knife.rand.float(-100, 100);
+            _transform.position.z = knife.rand.float(-100, 100);
+            _transform.rotation.y = knife.rand.integer(8) * 45;
+            _transform.scale.setTo(4.0, 4.0, 4.0);
         }
 
         public override function update(deltaTime:Number):void {
-            var view:View3D = tart.graphics.away3DView;
-            view.camera.x = 200 *  Math.cos(getTimer() / 1000);
-            view.camera.z = 200 *  Math.sin(getTimer() / 1000);
-            view.camera.y = 100 * (Math.cos(getTimer() / 3000) + 1.5);
-            view.camera.lookAt(new Vector3D(0, 40, 0));
+            _lifeTime -= deltaTime;
+            if (_lifeTime <= 0) {
+                destroy();
+            }
         }
 
         private function _onAssetComplete(event:AssetEvent):void {
@@ -67,7 +59,11 @@ package actors {
 
             var material:TextureMaterial = event.asset as TextureMaterial;
             material.lightPicker = lightPicker;
-            material.addMethod(new FogMethod(130, 400, 0xd2d2cc));
+            material.addMethod(new FogMethod(250, 600, 0xd2d2cc));
+
+            //material.alphaBlending = true;
+            //material.alphaPremultiplied = false;
+            //material.blendMode = BlendMode.MULTIPLY;
         }
 
         private function _makeLight():DirectionalLight {

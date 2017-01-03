@@ -38,7 +38,8 @@ package scenes {
 
         public override function initialActors():Array {
             return [
-                new View3DTester_2()
+                new View3DGenerator(),
+                new CameraController()
             ];
         }
 
