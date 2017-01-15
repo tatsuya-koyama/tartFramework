@@ -4,6 +4,9 @@ package tart.core {
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
 
+    import away3d.entities.Mesh;
+    import away3d.loaders.Loader3D;
+
     import starling.display.Image;
     import starling.textures.Texture;
     import starling.textures.TextureAtlas;
@@ -11,13 +14,14 @@ package tart.core {
     import tart.core_internal.ResourceMultiLoader;
     import tart.core_internal.ResourceRepository;
     import tart.core_internal.resource_handler.AwdResource;
+    import tart.core_internal.resource_handler.Max3dsResource;
+    import tart.core_internal.resource_handler.ObjResource;
     import tart.core_internal.resource_handler.TextureResource;
     import tart.core_internal.resource_handler.XmlResource;
     import tart.core_internal.resource_plugin.TextureAtlasPlugin;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
-    import dessert_knife.tools.async.Deferred;
     import dessert_knife.tools.async.Promise;
 
     public class TartResource implements IResourceDeserializer {
@@ -27,7 +31,6 @@ package tart.core {
         private var _resourceMultiLoader:ResourceMultiLoader;
         private var _resourceRepo:ResourceRepository;
 
-        private var _loadDeferred:Deferred;
         private var _urlQueue:Array;
         private var _isLoading:Boolean = false;
         private var _resourcesNewlyLoaded:Array;
@@ -37,7 +40,9 @@ package tart.core {
             _handlers = new <IResourceHandler>[
                 new TextureResource(),
                 new XmlResource(),
-                new AwdResource()
+                new AwdResource(),
+                new ObjResource(),
+                new Max3dsResource()
             ];
             _plugins = new <IResourcePlugin>[
                 new TextureAtlasPlugin()
@@ -165,8 +170,31 @@ package tart.core {
             return null;
         }
 
-        public function getAwd(key:String):ByteArray {
+        public function getAwd(key:String):Loader3D {
             return _resourceRepo.getByKey(AwdResource.KEY_PREFIX + key);
+        }
+
+        public function getAwdMesh(key:String):Mesh {
+            var loader3d:Loader3D = getAwd(key);
+            return loader3d.getChildAt(0) as Mesh;
+        }
+
+        public function getObj(key:String):Loader3D {
+            return _resourceRepo.getByKey(ObjResource.KEY_PREFIX + key);
+        }
+
+        public function getObjMesh(key:String):Mesh {
+            var loader3d:Loader3D = getObj(key);
+            return loader3d.getChildAt(0) as Mesh;
+        }
+
+        public function get3ds(key:String):Loader3D {
+            return _resourceRepo.getByKey(Max3dsResource.KEY_PREFIX + key);
+        }
+
+        public function get3dsMesh(key:String):Mesh {
+            var loader3d:Loader3D = get3ds(key);
+            return loader3d.getChildAt(0) as Mesh;
         }
 
         //----------------------------------------------------------------------

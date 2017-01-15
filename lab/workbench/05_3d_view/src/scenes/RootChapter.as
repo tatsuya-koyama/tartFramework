@@ -6,6 +6,8 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
+    import actors.MaterialInitializer;
+
     public class RootChapter extends TartChapter {
 
         public override function scenes():Array {
@@ -30,7 +32,11 @@ package scenes {
 
         public override function assets():Array {
             return [
-                "lab_assets/ruin.awd"
+                "lab_assets/meshes/ruin.awd",
+                "lab_assets/meshes/ruin.3ds",
+                "lab_assets/meshes/ruin.obj",
+                "lab_assets/piyo.png",
+                "lab_assets/star.png",
             ];
         }
 
@@ -42,7 +48,9 @@ package scenes {
         }
 
         public override function initialActors():Array {
-            return null;
+            return [
+                new MaterialInitializer()
+            ];
         }
 
     }

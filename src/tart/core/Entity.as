@@ -25,8 +25,8 @@ package tart.core {
             isAlive = false;
 
             for each (var component:Component in _componentList) {
-                component.recycle();
                 component.onDetach();
+                component.recycle();
             }
             _componentList.length = 0;
 

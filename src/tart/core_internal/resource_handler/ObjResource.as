@@ -5,16 +5,16 @@ package tart.core_internal.resource_handler {
     import away3d.events.LoaderEvent;
     import away3d.loaders.Loader3D;
     import away3d.loaders.misc.AssetLoaderContext;
-    import away3d.loaders.parsers.AWDParser;
+    import away3d.loaders.parsers.OBJParser;
 
     import tart.core.IResourceHandler;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
-    public class AwdResource implements IResourceHandler {
+    public class ObjResource implements IResourceHandler {
 
-        public static const KEY_PREFIX:String = "awd:";
+        public static const KEY_PREFIX:String = "obj:";
 
         //----------------------------------------------------------------------
         // implements IResourceHandler
@@ -25,11 +25,11 @@ package tart.core_internal.resource_handler {
         }
 
         public function get resourceType():Class {
-            return AwdResource;
+            return ObjResource;
         }
 
         public function canHandle(extension:String):Boolean {
-            return (extension == "awd");
+            return (extension == "obj");
         }
 
         public function deserializeAsync(bytes:ByteArray):Defer {
@@ -37,7 +37,7 @@ package tart.core_internal.resource_handler {
             var loader3d:Loader3D = new Loader3D(false, null);
             // ToDo: pass by config
             var context:AssetLoaderContext = new AssetLoaderContext(true, "lab_assets/meshes/");
-            loader3d.loadData(bytes, context, null, new AWDParser());
+            loader3d.loadData(bytes, context, null, new OBJParser());
 
             var listener:Function = function(event:LoaderEvent):void {
                 loader3d.removeEventListener(LoaderEvent.RESOURCE_COMPLETE, listener);
@@ -48,8 +48,7 @@ package tart.core_internal.resource_handler {
         }
 
         public function dispose(resource:*):void {
-            var loader3d:Loader3D = Loader3D(resource);
-            loader3d.dispose();
+            return;
         }
 
     }

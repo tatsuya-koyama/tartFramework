@@ -39,7 +39,8 @@ package scenes {
         public override function initialActors():Array {
             return [
                 new View3DGenerator(),
-                new CameraController()
+                new CameraController(),
+                new MyShip(),
             ];
         }
 

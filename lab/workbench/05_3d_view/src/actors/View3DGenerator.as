@@ -17,9 +17,10 @@ package actors {
         public override function update(deltaTime:Number):void {
             _elapsedTime += deltaTime;
 
-            if (_elapsedTime > 0.1) {
-                _elapsedTime -= 0.1;
-                spawnActor(new View3DTester_2());
+            var span:Number = 0.2;
+            if (_elapsedTime > span) {
+                _elapsedTime -= span;
+                spawnActor(new View3DTester());
             }
         }
 
