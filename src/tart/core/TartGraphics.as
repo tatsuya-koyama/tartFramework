@@ -89,6 +89,19 @@ package tart.core {
             _bootConfig.onStage3DProxyInit(_stage3DProxy);
 
             _stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, _onContextCreated);
+            _activateRenderer(_stage3DProxy);
+        }
+
+        /**
+         * Start Stage3D rendering.
+         * Note. Apparently it seems necessary to dispatch ENTER_FRAME event
+         *       in order to activate rendering.
+         */
+        private function _activateRenderer(stage3DProxy:Stage3DProxy):void {
+            var listener:Function = function(event:flash.events.Event):void {
+                _stage3DProxy.removeEventListener(flash.events.Event.ENTER_FRAME, listener);
+            };
+            _stage3DProxy.addEventListener(flash.events.Event.ENTER_FRAME, listener);
         }
 
         private function _onContextCreated(event:Stage3DEvent):void {
