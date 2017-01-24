@@ -16,6 +16,12 @@ package tart.core_internal.resource_handler {
 
         public static const KEY_PREFIX:String = "awd:";
 
+        private var _loaderContext:AssetLoaderContext;
+
+        public function AwdResource(dependencyBaseUrl:String="") {
+            _loaderContext = new AssetLoaderContext(true, dependencyBaseUrl);
+        }
+
         //----------------------------------------------------------------------
         // implements IResourceHandler
         //----------------------------------------------------------------------
@@ -35,9 +41,7 @@ package tart.core_internal.resource_handler {
         public function deserializeAsync(bytes:ByteArray):Defer {
             var defer:Defer = knife.defer();
             var loader3d:Loader3D = new Loader3D(false, null);
-            // ToDo: pass by config
-            var context:AssetLoaderContext = new AssetLoaderContext(true, "lab_assets/meshes/");
-            loader3d.loadData(bytes, context, null, new AWDParser());
+            loader3d.loadData(bytes, _loaderContext, null, new AWDParser());
 
             var listener:Function = function(event:LoaderEvent):void {
                 loader3d.removeEventListener(LoaderEvent.RESOURCE_COMPLETE, listener);

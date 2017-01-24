@@ -18,7 +18,6 @@ package tart.core {
     import tart.core_internal.resource_handler.ObjResource;
     import tart.core_internal.resource_handler.TextureResource;
     import tart.core_internal.resource_handler.XmlResource;
-    import tart.core_internal.resource_plugin.TextureAtlasPlugin;
 
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
@@ -35,26 +34,23 @@ package tart.core {
         private var _isLoading:Boolean = false;
         private var _resourcesNewlyLoaded:Array;
 
-        public function TartResource() {
-            // Todo : enable to customize by boot config
-            _handlers = new <IResourceHandler>[
-                new TextureResource(),
-                new XmlResource(),
-                new AwdResource(),
-                new ObjResource(),
-                new Max3dsResource()
-            ];
-            _plugins = new <IResourcePlugin>[
-                new TextureAtlasPlugin()
-            ];
-
-            _resourceMultiLoader = new ResourceMultiLoader();
-            _resourceRepo        = new ResourceRepository();
-        }
+        public function TartResource() {}
 
         //----------------------------------------------------------------------
         // public
         //----------------------------------------------------------------------
+
+        public function init(bootConfig:IResourceBootConfig):void {
+            if (!bootConfig) {
+                throw new Error("[Error :: TartResource] Boot Config required.");
+            }
+
+            _handlers = bootConfig.resourceHandlers;
+            _plugins  = bootConfig.resourcePlugins;
+
+            _resourceMultiLoader = new ResourceMultiLoader(bootConfig.baseUrl);
+            _resourceRepo        = new ResourceRepository();
+        }
 
         /**
          * @param urls - Array of URL String.

@@ -17,9 +17,11 @@ package {
             _centeringWindowForDesktopApp();
 
             var bootConfig:BootConfigPrototype = new BootConfigPrototype();
-            bootConfig.rootSprite  = this;
-            bootConfig.firstScene  = new Scene_1();
-            bootConfig.rootChapter = new RootChapter();
+            bootConfig.rootSprite      = this;
+            bootConfig.firstScene      = new Scene_1();
+            bootConfig.rootChapter     = new RootChapter();
+            bootConfig.baseResourceUrl = "lab_assets/";
+            bootConfig.base3dAssetUrl  = "lab_assets/meshes/";
 
             var graphicsConf:DefaultGraphicsBootConfig = new DefaultGraphicsBootConfig();
             graphicsConf.bgColor = 0xd2d2cc;

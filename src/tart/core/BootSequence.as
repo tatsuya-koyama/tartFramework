@@ -43,6 +43,7 @@ package tart.core {
 
         private function _initResource(tartContext:TartContext):TartContext {
             tartContext.resource = new TartResource();
+            tartContext.resource.init(_bootConfig.resourceBootConfig);
             return tartContext;
         }
 

@@ -3,7 +3,7 @@
         <width>960</width>
         <height>640</height>
     </default-size>
-    <default-background-color>0x222222</default-background-color>
+    <default-background-color>0x992222</default-background-color>
     <default-frame-rate>60</default-frame-rate>
 
     <default-script-limits>

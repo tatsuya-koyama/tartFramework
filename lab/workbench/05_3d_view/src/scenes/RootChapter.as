@@ -32,11 +32,11 @@ package scenes {
 
         public override function assets():Array {
             return [
-                "lab_assets/meshes/ruin.awd",
-                "lab_assets/meshes/ruin.3ds",
-                "lab_assets/meshes/ruin.obj",
-                "lab_assets/piyo.png",
-                "lab_assets/star.png",
+                "meshes/ruin.awd",
+                "meshes/ruin.3ds",
+                "meshes/ruin.obj",
+                "piyo.png",
+                "star.png",
             ];
         }
 

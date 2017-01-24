@@ -13,6 +13,7 @@ package tart.core_internal {
      */
     public class ResourceMultiLoader {
 
+        private var _baseUrl:String;
         private var _reservedLoaders:Vector.<ResourceLoader>;
         private var _numActiveLoader:uint;
         private var _deferred:Deferred;
@@ -20,7 +21,8 @@ package tart.core_internal {
         private var _urlQueue:Array;
         private var _isLoading:Boolean = false;
 
-        public function ResourceMultiLoader(loadThrottle:uint=3) {
+        public function ResourceMultiLoader(baseUrl:String="", loadThrottle:uint=3) {
+            _baseUrl         = baseUrl;
             _reservedLoaders = new Vector.<ResourceLoader>();
             _numActiveLoader = 0;
 
@@ -49,7 +51,7 @@ package tart.core_internal {
         private function _loadNext(urlQueue:Array):void {
             if (_reservedLoaders.length == 0) { return; }
 
-            var url:String = urlQueue.shift();
+            var url:String = _baseUrl + urlQueue.shift();
             var loader:ResourceLoader = _reservedLoaders.pop();
             _numActiveLoader += 1;
 
