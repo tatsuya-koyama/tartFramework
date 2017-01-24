@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application xmlns="http://ns.adobe.com/air/application/19.0">
+<application xmlns="http://ns.adobe.com/air/application/24.0">
     <id>com.tatsuyakoyama.tart.lab.sender</id>
     <versionNumber>1.0</versionNumber>
     <filename>tartSample</filename>
