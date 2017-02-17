@@ -9,8 +9,7 @@ package tart.config {
     import away3d.debug.AwayStats;
 
     import starling.core.Starling;
-    import starling.utils.HAlign;
-    import starling.utils.VAlign;
+    import starling.utils.Align;
 
     import away3d.core.managers.Stage3DProxy;
 
@@ -20,6 +19,8 @@ package tart.config {
 
         // customizable params
         public var showStats:Boolean = true;
+        public var starlingForeMultitouch:Boolean = true;
+        public var starlingBackMultitouch:Boolean = false;
         public var starlingCoordWidth:Number  = 960;
         public var starlingCoordHeight:Number = 640;
         public var stageScaleMode:String = StageScaleMode.NO_SCALE;
@@ -50,24 +51,36 @@ package tart.config {
         }
 
         public function onAway3DViewInit(away3DView:View3D, rootSprite:Sprite):void {
-            if (!showStats) { return; }
+            if (showStats) {
+                // show debug stats at top-left corner of the screen
+                rootSprite.addChild(new AwayStats(away3DView));
+            }
+        }
 
-            // show debug stats at top-left corner of the screen
-            rootSprite.addChild(new AwayStats(away3DView));
+        public function beforeInitStarling():void {
+            if (starlingForeMultitouch || starlingBackMultitouch) {
+                Starling.multitouchEnabled = true;
+            }
         }
 
         public function onStarlingForeInit(starling:Starling):void {
-            if (!showStats) { return; }
-
-            // show debug stats at bottom-right corner of the screen
-            starling.showStatsAt(HAlign.RIGHT, VAlign.BOTTOM);
+            if (starlingForeMultitouch) {
+                starling.simulateMultitouch = true;
+            }
+            if (showStats) {
+                // show debug stats at bottom-right corner of the screen
+                starling.showStatsAt(Align.RIGHT, Align.BOTTOM);
+            }
         }
 
         public function onStarlingBackInit(starling:Starling):void {
-            if (!showStats) { return; }
-
-            // show debug stats at top-right corner of the screen
-            starling.showStatsAt(HAlign.RIGHT, VAlign.TOP);
+            if (starlingBackMultitouch) {
+                starling.simulateMultitouch = true;
+            }
+            if (showStats) {
+                // show debug stats at top-right corner of the screen
+                starling.showStatsAt(Align.RIGHT, Align.TOP);
+            }
         }
 
     }

@@ -112,6 +112,7 @@ package tart.core {
 
             // init 2 layers of Starling instance
             // ToDo: 使わない Starling を初期化しないオプション
+            _bootConfig.beforeInitStarling();
             _starlingFore = _makeStarling(_stage3DProxy);
             _starlingBack = _makeStarling(_stage3DProxy);
             _bootConfig.onStarlingForeInit(_starlingFore);
@@ -145,6 +146,7 @@ package tart.core {
                 stage3DProxy.viewPort,
                 stage3DProxy.stage3D
             );
+            starling.start();
             return starling;
         }
 
