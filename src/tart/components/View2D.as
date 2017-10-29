@@ -119,16 +119,7 @@ package tart.components {
         private function _addViewToLayer(view:DisplayObject, layerName:String):void {
             if (!layerName) { return; }
 
-            var layer:ILayer = tart.layers.getLayer(layerName);
-            if (!(layer.layerUserData is DisplayObjectContainer)) {
-                TART::LOG_ERROR {
-                    trace("[Error :: View2D] 2D layer <", layerName,
-                          "> should have DisplayObjectContainer");
-                }
-                return;
-            }
-
-            var layerNode:DisplayObjectContainer = layer.layerUserData as DisplayObjectContainer;
+            var layerNode:DisplayObjectContainer = tart.layers.getLayer2DNode(layerName);
             layerNode.addChild(view);
         }
 

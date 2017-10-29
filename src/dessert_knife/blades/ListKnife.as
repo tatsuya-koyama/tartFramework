@@ -30,6 +30,15 @@ package dessert_knife.blades {
         }
 
         /**
+         * Fills all elements with static value.
+         */
+        public function fill(list:Array, value:*):void {
+            for (var i:int = 0; i < list.length; ++i) {
+                list[i] = value;
+            }
+        }
+
+        /**
          * Create a shallow-copied clone of source Array.
          * It is merely alias of Array.slice().
          */

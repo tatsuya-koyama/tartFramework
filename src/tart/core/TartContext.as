@@ -11,6 +11,7 @@ package tart.core {
         public var keyboard:TartKeyboard;
         public var sound:Object;
         public var message:Object;
+        public var consts:TartConstants;
 
     }
 }

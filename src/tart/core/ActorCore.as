@@ -1,5 +1,7 @@
 package tart.core {
 
+    import tart.components.KeyInput;
+    import tart.components.Touch2D;
     import tart.components.Transform;
     import tart.components.View2D;
     import tart.components.View3D;
@@ -11,10 +13,14 @@ package tart.core {
         protected var _transform:Transform;
         protected var _view2D:View2D;
         protected var _view3D:View3D;
+        protected var _keyInput:KeyInput;
+        protected var _touch2D:Touch2D;
 
         public function get transform():Transform { return _transform; }
         public function get view2D():View2D { return _view2D; }
         public function get view3D():View3D { return _view3D; }
+        public function get keyInput():KeyInput { return _keyInput; }
+        public function get touch2D():Touch2D { return _touch2D; }
 
         private var _afterAwakeTask:Function;
 
@@ -35,9 +41,12 @@ package tart.core {
         public override function recycle():void {
             super.recycle();
 
-            _transform      = null;
-            _view2D         = null;
-            _view3D         = null;
+            _transform = null;
+            _view2D    = null;
+            _view3D    = null;
+            _keyInput  = null;
+            _touch2D   = null;
+
             _afterAwakeTask = null;
         }
 
@@ -87,6 +96,8 @@ package tart.core {
             _transform = getComponent(Transform) as Transform;
             _view2D    = getComponent(View2D) as View2D;
             _view3D    = getComponent(View3D) as View3D;
+            _keyInput  = getComponent(KeyInput) as KeyInput;
+            _touch2D   = getComponent(Touch2D) as Touch2D;
 
             if (_afterAwakeTask != null) {
                 _afterAwakeTask();

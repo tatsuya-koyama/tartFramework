@@ -1,5 +1,7 @@
 package scenes {
 
+    import starling.display.BlendMode;
+
     import tart.actors.Layer2D;
     import tart.core.TartChapter;
 
@@ -41,7 +43,8 @@ package scenes {
 
         public override function layers():Array {
             return [
-                 new Layer2D("f-global", 99, Layer2D.STARLING_FORE)
+                 new Layer2D("f-effect", 99, Layer2D.STARLING_FORE, BlendMode.ADD)
+                ,new Layer2D("f-global", 98, Layer2D.STARLING_FORE)
                 ,new Layer2D("b-global",  0, Layer2D.STARLING_BACK)
             ];
         }

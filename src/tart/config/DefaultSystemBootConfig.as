@@ -7,6 +7,7 @@ package tart.config {
     import tart.systems.DirectionSystem;
     import tart.systems.NewActorRegisterSystem;
     import tart.systems.RenderSystem;
+    import tart.systems.TouchHandlingSystem;
 
     public class DefaultSystemBootConfig implements ISystemBootConfig {
 
@@ -17,6 +18,7 @@ package tart.config {
         public function onSystemInit(system:TartSystem):void {
             system.addSubSystems([
                  new DirectionSystem()
+                ,new TouchHandlingSystem()
                 ,new ActorUpdateSystem()
                 ,new ActorDestroySystem()
                 ,new NewActorRegisterSystem()

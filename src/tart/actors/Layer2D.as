@@ -1,6 +1,7 @@
 package tart.actors {
 
     import starling.core.Starling;
+    import starling.display.BlendMode;
     import starling.display.Sprite;
 
     import tart.components.View2D;
@@ -25,19 +26,23 @@ package tart.actors {
         private var _layerName:String;
         private var _zOrder:int;
         private var _starlingId:String;
+        private var _initialBlendMode:String;
         private var _scope:ISceneScope;
 
         /**
          * @param layerName  - Name to retrieve this instance.
-         * @param zOrder     - Large number means foreground.
+         * @param zOrder     - Display order. Large number means foreground.
          * @param starlingId - ID to specify target Starling instance.
+         * @param blendMode  - Initial blend mode of the layer sprite.
          */
         public function Layer2D(layerName:String, zOrder:int,
-                                starlingId:String=STARLING_FORE)
+                                starlingId:String=STARLING_FORE,
+                                blendMode:String=BlendMode.AUTO)
         {
-            _layerName  = layerName;
-            _zOrder     = zOrder;
-            _starlingId = starlingId;
+            _layerName        = layerName;
+            _zOrder           = zOrder;
+            _starlingId       = starlingId;
+            _initialBlendMode = blendMode;
         }
 
         //----------------------------------------------------------------------
@@ -67,6 +72,7 @@ package tart.actors {
 
         public function onLayerCreated():void {
             _view2D.displayObj = new OrderedSprite(_zOrder);
+            _view2D.displayObj.blendMode = _initialBlendMode;
 
             var starling:Starling = _getStarling(_starlingId);
             var rootSprite:Sprite = starling.root as Sprite;

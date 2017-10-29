@@ -1,6 +1,5 @@
 package actors {
 
-    import starling.display.BlendMode;
     import starling.display.Image;
 
     import tart.components.Transform;
@@ -21,13 +20,12 @@ package actors {
         }
 
         public override function awake():void {
-            var image:Image = _view2D.makeImage('star', 'f-global', 24, 24);
-            image.blendMode = BlendMode.ADD;
+            var image:Image = _view2D.makeImage('star', 'f-effect', 24, 24);
             image.color     = 0xffff77;
         }
 
         public override function update(deltaTime:Number):void {
-            _transform.position.x += (900 * deltaTime);
+            _transform.position.x += (90 * deltaTime);
 
             _transform.rotation.z += (4.0 * deltaTime);
 

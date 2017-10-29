@@ -3,6 +3,8 @@ package tart.core {
     import flash.utils.getQualifiedClassName;
     import flash.utils.Dictionary;
 
+    import starling.display.DisplayObjectContainer;
+
     import dessert_knife.knife;
 
     public class TartLayerRegistry {
@@ -47,6 +49,22 @@ package tart.core {
                 }
             }
             return _layers[layerName];
+        }
+
+        /**
+         * Helper for tart.actors.Layer2D
+         */
+        public function getLayer2DNode(layerName:String):DisplayObjectContainer {
+            var layer:ILayer = getLayer(layerName);
+            if (!(layer.layerUserData is DisplayObjectContainer)) {
+                TART::LOG_ERROR {
+                    trace("[Error :: TartLayerRegistry] 2D layer <", layerName,
+                          "> should have DisplayObjectContainer");
+                }
+                return null;
+            }
+
+            return layer.layerUserData as DisplayObjectContainer;
         }
 
         //----------------------------------------------------------------------

@@ -31,6 +31,7 @@ package tart.core {
         public function boot(bootConfig:IBootConfig):Defer {
             _tartContext = new TartContext();
             _tartContext.engine = this;
+            _tartContext.consts = bootConfig.tartConstants;
 
             var bootSequence:BootSequence = new BootSequence(bootConfig);
             return bootSequence.runAsync(_tartContext)

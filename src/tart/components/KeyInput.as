@@ -1,10 +1,7 @@
 package tart.components {
 
-    import flash.display.Stage;
-    import flash.events.KeyboardEvent;
     import flash.geom.Vector3D;
     import flash.ui.Keyboard;
-    import flash.utils.Dictionary;
 
     import tart.core.Component;
 
@@ -71,12 +68,16 @@ package tart.components {
             return vec;
         }
 
-        /** Add event handler for key down event. */
+        /**
+         * Add event handler for key down event.
+         */
         public function onKeyDown(handler:Function):void {
             tart.keyboard.keyDownSignal.connect(handler, this);
         }
 
-        /** Add event handler for key up event. */
+        /**
+         * Add event handler for key up event.
+         */
         public function onKeyUp(handler:Function):void {
             tart.keyboard.keyUpSignal.connect(handler, this);
         }

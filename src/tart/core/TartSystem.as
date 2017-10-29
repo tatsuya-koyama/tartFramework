@@ -24,6 +24,8 @@ package tart.core {
         public function addSubSystem(subSystem:TartSubSystem, priority:int=0, sort:Boolean=true):void {
             subSystem.tartContext = _tartContext;
             subSystem.priority    = priority;
+
+            subSystem.onInit(_tartContext);
             _subSystems.push(subSystem);
 
             if (sort) {
@@ -36,7 +38,7 @@ package tart.core {
 
         /**
          * Add multiple sub-systems at once.
-         * @param subSystems - First element has high priority.
+         * @param subSystems - List of sub-systems. The first element is processed first.
          */
         public function addSubSystems(subSystems:Array, priority:int=0):void {
             for each (var subSystem:TartSubSystem in subSystems) {

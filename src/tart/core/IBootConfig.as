@@ -10,6 +10,8 @@ package tart.core {
 
         function get rootChapter():TartChapter;
 
+        function get tartConstants():TartConstants;
+
         function get graphicsBootConfig():IGraphicsBootConfig;
 
         function get resourceBootConfig():IResourceBootConfig;

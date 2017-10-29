@@ -17,6 +17,10 @@ package tart.core {
             _engine      = ctx.engine;
         }
 
+        public function onInit(tartContext:TartContext):void {
+            // Override in subclasses
+        }
+
         public function process(deltaTime:Number):void {
             // Override in subclasses
         }

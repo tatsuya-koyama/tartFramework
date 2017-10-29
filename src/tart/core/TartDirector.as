@@ -28,7 +28,7 @@ package tart.core {
             _currentScene      = null;
             _nextScene         = firstScene;
             _isUnderTransition = false;
-            _rootChapter     = rootChapter;
+            _rootChapter       = rootChapter;
             _sceneToChapter    = new Dictionary();
             _chapterToChapter  = new Dictionary();
             _chapterToScenes   = new Dictionary();

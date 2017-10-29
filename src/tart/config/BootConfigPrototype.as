@@ -7,6 +7,7 @@ package tart.config {
     import tart.core.IResourceBootConfig;
     import tart.core.ISystemBootConfig;
     import tart.core.TartChapter;
+    import tart.core.TartConstants;
     import tart.core.TartScene;
 
     public class BootConfigPrototype implements IBootConfig {
@@ -14,9 +15,10 @@ package tart.config {
         private var _rootSprite:Sprite;
         private var _firstScene:TartScene;
         private var _rootChapter:TartChapter;
-        private var _baseResourceUrl:String;
-        private var _base3dAssetUrl:String;
+        private var _baseResourceUrl:String = '';
+        private var _base3dAssetUrl:String = '';
 
+        private var _tartConstants:TartConstants;
         private var _graphicsBootConfig:IGraphicsBootConfig;
         private var _resourceBootConfig:IResourceBootConfig;
         private var _systemBootConfig:ISystemBootConfig;
@@ -47,6 +49,13 @@ package tart.config {
 
         public function get rootChapter():TartChapter {
             return _rootChapter;
+        }
+
+        public function get tartConstants():TartConstants {
+            if (!_tartConstants) {
+                _tartConstants = new TartConstants();
+            }
+            return _tartConstants;
         }
 
         public function get resourceBootConfig():IResourceBootConfig {
