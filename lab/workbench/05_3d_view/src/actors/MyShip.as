@@ -13,13 +13,11 @@ package actors {
 
     public class MyShip extends ActorCore {
 
-        private var _keyInput:KeyInput;
         private var _elapsedTime:Number;
         private var _lastShotAt:Number;
 
         public override function build():void {
-            compose(Transform, View2D);
-            _keyInput = attach(KeyInput);
+            compose(Transform, View2D, KeyInput);
         }
 
         public function MyShip() {

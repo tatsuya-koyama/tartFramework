@@ -1,6 +1,7 @@
 COMMON_BUILD_OPTS=\
 	-swf-version=35 \
 	-source-path+="../../../src/" \
+	-source-path+="../../lab_lib/" \
 	-library-path+="../../../lib/" \
 	-load-config+="config.xml"
 

@@ -6,6 +6,8 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
+    import tartlab.actors.ResetKey;
+
     import actors.MaterialInitializer;
 
     public class RootChapter extends TartChapter {
@@ -49,7 +51,8 @@ package scenes {
 
         public override function initialActors():Array {
             return [
-                new MaterialInitializer()
+                 new ResetKey(Scene_1)
+                ,new MaterialInitializer()
             ];
         }
 

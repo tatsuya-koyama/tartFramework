@@ -80,10 +80,10 @@ package tart.systems {
 
         private function _emitKeySignal(event:KeyboardEvent, keyInput:KeyInput):void {
             switch (event.type) {
-            case 'keyDown':
+            case KeyboardEvent.KEY_DOWN:
                 keyInput.keyDownSignal.emit(event);
                 break;
-            case 'keyUp':
+            case KeyboardEvent.KEY_UP:
                 keyInput.keyUpSignal.emit(event);
                 break;
             }

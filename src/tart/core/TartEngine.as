@@ -105,6 +105,14 @@ package tart.core {
             _disposeDeadComponents();
         }
 
+        tart_internal function disposePendingEntities():void {
+            for each (var entity:Entity in _pendingEntities) {
+                entity.recycle();
+                // ToDo: pooling
+            }
+            _pendingEntities.length = 0;
+        }
+
         tart_internal function disposeDeadEntities():void {
             for (var i:int = 0; i < _entities.length; ++i) {
                 var entity:Entity = _entities[i];

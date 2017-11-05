@@ -109,6 +109,7 @@ package tart.core_internal {
 
         private function _disposeScopeActors(scope:ISceneScope):void {
             _tartContext.engine.disposeScopeEntities(scope);
+            _tartContext.engine.disposePendingEntities();
         }
 
         private function _disposeScopeLayers(scope:ISceneScope):void {

@@ -8,6 +8,8 @@ package scenes {
     import dessert_knife.knife;
     import dessert_knife.tools.async.Defer;
 
+    import tartlab.actors.ResetKey;
+
     public class RootChapter extends TartChapter {
 
         public override function scenes():Array {
@@ -50,7 +52,9 @@ package scenes {
         }
 
         public override function initialActors():Array {
-            return null;
+            return [
+                new ResetKey(Scene_1)
+            ];
         }
 
     }
