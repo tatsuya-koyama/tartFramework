@@ -17,7 +17,11 @@ package tart.core {
             _engine      = ctx.engine;
         }
 
-        public function onInit(tartContext:TartContext):void {
+        public function onInit():void {
+            // Override in subclasses
+        }
+
+        public function onDispose():void {
             // Override in subclasses
         }
 

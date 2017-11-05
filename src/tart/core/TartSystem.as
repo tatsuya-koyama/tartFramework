@@ -25,7 +25,7 @@ package tart.core {
             subSystem.tartContext = _tartContext;
             subSystem.priority    = priority;
 
-            subSystem.onInit(_tartContext);
+            subSystem.onInit();
             _subSystems.push(subSystem);
 
             if (sort) {

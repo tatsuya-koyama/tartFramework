@@ -1,6 +1,7 @@
 package tart.systems {
 
     import starling.core.Starling;
+    import starling.display.Stage;
     import starling.events.Touch;
     import starling.events.TouchEvent;
     import starling.events.TouchPhase;
@@ -22,20 +23,35 @@ package tart.systems {
             return "TouchHandlingSystem";
         }
 
-        public override function onInit(tartContext:TartContext):void {
-            var starling:Starling = tartContext.graphics.starlingFore;
-            starling.stage.addEventListener(TouchEvent.TOUCH, function(event:TouchEvent):void {
-                var touches:Vector.<Touch> = event.getTouches(starling.stage, null);
-                for each (var touch:Touch in touches) {
-                    _touchQueue.push(touch);
-                }
-            });
+        public override function onInit():void {
+            _getStarlingStage().addEventListener(TouchEvent.TOUCH, _onTouch);
+        }
+
+        public override function onDispose():void {
+            _getStarlingStage().removeEventListener(TouchEvent.TOUCH, _onTouch);
+            _touchQueue.length = 0;
         }
 
         public override function process(deltaTime:Number):void {
-            while (_touchQueue.length > 0) {
-                var touch:Touch   = _touchQueue.shift();
+            for each (var touch:Touch in _touchQueue) {
                 _handleTouch(touch);
+            }
+            _touchQueue.length = 0;
+        }
+
+        //----------------------------------------------------------------------
+        // private
+        //----------------------------------------------------------------------
+
+        private function _getStarlingStage():Stage {
+            // ToDo: Fore が無い場合の対応
+            return _tartContext.graphics.starlingFore.stage;
+        }
+
+        private function _onTouch(event:TouchEvent):void {
+            var touches:Vector.<Touch> = event.getTouches(_getStarlingStage(), null);
+            for each (var touch:Touch in touches) {
+                _touchQueue.push(touch);
             }
         }
 

@@ -2,6 +2,7 @@ package tart.components {
 
     import flash.geom.Vector3D;
     import flash.ui.Keyboard;
+    import flash.utils.Dictionary;
 
     import tart.core.Component;
 
@@ -13,10 +14,22 @@ package tart.components {
      */
     public class KeyInput extends Component {
 
+        public var keyDownSignal:Signal;
+        public var keyUpSignal:Signal;
+
+        /**
+         * Key press state map: {<keyCode:int> : <isPressed:Boolean>}.
+         * This is set by KeyInputHandlingSystem in default system configuration.
+         */
+        public var keyStates:Dictionary;
+
         // To reduce instantiation cost
         private static var _workingVector:Vector3D = new Vector3D();
 
-        public function KeyInput() {}
+        public function KeyInput() {
+            keyDownSignal = new Signal();
+            keyUpSignal   = new Signal();
+        }
 
         public override function getClass():Class {
             return KeyInput;
@@ -27,18 +40,16 @@ package tart.components {
         }
 
         public override function onDetach():void {
-            tart.keyboard.keyDownSignal.disconnectListener(this);
-            tart.keyboard.keyUpSignal  .disconnectListener(this);
+            keyDownSignal.disconnectAll();
+            keyUpSignal  .disconnectAll();
         }
 
         //----------------------------------------------------------------------
         // public
         //----------------------------------------------------------------------
 
-        // ToDo: キーストローク対応
-
         public function isPressed(keyCode:int):Boolean {
-            return tart.keyboard.isPressed(keyCode);
+            return keyStates ? keyStates[keyCode] : false;
         }
 
         /**
@@ -59,27 +70,13 @@ package tart.components {
             vec.x = 0;
             vec.y = 0;
 
-            if (tart.keyboard.isPressed(Keyboard.LEFT )) { vec.x -= 1.0; }
-            if (tart.keyboard.isPressed(Keyboard.RIGHT)) { vec.x += 1.0; }
-            if (tart.keyboard.isPressed(Keyboard.UP   )) { vec.y -= 1.0; }
-            if (tart.keyboard.isPressed(Keyboard.DOWN )) { vec.y += 1.0; }
+            if (isPressed(Keyboard.LEFT )) { vec.x -= 1.0; }
+            if (isPressed(Keyboard.RIGHT)) { vec.x += 1.0; }
+            if (isPressed(Keyboard.UP   )) { vec.y -= 1.0; }
+            if (isPressed(Keyboard.DOWN )) { vec.y += 1.0; }
 
             if (normalize) { vec.normalize(); }
             return vec;
-        }
-
-        /**
-         * Add event handler for key down event.
-         */
-        public function onKeyDown(handler:Function):void {
-            tart.keyboard.keyDownSignal.connect(handler, this);
-        }
-
-        /**
-         * Add event handler for key up event.
-         */
-        public function onKeyUp(handler:Function):void {
-            tart.keyboard.keyUpSignal.connect(handler, this);
         }
 
         //----------------------------------------------------------------------

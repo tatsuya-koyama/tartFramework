@@ -36,10 +36,10 @@ package actors {
             _transform.scale.x *= -1.0;
 
             // keyboard handling test
-            _keyInput.onKeyDown(function(event:KeyboardEvent):void {
+            _keyInput.keyDownSignal.connect(function(event:KeyboardEvent):void {
                 trace("- keyDown:", event.keyCode);
             });
-            _keyInput.onKeyUp(function(event:KeyboardEvent):void {
+            _keyInput.keyUpSignal.connect(function(event:KeyboardEvent):void {
                 trace("- keyUp:", event.keyCode);
             });
 
